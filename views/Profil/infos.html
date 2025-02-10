@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes informations</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- Affichage du succès après modification -->
+    <div class="alert alert-success">
+        Le pilote a bien été modifié
+    </div>
+
+    <!-- Main content -->
+    <div class="offer">
+        <h2 class="titre-offre">Mes informations</h2>
+        <div class="info-img">
+            <img src="/img/uploads/profile/image_de_profil.jpg" alt="Photo de profil">
+        </div>
+        <div class="info-details">
+            <div class="info">
+                <h3>Identité : </h3>
+                <h4>Prénom : Jean</h4>
+                <h4>Nom : Dupont</h4>
+            </div>
+            <div class="info">
+                <h3>Adresse : </h3>
+                <h4>Voie postale : 123 Rue Exemple</h4>
+                <h4>Code Postal : 75001</h4>
+                <h4>Ville : Paris</h4>
+            </div>
+            <div class="info">
+                <h3>Campus : </h3>
+                <h4>Nom : Campus Central</h4>
+                <h4>Promotion : Promotion 2025</h4>
+                <h4>Mineure : Informatique</h4>
+            </div>
+            <div class="info">
+                <h3>Photo de profil :</h3>
+                <form action="" method="POST" enctype="multipart/form-data">
+                    <div class="info-upload">
+                        <label for="formFile" class="form-label">Photo à upload:</label>
+                        <input class="input-file" type="file" name="fileToUpload" id="fileToUpload">
+                        <button class="recherche-bouton">Modifier</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
