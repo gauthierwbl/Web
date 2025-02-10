@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Cesi_Ton_Stage</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="titres-login">
+        <h1>Connectez-vous !</h1>
+        <p class="texte-login">Pour pouvoir accéder aux fonctionnalités de la plateforme Cesi_Ton_Stage, il est nécessaire de se connecter à son compte.</p>
+    </div>
+
+    <div class="formulaire-login">
+        <form class="text-center" method="post" action="/do-login">
+            <div>
+                <input class="formulaire-contact" type="text" name="login" placeholder="Login" required>
+            </div>
+            <div>
+                <input class="formulaire-contact" type="password" name="password" placeholder="Password" required>
+            </div>
+            <div>
+                <button class="recherche-bouton" type="submit" style="background: rgba(140,25,255,0.46);">Login</button>
+            </div>
+        </form>
+        <p class="texte-login">Merci de vous adresser à votre pilote pour toute perte ou oubli de votre mot de passe.</p>
+    </div>
+
+    <!-- Alertes -->
+    <div class="alert alert-success" style="display: none;">
+        Vous êtes bien authentifié
+    </div>
+    <div class="alert alert-danger" style="display: none;">
+        Identifiant ou Mot de Passe incorrecte
+    </div>
+
+    <script>
+        // Simuler l'affichage des alertes
+        const success = 0; // Remplacez par la logique de votre application
+        if (success === true) {
+            document.querySelector('.alert-success').style.display = 'block';
+        } else if (success === 1) {
+            document.querySelector('.alert-danger').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
