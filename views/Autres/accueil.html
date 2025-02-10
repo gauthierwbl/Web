@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CESI TON STAGE</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Lien vers un fichier CSS si nécessaire -->
+</head>
+<body>
+
+    <div id="image-accueil">
+        <div class="overlay">
+            <img src="../../../../img/cesi.jpeg" alt="CESI">
+        </div>
+        <div class="titre-offre">
+            <div class="titre-accueil">CESI TON STAGE</div>
+
+            <form action="" method="get" class="text-center">
+                <label for="recherche" type="hidden"></label>
+                <input class="recherche" type="search" name="terme" placeholder="Rechercher une offre">
+                <label for="recherche-bouton" type="hidden"></label>
+                <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
+            </form>
+        </div>
+    </div>
+
+    <div class="offer">
+        <div>
+            <a class="no-decoration" href="#">
+                <img class="image-offre" src="chemin/vers/image.jpg" alt="logo_entreprise">
+                <h4 class="texte-offre">Nom de l'Offre</h4>
+            </a>
+        </div>
+        <div>
+            <p class="description-offre">Brève description de l'offre.</p>
+            
+            <button class="wishlist like"></button>
+            
+            <div class="start-offre">
+                ★★★★☆ <!-- Exemple d'étoiles -->
+            </div>
+            <a href="#"><button class="voir-plus-offre">Voir Plus</button></a>
+        </div>
+    </div>
+
+    <div class="text-center" style="margin-top: 2rem; margin-bottom: 2rem;">
+        <a href="/offre" class="no-decoration recherche-bouton">Voir plus d'offres</a>
+    </div>
+
+    <div class="offer">
+        <div class="texte-login">
+            Afin de pouvoir profiter pleinement de l'ensemble des fonctionnalités du site, veuillez vous connecter à votre compte.
+            En vous connectant, vous acceptez l'utilisation des cookies sur notre site.
+        </div>
+        <a class="login-bouton" href="/login">Login</a>
+    </div>
+
+</body>
+</html>
