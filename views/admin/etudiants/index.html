@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Administration</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="container-edit-etudiant">
+        <div class="top-box-position">
+            <h1 class="grand-titre">Gestion des étudiants</h1>
+            <form action="" method="get">
+                <input class="form-control" type="search" name="terme" aria-label="Entrez votre terme de recherche">
+                <input class="btn btn-recherche" type="submit" name="submit" value="Rechercher" aria-label="Rechercher">
+            </form>
+            <a href="/admin/etudiants/add" class="btn btn-primary">Ajouter</a>
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="titre-tableau">#id</th>
+                    <th class="titre-tableau">Utilisateurs</th>
+                    <th class="titre-tableau">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exemple d'éléments de la table -->
+                <tr>
+                    <td><a class="texte-tableau" href="/admin/etudiants?id=1">1</a></td>
+                    <td><a class="texte-tableau" href="/admin/etudiants?id=1">utilisateur1</a></td>
+                    <td>
+                        <a href="/admin/etudiants/edit?id=1" class="btn btn-primary-etudiant">
+                            <span class="sr-only">Modifier l'étudiant</span>
+                            <i class='fas fa-edit'></i>
+                        </a>
+                        <form action="/admin/etudiants/delete?id=1" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cet étudiant ?')">
+                            <button class="btn btn-danger-etudiant">
+                                <span class="sr-only">Supprimer l'étudiant</span>
+                                <i class='fas fa-trash'></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- Répétez pour chaque utilisateur -->
+            </tbody>
+        </table>
+
+        <div class="container-pagination-precedente">
+            <a href="/admin/etudiants?page=1" class="pagination-entreprise-precedente">Page Précédente</a>
+        </div>
+        <div class="container-pagination-suivante">
+            <a href="/admin/etudiants?page=3" class="pagination-entreprise-suivante">Page Suivante</a>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Administration</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="container-edit-entreprise">
+        <div class="top-box-position">
+            <h1 class="grand-titre">Gestion des Entreprises</h1>
+            <form action="" method="get">
+                <input class="form-control" type="search" name="terme" aria-label="Entrez votre terme de recherche">
+                <input class="btn btn-recherche" type="submit" name="submit" value="Rechercher" aria-label="Rechercher">
+                <a href="/admin/entreprise/add" class="btn btn-primary">Ajouter</a>
+            </form>
+        </div>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="titre-tableau">#id</th>
+                    <th class="titre-tableau">Entreprise</th>
+                    <th class="titre-tableau">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><a class="texte-tableau" href="/admin/entreprise/1">1</a></td>
+                    <td><a class="texte-tableau" href="/admin/entreprise/1">Nom de l'Entreprise</a></td>
+                    <td>
+                        <a href="/admin/entreprise/edit/1" class="btn btn-primary-entreprise">
+                            <span class="sr-only">Modifier les détails de l'entreprise</span>
+                            <i class='fas fa-edit'></i>
+                        </a>
+                        <form action="/admin/entreprise/delete/1" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cette entreprise ?')">
+                            <button class="btn btn-danger-entreprise">
+                                <span class="sr-only">Supprimer l'entreprise</span>
+                                <i class='fas fa-trash'></i>
+                            </button>
+                        </form>
+                        <form action="/admin/entreprise/visible/1" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous rendre invisible cette entreprise ?')">
+                            <button class="btn btn-danger-entreprise">
+                                <span class="sr-only">Rendre invisible l'entreprise</span>
+                                <i class="fa fa-eye" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                        <a href="" class="btn-primary-entreprise">Evaluer</a>
+                    </td>
+                </tr>
+                <!-- Répétez pour d'autres entreprises -->
+            </tbody>
+        </table>
+
+        <div class="container-pagination-precedente">
+            <a href="/admin/entreprise?page=1" class="pagination-entreprise-precedente">Page Précédente</a>
+        </div>
+        <div class="container-pagination-suivante">
+            <a href="/admin/entreprise?page=3" class="pagination-entreprise-suivante">Page Suivante</a>
+        </div>
+    </div>
+</body>
+</html>

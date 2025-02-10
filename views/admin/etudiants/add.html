@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ajout Étudiant</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="alert alert-success" style="display: none;">
+        L'étudiant a bien été créé
+    </div>
+    
+    <h1 class="grand-titre">Nouvel étudiant</h1>
+    <form action="" method="post" class="verif">
+        <div class="form-group">
+            <label for="nom">Nom :</label>
+            <input type="text" name="nom" id="nom" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="prenom">Prénom :</label>
+            <input type="text" name="prenom" id="prenom" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="login">Nom d'utilisateur :</label>
+            <input type="text" name="login" id="login" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Mot de Passe :</label>
+            <input type="password" name="password" id="password" class="form-control" required>
+        </div>
+        <div class="form-group">
+            <input type="hidden" class="form-control" name="nbrAdresse" id="nbrAdresse" value="1">
+            <div class="form-group" id="adresses"></div>       
+        </div>
+        <div class="form-group">
+            <label for="idCampus">Campus *</label>
+            <select name="idCampus" class="form-control" id="idCampus" required>
+                <option value="1">Campus 1</option>
+                <option value="2">Campus 2</option>
+                <!-- Ajoutez ici d'autres campus -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="idPromo">Promotions *</label>
+            <select name="idPromo" class="form-control" id="idPromo" required>
+                <option value="1">Promotion 1</option>
+                <option value="2">Promotion 2</option>
+                <!-- Ajoutez ici d'autres promotions -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="idMineure">Mineure *</label>
+            <select name="idMineure" class="form-control" id="idMineure" required>
+                <option value="1">Mineure 1</option>
+                <option value="2">Mineure 2</option>
+                <!-- Ajoutez ici d'autres mineures -->
+            </select>
+        </div>
+        <button class="btn btn-primary">Ajouter</button>
+    </form>
+</body>
+</html>

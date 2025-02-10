@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifier Entreprise</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="alert alert-success">
+        L'entreprise a bien été modifiée
+    </div>
+
+    <div>
+        <h1 class="grand-titre">Nom de l'Entreprise</h1>
+        <img class="img" src="/path/to/logo.jpg" alt="">
+        <form action="" method="POST" class="verif">
+            <div class="form-group">
+                <label for="nomEnt">Nom Entreprise</label>
+                <input type="text" name="nomEnt" id="nomEnt" class="form-control" value="Nom de l'Entreprise" required>
+            </div>
+            <div class="form-group">
+                <label for="secteurActivite">Secteur d'activité *</label>
+                <select name="secteurActivite" class="form-control" id="secteurActivite" required>
+                    <option value="1" selected>Secteur 1</option>
+                    <option value="2">Secteur 2</option>
+                    <option value="3">Secteur 3</option>
+                </select>
+            </div>
+            <div class="address-container">
+                <div class="form-group">
+                    <label for="adresse1">Adresse 1</label>
+                    <input type="text" name="adresse1" id="adresse1" class="form-control" value="Adresse 1" required>
+                    
+                    <label for="zipCode1">Code Postal 1</label>
+                    <input type="text" name="zipCode1" id="zipCode1" class="form-control" value="75001" required>
+                    
+                    <label for="city1">Ville 1</label>
+                    <input type="text" name="city1" id="city1" class="form-control" value="Paris" required>
+                </div>
+                <!-- Ajoutez d'autres adresses si nécessaire -->
+            </div>
+            <button class="btn btn-primary" type="submit">Modifier</button>
+        </form>
+    </div>
+</body>
+</html>

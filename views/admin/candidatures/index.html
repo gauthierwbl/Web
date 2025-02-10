@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Administration</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="container-edit-candidatures">
+        <h1 class="grand-titre">Gestion des Candidatures</h1>
+        <form action="" method="get">
+            <input class="form-control" type="search" name="terme" aria-label="Entrez votre terme de recherche">
+            <input class="btn btn-recherche" type="submit" name="submit" value="Rechercher" aria-label="Rechercher">
+        </form>
+
+        <table>
+            <thead>
+                <tr>
+                    <th class="titre-tableau-candidatures">#id</th>
+                    <th class="titre-tableau-candidatures">Entreprise</th>
+                    <th class="titre-tableau-candidatures">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exemple de lignes de candidature -->
+                <tr>
+                    <td>
+                        <a class="texte-tableau-candidatures" href="URL_DU_ROUTER_HERE">1 - Utilisateur1</a>
+                    </td>
+                    <td>
+                        <a class="texte-tableau-candidatures" href="URL_DU_ROUTER_HERE">Nom de l'Offre 1</a>
+                    </td>
+                    <td>
+                        <a href="URL_DU_ROUTER_HERE" class="btn btn-primary-candidature">
+                            <span class="sr-only">Modifier la candidature</span>
+                            <i class='fas fa-edit'></i>
+                        </a>
+                        <form action="URL_DU_ROUTER_HERE" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cette candidature ?')">
+                            <button class="btn btn-danger-candidature">
+                                <span class="sr-only">Supprimer la candidature</span>
+                                <i class='fas fa-trash'></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- Répétez pour d'autres candidatures -->
+            </tbody>
+        </table>
+
+        <div class="container-pagination-precedente">
+            <a href="URL_DU_ROUTER_HERE?page=PAGE_PRECEDENTE" class="pagination-entreprise-precedente">Page Précédente</a>
+        </div>
+        <div class="container-pagination-suivante">
+            <a href="URL_DU_ROUTER_HERE?page=PAGE_SUIVANTE" class="pagination-entreprise-suivante">Page Suivante</a>
+        </div>
+    </div>
+</body>
+</html>

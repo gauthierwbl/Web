@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modification d'un Etudiant</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="container-modifier">
+        <h1 class="grand-titre">Nom d'utilisateur</h1>
+        
+        <div class="alert alert-success" style="display: none;">
+            L'étudiant a bien été modifié
+        </div>
+
+        <form action="" method="post" class="verif">
+            <div class="form-group">
+                <label for="nom">Nom :</label>
+                <input type="text" name="nom" id="nom" value="Nom de l'étudiant" required>
+            </div>
+            <div class="form-group">
+                <label for="prenom">Prénom :</label>
+                <input type="text" name="prenom" id="prenom" value="Prénom de l'étudiant" required>
+            </div>
+            <div class="form-group">
+                <label for="login">Nom d'utilisateur :</label>
+                <input type="text" name="login" id="login" value="login_utilisateur" required>
+            </div>
+            <div class="form-group">
+                <label for="password">Mot de Passe :</label>
+                <input type="password" name="password" id="password" value="mot_de_passe_utilisateur" required>
+            </div>
+
+            <div class="form-group">
+                <label for="adresse">Adresse :</label>
+                <input type="text" name="adresse" id="adresse" value="Adresse de l'étudiant" required>
+            </div>
+            <div class="form-group">
+                <label for="zipCode">Code Postal :</label>
+                <input type="text" name="zipCode" id="zipCode" value="Code Postal" required>
+            </div>
+            <div class="form-group">
+                <label for="city">Ville :</label>
+                <input type="text" name="city" id="city" value="Ville de l'étudiant" required>
+            </div>
+
+            <div class="form-group">
+                <label for="idCampus">Campus *</label>
+                <select name="idCampus" class="form-control" id="idCampus" required>
+                    <option value="1">Nom du campus</option>
+                    <option value="2">Autre campus</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="idPromo">Promotions *</label>
+                <select name="idPromo" class="form-control" id="idPromo" required>
+                    <option value="1">Promotion 1</option>
+                    <option value="2">Promotion 2</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="idMineure">Mineure *</label>
+                <select name="idMineure" class="form-control" id="idMineure" required>
+                    <option value="1">Mineure 1</option>
+                    <option value="2">Mineure 2</option>
+                </select>
+            </div>
+
+            <button class="btn btn-primary">Modifier</button>
+        </form>
+    </div>
+</body>
+</html>

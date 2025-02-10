@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nouvelle Offre</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="alert alert-success" style="display: none;">
+        L'offre a bien été créée
+    </div>
+
+    <div class="container-modifier">
+        <h1 class="grand-titre">Nouvelle offre</h1>
+        <form action="" method="post" class="verif">
+            <div class="form-group">
+                <label for="nomOffre">Nom Offre</label>
+                <input type="text" name="nomOffre" id="nomOffre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="descriptionOffre">Description Offre</label>
+                <textarea name="descriptionOffre" id="descriptionOffre" class="form-control" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="competenceOffre">Compétences</label>
+                <input type="text" name="competenceOffre" id="competenceOffre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dureeOffre">Durée de stage en semaines</label>
+                <input type="number" name="dureeOffre" id="dureeOffre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="baseOffre">Base de rémunération</label>
+                <input type="text" name="baseOffre" id="baseOffre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="dateOffre">Date de l'offre</label>
+                <input type="date" name="dateOffre" id="dateOffre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="nombreOffre">Nombre de places disponible</label>
+                <input type="number" name="nombreOffre" id="nombreOffre" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="idEnt">Entreprise *</label>
+                <select name="idEnt" class="form-control" id="idEnt" required>
+                    <option value="1">Entreprise 1</option>
+                    <option value="2">Entreprise 2</option>
+                    <option value="3">Entreprise 3</option>
+                    <!-- Ajoutez d'autres entreprises ici -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="idMineure">Mineure *</label>
+                <select name="idMineure" class="form-control" id="idMineure" required>
+                    <option value="1">Mineure 1</option>
+                    <option value="2">Mineure 2</option>
+                    <option value="3">Mineure 3</option>
+                    <!-- Ajoutez d'autres mineures ici -->
+                </select>
+            </div>
+            <button class="btn btn-primary">Ajouter</button>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Administration</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="container-edit-offre">
+        <div class="top-box-position">
+            <h1 class="grand-titre">Gestion des Offres</h1>
+            <form action="" method="get">
+                <input class="form-control" type="search" name="terme" aria-label="Entrez votre terme de recherche">
+                <input class="btn btn-recherche" type="submit" name="submit" value="Rechercher" aria-label="Rechercher">
+            </form>
+            <a href="url_to_add_offer" class="btn btn-primary">Ajouter</a> <!-- Remplacez par l'URL d'ajout -->
+        </div>
+        <table>
+            <thead>
+                <tr>
+                    <th class="titre-tableau">#id</th>
+                    <th class="titre-tableau">Offres</th>
+                    <th class="titre-tableau">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Exemple d'une offre -->
+                <tr>
+                    <td><a class="texte-tableau" href="url_to_offer_details">1</a></td>
+                    <td><a class="texte-tableau" href="url_to_company_details">Nom de l'offre</a></td>
+                    <td>
+                        <a href="url_to_edit_offer" class="btn btn-primary-offre">
+                            <span class="sr-only">Modifier l'offre</span>
+                            <i class='fas fa-edit'></i>
+                        </a>
+                        <form action="url_to_delete_offer" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cette offre ?')">
+                            <button class="btn btn-danger-offre">
+                                <span class="sr-only">Supprimer l'offre</span>
+                                <i class='fas fa-trash'></i>
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+                <!-- Répétez la structure ci-dessus pour chaque offre -->
+            </tbody>
+        </table>
+
+        <div class="container-pagination-precedente">
+            <a href="url_to_previous_page" class="pagination-entreprise-precedente">Page Précédente</a> <!-- Remplacez par l'URL de la page précédente -->
+        </div>
+        <div class="container-pagination-suivante">
+            <a href="url_to_next_page" class="pagination-entreprise-suivante">Page Suivante</a> <!-- Remplacez par l'URL de la page suivante -->
+        </div>
+    </div>
+</body>
+</html>

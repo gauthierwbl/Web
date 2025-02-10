@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modification Entreprise</title>
+    <link rel="stylesheet" href="path/to/your/styles.css"> <!-- Remplacez par le chemin de votre CSS -->
+</head>
+<body>
+    <div class="alert alert-success">
+        L'entreprise a bien été créée
+    </div>
+
+    <div class="container-modifier">
+        <h1 class="grand-titre">Nouvelle entreprise</h1>
+        <form action="" method="POST" enctype="multipart/form-data" class="verif">
+            <div class="form-group">
+                <label for="nomEnt">Nom Entreprise</label>
+                <input type="text" name="nomEnt" id="nomEnt" class="form-control" required>
+            </div>
+            <div class="form-group">
+                <label for="secteurActivite">Secteur d'activité *</label>
+                <select name="secteurActivite" class="form-control" id="secteurActivite" required>
+                    <option value="1">Secteur 1</option>
+                    <option value="2">Secteur 2</option>
+                    <option value="3">Secteur 3</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="fileToUpload" class="form-label">Logo :</label>
+                <input class="fichier-logo" type="file" name="fileToUpload" id="fileToUpload" required>
+            </div>
+            <div class="form-group" id="adresses">
+                <!-- Les adresses seront ajoutées ici dynamiquement -->
+            </div>
+            <div class="form-group">
+                <label for="nbrAdresse">Nombre d'Adresses</label>
+                <input type="number" name="nbrAdresse" id="nbrAdresse" class="form-control" value="0" min="0">
+            </div>
+            <button class="btn btn-primary" type="submit">Créer</button>
+        </form>
+    </div>
+</body>
+</html>
