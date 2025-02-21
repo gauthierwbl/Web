@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offres</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body style="background-image: url('img/background.png');">
+    <header class="navbar">
+        <section class="contenu-nav">
+            <div class="gauche">
+                <a href="/">
+                    <label>
+                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                    </label>
+                </a>
+            </div>
+            <div class="milieu">
+                <ul>
+                    <li><a href="/entreprise">Entreprises</a></li>
+                    <li><a href="/offre">Offres</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><button id="bouton-projets">Menu</button></li>
+                </ul>
+                <div id="icons"></div>
+                <div class="droite">
+                    <a href="/profile">
+                        <label>
+                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                        </label>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+    <div>
+        <div>
+            <div class="titre-entreprise">Offres</div>
+            <p class="texte-entreprise">Vous retrouverez ci-dessous toutes offres de Stage.</p>
+        </div>
+    </div>
+    
+    <form action="" method="get" class="text-center">
+        <div>
+            <input class="recherche" type="search" name="terme">
+            <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
+        </div>
+    </form>
+    <main class="container-entreprise">
+        <section class="offres">
+    
+            <!-- Offre 1 -->
+            <div class="offer">
+                <div class="offre-header">
+                    <img src="img/uploads/google.png" alt="Google Logo" class="image-offre">
+                    <h2 class="texte-offre">Développeur Web Front-End</h2>
+                </div>
+                <p class="description-offre">
+                    <strong>Titre du poste :</strong> Ingénieur Développeur Frontend <br>
+                    <strong>Description :</strong> En tant qu'ingénieur développeur Frontend chez Google, vous travaillerez sur des applications innovantes...
+                </p>
+                <div class="offre-footer">
+                    <div class="start-offre">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                    </div>
+                    <button class="wishlist like like-active" id="wishlist_1" name="1"></button>
+                    <button class="voir-plus-offre">Voir Plus</button>
+                </div>
+            </div>
+    
+            <!-- Offre 2 -->
+            <div class="offer">
+                <div class="offre-header">
+                    <img src="img/uploads/adobe.png" alt="Adobe Logo" class="image-offre">
+                    <h2 class="texte-offre">Responsable bureau d'études</h2>
+                </div>
+                <p class="description-offre">
+                    <strong>Titre :</strong> Responsable Bureau d'Études <br>
+                    <strong>Description :</strong> Vous serez en charge de la gestion et du développement des projets d'étude...
+                </p>
+                <div class="offre-footer">
+                    <div class="start-offre">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                    </div>
+                    <button class="wishlist like like-active" id="wishlist_2" name="2"></button>
+                    <button class="voir-plus-offre">Voir Plus</button>
+                </div>
+            </div>
+    
+            <!-- Offre 3 -->
+            <div class="offer">
+                <div class="offre-header">
+                    <img src="img/uploads/Microsoft.png" alt="Microsoft Logo" class="image-offre">
+                    <h2 class="texte-offre">Chargé d'affaires industrie</h2>
+                </div>
+                <p class="description-offre">
+                    <strong>Titre :</strong> Chargé d'Affaires Industrie <br>
+                    <strong>Description :</strong> En tant que chargé d'affaires, vous serez responsable du développement commercial de l'entreprise...
+                </p>
+                <div class="offre-footer">
+                    <div class="start-offre">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                        <img class="etoile" src="img/etoile.png" alt="etoile">
+                    </div>
+                    <button class="wishlist like like-active" id="wishlist_3" name="3"></button>
+                    <button class="voir-plus-offre">Voir Plus</button>
+                </div>
+            </div>
+    
+        </section>
+    </main>
+    
+    
+    
+    <footer class="text-center" id="footer">
+        <div class="container">
+            <ul class="list-inline">
+                <li class="list-inline-item me-4"><a class="link-secondary" href="/condition">Conditions générales</a></li>
+            </ul><br>
+        </div>
+        <div class="wrapper">
+            <div class="button-footer" id="button-footer-facebook">
+                <div class="icon">
+                    <a href="https://www.facebook.com/profile.php?id=61557360210487" aria-label="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                <a href="https://www.facebook.com/profile.php?id=61557360210487">Visitez notre page Facebook</a>
+            </div>
+            <div class="button-footer" id="button-footer-twitter">
+                <div class="icon">
+                    <a href="https://twitter.com/Cesi_Ton_Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+                <a href="https://twitter.com/Cesi_Ton_Stage">Suivez-nous sur Twitter</a>
+            </div>
+            <div class="button-footer" id="button-footer-instagram">
+                <div class="icon">
+                    <a href="https://www.instagram.com/cesi_ton_stage/" aria-label="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+                <a href="https://www.instagram.com/cesi_ton_stage/">Découvrez-nous sur Instagram</a>
+            </div>
+        </div>
+        <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI-TON-STAGE</p>
+    </footer>
+</body>
+</html>
