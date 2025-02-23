@@ -145,7 +145,7 @@ th {
   margin-bottom: 1.5rem;
   align-items: left;
   text-decoration: underline;
-  color: rgba(140,25,255);
+  color: rgba(52, 152, 219);
   width: 100%;
 }
 .grand-titre-stats{
@@ -154,7 +154,7 @@ th {
   margin-bottom: 1.5rem;
   align-items: left;
   text-decoration: underline;
-  color: rgba(140,25,255);
+  color: rgba(52, 152, 219);
   width: 80%;
 }
 .petit-titre {
@@ -185,7 +185,7 @@ th {
 input[type="submit"] {
   display: block;
   padding: 10px 15px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -196,7 +196,7 @@ input[type="submit"] {
 
 
 input[type="submit"]:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 
@@ -215,7 +215,7 @@ input[type="submit"]:hover {
     }
   .pagination-entreprise-suivante {
     display: flex;
-    background-color: rgba(140, 25, 255, 0.46);
+    background-color: rgba(52, 152, 219);
     color: #fff;
     border: none;
     cursor: pointer;
@@ -233,7 +233,7 @@ input[type="submit"]:hover {
   
   .pagination-entreprise-precedente {
     display: flex;
-    background-color: rgba(140, 25, 255, 0.46);
+    background-color: rgba(52, 152, 219);
     color: #fff;
     border: none;
     cursor: pointer;
@@ -365,20 +365,20 @@ input[type="text"],
 select {
   width: 100%;
   padding: 5px;
-  border: 1px solid rgba(140,25,255,0.46);
+  border: 1px solid rgba(52, 152, 219);
   border-radius: 5px;
 }
 
 textarea{
   width: 100%;
   padding: 10px;
-  border: 1px solid rgba(140,25,255,0.46);
+  border: 1px solid rgba(52, 152, 219);
   border-radius: 5px;
 }
 
 button {
   padding: 10px 20px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -386,7 +386,7 @@ button {
 }
 
 button:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 
@@ -419,7 +419,7 @@ button:hover {
   justify-content:space-between;
 }
 .form-control {
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   margin-left: 1rem;
   border-radius: 5px;
   width: 100%;
@@ -432,7 +432,7 @@ button:hover {
   padding:10px;
 }
 .form-control {
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   margin-left: 0;
   border-radius: 5px;
   display: block;
@@ -608,7 +608,7 @@ button:hover {
     margin-left: 0;
   }
   .form-control {
-    border: 1px solid rgba(140, 25, 255, 0.46);
+    border: 1px solid rgba(52, 152, 219);
     margin-left: 0;
     border-radius: 5px;
     display: block;
@@ -680,12 +680,12 @@ button:hover {
   width: 7rem;
   display: block;
   position: absolute;
-  border: 3px solid rgba(140, 25, 255, 0.46);
+  border: 3px solid rgba(52, 152, 219);
   border-radius: 1rem;
 }
 .btn-danger-entreprise{
   padding: 5px 8px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -694,7 +694,7 @@ button:hover {
 }
 
 .btn-danger-entreprise:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 .btn-primary-entreprise{
@@ -808,7 +808,7 @@ button:hover {
 
 .btn-danger-offre{
   padding: 5px 8px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -817,7 +817,7 @@ button:hover {
 }
 
 .btn-danger-offre:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 .btn-primary-offre{
@@ -917,7 +917,7 @@ button:hover {
 }
 
 .form-control {
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   margin-left: 0;
   border-radius: 5px;
   display: block;
@@ -932,7 +932,7 @@ button:hover {
 
 .btn-danger-pilote{
   padding: 5px 8px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -941,7 +941,7 @@ button:hover {
 }
 
 .btn-danger-pilote:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 .btn-primary-pilote{
@@ -1041,7 +1041,7 @@ button:hover {
 }
 
 .form-control {
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   margin-left: 0;
   border-radius: 5px;
   display: block;

@@ -502,7 +502,7 @@ color: #E1306C;
 
 
 .voir-plus-offre {
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -515,7 +515,7 @@ color: #E1306C;
 }
 
 .voir-plus-offre:hover {
-  background-color: rgba(107, 4, 210,0.60);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 .retirer-offre {
@@ -646,13 +646,13 @@ font-size: 8px;
   width: 85%;
   margin-top: 2rem;
   padding: 10px;
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   border-radius: 5rem;
   margin-left: 7%; /* éloigner de la gauche */
 }
 
 .recherche-bouton {
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -687,7 +687,7 @@ justify-content: flex-end;
   }
 .pagination-entreprise-suivante {
   display: flex;
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -705,7 +705,7 @@ justify-content: flex-end;
 
 .pagination-entreprise-precedente {
   display: flex;
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   cursor: pointer;
@@ -729,7 +729,7 @@ justify-content: flex-end;
   background-color: white;
   padding: 1.5rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 40px 10px rgba(140,25,255,0.46);
+  box-shadow: 0px 0px 40px 10px rgba(52, 152, 219);
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: 35%;
@@ -807,7 +807,7 @@ justify-content: flex-end;
   background-color: white;
   padding: 1.5rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 40px 10px rgba(140,25,255,0.46);
+  box-shadow: 0px 0px 40px 10px rgba(52, 152, 219);
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: 33%;
@@ -828,7 +828,7 @@ justify-content: flex-end;
 }
 .login-bouton {
   display: flex;
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -845,7 +845,7 @@ justify-content: flex-end;
 
 
 .login-bouton:hover  {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 @media screen and (max-width: 1000px) {
@@ -865,7 +865,7 @@ justify-content: flex-end;
 
 /* Modifier le style du bouton de soumission */
 button[type="submit"] {
-  background-color: rgba(140,25,255,0.46); /* Couleur de fond */
+  background-color: rgba(52, 152, 219); /* Couleur de fond */
   color: white; /* Couleur du texte */
   padding: 10px 20px; /* Marge interne */
   border: none;
@@ -874,7 +874,7 @@ button[type="submit"] {
 }
 
 .button:hover  {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 
@@ -892,7 +892,7 @@ button[type="submit"] {
   background-color: rgba(255, 255, 255, 0.85);
   text-align: justify;
   border-radius: 1rem;
-  border: 1px solid rgba(140, 25, 255, 0.3);
+  border: 1px solid rgba(52, 152, 219);
   margin-right: 1rem;
   margin-left: 1rem;
 }
@@ -910,7 +910,7 @@ button[type="submit"] {
   width: 50px;
   height: 50px;
   margin-right: 10px;
-  border:rgba(140,25,255,0.65) 1px solid;
+  border:rgba(52, 152, 219) 1px solid;
 }
 
 .ligne-conditions-generales h2 {
@@ -940,7 +940,7 @@ button[type="submit"] {
   width: 85%;
   margin-top: 1rem;
   padding: 10px;
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   border-radius: 5rem;
   margin-left: 7%;
 }
@@ -948,7 +948,7 @@ button[type="submit"] {
   display: flex;
   width: 85%;
   margin-top: 2rem;
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   border-radius: 1rem;
   margin-left: 7%;
   height: 15rem;
@@ -958,7 +958,7 @@ button[type="submit"] {
 
 .bouton-envoyer-message {
   display: flex;
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -982,11 +982,11 @@ button[type="submit"] {
   text-align: justify;
   margin-left: 2rem;
   margin-top: 2rem;
-  text-decoration: underline rgba(140,25,255,0.8); /* Ajoutez cette ligne */
+  text-decoration: underline rgba(52, 152, 219); /* Ajoutez cette ligne */
 }
 
 .bouton-envoyer-contact{
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -1081,7 +1081,7 @@ button[type="submit"] {
 }
 
 .bouton-postuler-offre-detail{
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -1094,7 +1094,7 @@ button[type="submit"] {
 
 
 .bouton-postuler-offre-detail:hover {
-  background-color: rgba(107, 4, 210,0.60);
+  background-color: rgba(0, 174, 239,0.65);
 }
 
 .offre-detail {
@@ -1103,7 +1103,7 @@ button[type="submit"] {
   background-color: white;
   padding: 1.5rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 40px 10px rgba(140,25,255,0.46);
+  box-shadow: 0px 0px 40px 10px rgba(52, 152, 219);
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -1490,11 +1490,11 @@ button[type="submit"] {
 .nav-link {
   margin-right: 2rem;
   font-size: 20px;
-  color: rgba(140, 25, 255, 0.8);
+  color: rgba(52, 152, 219);
   text-decoration: none;
 }
 .nav-link:hover {
-  color: rgb(128, 0, 255);
+  color: rgb(0, 174, 239,0.65);
   text-decoration: underline;
 }
 
@@ -1516,7 +1516,7 @@ button[type="submit"] {
   background-color: white;
   padding: 1.5rem;
   border-radius: 5px;
-  box-shadow: 0px 0px 40px 10px rgba(140,25,255,0.46);
+  box-shadow: 0px 0px 40px 10px rgba(52, 152, 219);
   margin-top: 50px;
   margin-bottom: 50px;
   margin-left: 35%;
@@ -1569,7 +1569,7 @@ button[type="submit"] {
 /* POSTULER PAGE */
 
 .bouton-envoyer-postuler {
-  background-color: rgba(140, 25, 255, 0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   padding: 10px 20px;
@@ -1586,7 +1586,7 @@ button[type="submit"] {
   width: 85%;
   margin-top: 1rem;
   padding: 10px;
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   border-radius: 1rem;
   margin-left: 7%;
   resize: none;
@@ -1601,7 +1601,7 @@ button[type="submit"] {
 
 
   .bouton-envoyer-postuler {
-    background-color: rgba(140, 25, 255, 0.46);
+    background-color: rgba(52, 152, 219);
     color: #fff;
     border: none;
     padding: 10px 20px;
@@ -1614,7 +1614,7 @@ button[type="submit"] {
 
   .selection-CV{
     font-size: 20px;
-    color: rgba(116, 4, 228, 0.8);
+    color: rgba(52, 152, 219);
   }
   .titre-postuler{
     margin-top: 2rem;
@@ -1645,7 +1645,7 @@ button[type="submit"] {
 /* ERREUR */
 .error-title {
   font-size: 2em;
-  color: rgba(140,25,255,0.8);
+  color: rgba(52, 152, 219);
   text-decoration: underline;
   text-align: center;
   margin:2rem;
@@ -1662,7 +1662,7 @@ button[type="submit"] {
 /* Animation de chargement */
 .loader {
   border: 16px solid rgb(243, 243, 243); /* Gris */
-  border-top: 16px solid rgba(140,25,255,0.46); /* Bleu */
+  border-top: 16px solid rgba(52, 152, 219); /* Bleu */
   border-radius: 50%;
   width: 100px;
   height: 100px;
