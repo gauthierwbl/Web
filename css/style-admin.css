@@ -1075,7 +1075,7 @@ button:hover {
 
 .btn-danger-etudiant{
   padding: 5px 8px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -1084,7 +1084,7 @@ button:hover {
 }
 
 .btn-danger-etudiant:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(52, 152, 219, 0.8);
 }
 
 .btn-primary-etudiant{
@@ -1207,7 +1207,7 @@ button:hover {
 
 .btn-danger-candidature{
   padding: 5px 8px;
-  background-color: rgba(140,25,255,0.46);
+  background-color: rgba(52, 152, 219);
   color: #fff;
   border: none;
   border-radius: 5px;
@@ -1217,7 +1217,7 @@ button:hover {
 }
 
 .btn-danger-candidature:hover {
-  background-color: rgba(116, 4, 228, 0.8);
+  background-color: rgba(52, 152, 219, 0.8);
 }
 
 .btn-primary-candidature{
