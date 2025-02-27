@@ -299,4 +299,51 @@ cvInput.addEventListener("change", function () {
         }
     }
 });
+
+function validatePassword(password) {
+    const minLength = 12;
+    const hasUpperCase = /[A-Z]/.test(password);
+    const hasLowerCase = /[a-z]/.test(password);
+    const hasNumber = /\d/.test(password);
+    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
+
+    if (password.length < minLength) {
+        return "Le mot de passe doit contenir au moins 12 caractères.";
+    }
+    if (!hasUpperCase) {
+        return "Le mot de passe doit contenir au moins une lettre majuscule.";
+    }
+    if (!hasLowerCase) {
+        return "Le mot de passe doit contenir au moins une lettre minuscule.";
+    }
+    if (!hasNumber) {
+        return "Le mot de passe doit contenir au moins un chiffre.";
+    }
+    if (!hasSpecialChar) {
+        return "Le mot de passe doit contenir au moins un caractère spécial.";
+    }
+
+    return "Mot de passe valide.";
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+    const form = document.querySelector('.formulaire-login form'); // Sélectionne le formulaire
+    const passwordInput = form.querySelector('input[name="password"]'); // Sélectionne le champ mot de passe
+    const messageSpan = document.createElement('span'); // Crée un élément pour afficher le message
+    form.insertBefore(messageSpan, form.childNodes[2]); // Ajoute le message après le champ de mot de passe
+
+    form.addEventListener('submit', function (event) {
+        const password = passwordInput.value;
+        const validationMessage = validatePassword(password);
+
+        if (validationMessage !== "Mot de passe valide.") {
+            event.preventDefault(); // Empêche l'envoi du formulaire
+            messageSpan.textContent = validationMessage; // Affiche le message d'erreur
+            messageSpan.style.color = 'red';
+        } else {
+            messageSpan.textContent = ""; // Efface le message d'erreur
+        }
+    });
+});
+
  
