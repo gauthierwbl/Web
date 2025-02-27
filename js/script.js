@@ -253,3 +253,50 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 
+
+
+// A tester 
+
+//Vérification de l'email
+function validateEmail(email) {
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailPattern.test(email);
+}
+
+document.getElementById('validateButton').addEventListener('click', () => {
+    const emailInput = document.getElementById('email').value; // Modification ici
+    const errorSpan = document.getElementById('emailError');
+
+    if (validateEmail(emailInput)) {
+        errorSpan.style.display = 'none'; // Cacher le message d'erreur
+        alert('Adresse e-mail valide !');
+    } else {
+        errorSpan.style.display = 'inline'; // Afficher le message d'erreur
+        errorSpan.textContent = 'Adresse e-mail invalide.';
+    }
+});
+
+// Vérification du fichier CV
+const cvInput = document.getElementById('fileToUpload'); // Modification ici
+
+cvInput.addEventListener("change", function () {
+    const allowedFormats = ["pdf", "doc", "docx", "odt", "rtf", "jpg", "png"];
+    const file = cvInput.files[0];
+    if (file) {
+        const fileSizeMB = file.size / 1024 / 1024; // Taille en Mo
+        const fileExtension = file.name.split('.').pop().toLowerCase();
+
+        // Vérification du format de fichier
+        if (!allowedFormats.includes(fileExtension)) {
+            alert("Format de fichier non accepté. Formats autorisés : pdf, doc, docx, odt, rtf, jpg, png.");
+            cvInput.value = ""; // Réinitialiser le champ fichier
+        }
+
+        // Vérification de la taille du fichier
+        if (fileSizeMB > 2) {
+            alert("Le fichier est trop volumineux. Taille maximale : 2 Mo.");
+            cvInput.value = "";
+        }
+    }
+});
+ 
