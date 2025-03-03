@@ -2,7 +2,6 @@
 body {
   margin: 0;
   padding: 0;
-  
   background-repeat: no-repeat;
   background-size:cover;
 }
@@ -15,6 +14,7 @@ body {
   height: 5.3rem;
   top: 0;
   z-index: 1000;
+  margin-bottom: 1rem;
 }
 
 .logo {
