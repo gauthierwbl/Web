@@ -512,6 +512,7 @@ color: #E1306C;
   right: 2rem;
   bottom: 1rem;
   border-radius: 0.5rem;
+  text-decoration: none;
 }
 
 .voir-plus-offre:hover {
@@ -847,6 +848,7 @@ font-size: 8px;
   width: 5rem;
   margin: 0 auto; /* Ajout de cette ligne */
   margin-top: 1rem;
+  text-decoration: none;
 }
 .login-bouton:hover  {
   background-color: rgba(0, 174, 239,0.65);
