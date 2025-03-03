@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Connexion</title>
+    <title>Candidature</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -36,25 +36,27 @@
             </div>
         </section>
     </header>
-    
-    <div id="image-accueil">
-        <div class="overlay">
-            <img src="img/cesi.jpeg" alt="">
-        </div>
-        <div class="titre-offre">
-            <div class="titre-accueil">CESI TON STAGE</div>
-        </div>
-    </div>
+
+
+    <div class="titre-postuler">Candidater pour l'offre [Nom de l'offre]</div>
     
     <div class="offer">
-        <div class="texte-login">
-            Afin de pouvoir profiter pleinement de l'ensemble des fonctionnalités du site veuillez vous connecter à votre compte.
-            En vous connectant vous acceptez l'utilisation des cookies sur notre site.
-        </div>
-        <a class="login-bouton" href="/login">Login</a>
-        <a class="invite-bouton" type="submit">Continuer en tant qu'invité</a> 
+        <form action="" method="post" enctype="multipart/form-data" class="verif">
+            <div class="formulaire-postuler">
+                <label for="fileToUpload" class="selection-CV">
+                    Sélectionner un curriculum vitae pour postuler à l'offre :
+                </label>
+                <input class="fichier-CV" type="file" name="fileToUpload" id="fileToUpload">
+            </div>
+            
+            <br>
+            
+            <label for="LettreMotivation">Veuillez rédiger votre lettre de motivation :</label><br>
+            <textarea class="formulaire-postuler" name="LettreMotivation" rows="20" cols="180"></textarea><br><br>
+            
+            <input class="bouton-envoyer-postuler" type="submit" value="Envoyer">
+        </form>
     </div>
-    
     
     <footer class="text-center" id="footer">
         <div class="container">

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Conditions Générales</title>
+    <title>Connexion</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
@@ -33,6 +33,30 @@
                         </label>
                     </a>
                 </div>
+            </div>
+        </section>
+        <section class="navplus">
+            <div class="contenu-navplus">
+                <ul>
+                  
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/admin">Dashboard</a></li>
+                    <li class="liennavplus"><a href="/entreprise">Entreprises</a></li>
+                    <li class="liennavplus"><a href="/offre">Offres</a></li>
+                    <li class="liennavplus"><a href="/contact">Contact</a></li>
+                    <li><a href="/profile/wishlist">Wishlist</a></li>
+                    <li><a href="/profile/stages">Mes stages</a></li>
+                    
+                    <li>
+                        <?php if(isset($_COOKIE["UCOOKIE"])): ?>
+                            <form action="/logout" method="post">
+                                <button class="bouton-deconnexion">Déconnexion</button>
+                            </form>
+                            <?php else: ?>
+                                <a href="/login">Se connecter</a>
+                            <?php endif; ?>
+                    </li>
+                </ul>
             </div>
         </section>
     </header>
@@ -82,4 +106,5 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI-TON-STAGE</p>
     </footer>
 </body>
+<script src="js/script.js"></script>
 </html>

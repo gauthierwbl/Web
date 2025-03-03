@@ -848,9 +848,27 @@ font-size: 8px;
   margin: 0 auto; /* Ajout de cette ligne */
   margin-top: 1rem;
 }
-
-
 .login-bouton:hover  {
+  background-color: rgba(0, 174, 239,0.65);
+}
+
+.invite-bouton {
+  display: flex;
+  background-color: rgba(52, 152, 219);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  border-radius: 0.5rem;
+  text-align: center;
+  justify-content: center;
+  align-items: center; /* Ajout de cette ligne */
+  width: 15rem;
+  margin: 0 auto; /* Ajout de cette ligne */
+  margin-top: 1rem;
+}
+.invite-bouton:hover  {
   background-color: rgba(0, 174, 239,0.65);
 }
 
@@ -1459,8 +1477,8 @@ button[type="submit"] {
 }
 .info-details
 {
-  margin-top: 5rem;
-  margin-left: 15rem;
+  margin-top: 1rem;
+  margin-left:3%;
 }
 .info
 {
@@ -1474,13 +1492,30 @@ button[type="submit"] {
 {
   padding-left: 1%;
 }
-.input-file
-{
-  background-color: rgb(167, 167, 161);
+
+.input-file {
+  display: none; /* Cache l'input */
+}
+
+.label-file {
+  display: grid;
+  place-items: center;
+  background-color: rgba(0, 174, 239, 0.65);
   color: #fff;
   border: none;
   border-radius: 1rem;
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 16px;
+  width: 10rem;
 }
+
+.label-file:hover {
+  background-color: rgba(0, 174, 239, 0.85);
+}
+
+
+
 
 /* END INFO PROFIL */
 
@@ -1667,7 +1702,7 @@ button[type="submit"] {
 
 /* Animation de chargement */
 .loader {
-  border: 16px solid rgb(243, 243, 243); /* Gris */
+  border: 16px solid rgba(38, 136, 192, 0.2); /* Bleu clair */
   border-top: 16px solid rgba(52, 152, 219); /* Bleu */
   border-radius: 50%;
   width: 100px;
