@@ -677,15 +677,20 @@ font-size: 8px;
   text-align: center;
   margin: 2rem 2rem 0rem 2rem;
 }
-.container-pagination-suivante {
-display:flex;
-justify-content: flex-end;
+.container-pagination {
+  display: flex; /* Utilise flexbox pour le conteneur principal */
+  justify-content: space-between; /* Espace entre les éléments */
+  align-items: center; /* Aligne verticalement les éléments */
+  padding: 10px; /* Ajoute un peu d'espacement autour du conteneur */
 }
-.container-pagination-precedente {
-  display:flex;
-  justify-content: flex-start;
-  }
-.pagination-entreprise-suivante {
+
+.container-pagination-precedente,
+.container-pagination-suivante {
+  display: flex; /* Permet d'utiliser flexbox pour chaque élément */
+}
+
+.container-pagination-precedente a,
+.container-pagination-suivante a {
   display: flex;
   background-color: rgba(52, 152, 219);
   color: #fff;
@@ -700,7 +705,8 @@ justify-content: flex-end;
   display: inline-block; /* Position absolue par rapport au conteneur parent */
   margin-top: 1rem;
   margin-right: 3rem;
-  width: 10rem;
+  width: 10rem; 
+  text-decoration: none;
 }
 
 .pagination-entreprise-precedente {
