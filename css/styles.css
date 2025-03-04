@@ -678,16 +678,20 @@ font-size: 8px;
   text-align: center;
   margin: 2rem 2rem 0rem 2rem;
 }
+/* Conteneur général pour les boutons de pagination */
 .container-pagination {
-  display: flex; /* Utilise flexbox pour le conteneur principal */
+  display: flex;
   justify-content: space-between; /* Espace entre les éléments */
   align-items: center; /* Aligne verticalement les éléments */
   padding: 10px; /* Ajoute un peu d'espacement autour du conteneur */
 }
 
+/* Conteneurs des boutons de pagination */
 .container-pagination-precedente,
 .container-pagination-suivante {
-  display: flex; /* Permet d'utiliser flexbox pour chaque élément */
+  display: flex;
+  justify-content: center; /* Aligne les éléments à l'horizontale */
+  align-items: center; /* Aligne les éléments à la verticale */
 }
 
 .container-pagination-precedente a,
@@ -703,30 +707,16 @@ font-size: 8px;
   border-radius: 0.5rem;
   padding: 5px;
   text-align: center;
-  display: inline-block; /* Position absolue par rapport au conteneur parent */
-  margin-top: 1rem;
-  margin-right: 3rem;
-  width: 10rem; 
+  width: auto;
   text-decoration: none;
 }
 
-.pagination-entreprise-precedente {
-  display: flex;
-  background-color: rgba(52, 152, 219);
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  align-items: center;
-  justify-content: center; /* Centrer horizontalement */
-  transition: background-color 0.3s ease;
-  border-radius: 0.5rem;
-  padding: 5px;
-  text-align: center;
-  display: inline-block; /* Position absolue par rapport au conteneur parent */
-  margin-top: 1rem;
-  margin-left: 3rem;
-  width: 10rem;
+.pagination-entreprise-precedente,
+.pagination-entreprise-suivante {
+  padding: 10px 20px; /* Espacement autour des liens */
 }
+
+
 
 /* END CARD ENTREPRISE */
 
