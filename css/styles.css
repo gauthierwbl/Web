@@ -301,7 +301,7 @@ display: inline-block;
 height: 60px;
 width: 60px;
 margin: 0 5px;
-margin-left:0,4;
+margin-left:0.4;
 padding-left:0;
 overflow: hidden;
 border-radius: 50px;
@@ -310,14 +310,14 @@ transition: all 0.2s ease-out;
 }
 
 .wrapper #button-footer-facebook:hover{
-  width:163px;
+  width:300px;
 
 }
 .wrapper #button-footer-twitter:hover{
-  width:134px;
+  width:300px;
 }
 .wrapper #button-footer-instagram:hover{
-  width:164px;
+  width:300px;
 }
 
 .wrapper .button-footer .icon{
