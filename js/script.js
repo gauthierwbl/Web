@@ -300,50 +300,63 @@ cvInput.addEventListener("change", function () {
     }
 });
 
-function validatePassword(password) {
-    const minLength = 12;
-    const hasUpperCase = /[A-Z]/.test(password);
-    const hasLowerCase = /[a-z]/.test(password);
-    const hasNumber = /\d/.test(password);
-    const hasSpecialChar = /[!@#$%^&*(),.?":{}|<>]/.test(password);
-
-    if (password.length < minLength) {
-        return "Le mot de passe doit contenir au moins 12 caractères.";
-    }
-    if (!hasUpperCase) {
-        return "Le mot de passe doit contenir au moins une lettre majuscule.";
-    }
-    if (!hasLowerCase) {
-        return "Le mot de passe doit contenir au moins une lettre minuscule.";
-    }
-    if (!hasNumber) {
-        return "Le mot de passe doit contenir au moins un chiffre.";
-    }
-    if (!hasSpecialChar) {
-        return "Le mot de passe doit contenir au moins un caractère spécial.";
-    }
-
-    return "Mot de passe valide.";
-}
-
-document.addEventListener('DOMContentLoaded', function () {
-    const form = document.querySelector('.formulaire-login form'); // Sélectionne le formulaire
-    const passwordInput = form.querySelector('input[name="password"]'); // Sélectionne le champ mot de passe
-    const messageSpan = document.createElement('span'); // Crée un élément pour afficher le message
-    form.insertBefore(messageSpan, form.childNodes[2]); // Ajoute le message après le champ de mot de passe
-
-    form.addEventListener('submit', function (event) {
-        const password = passwordInput.value;
-        const validationMessage = validatePassword(password);
-
-        if (validationMessage !== "Mot de passe valide.") {
-            event.preventDefault(); // Empêche l'envoi du formulaire
-            messageSpan.textContent = validationMessage; // Affiche le message d'erreur
-            messageSpan.style.color = 'red';
-        } else {
-            messageSpan.textContent = ""; // Efface le message d'erreur
-        }
+document.addEventListener("DOMContentLoaded", function() {
+    const form = document.querySelector('.verif');
+    
+    form.addEventListener('submit', function(event) {
+      let valid = true;
+  
+      // Récupération des valeurs des champs
+      const dureeOffre = document.getElementById('dureeOffre').value;
+      const baseOffre = document.getElementById('baseOffre').value;
+      const nombreOffre = document.getElementById('nombreOffre').value;
+      const dateOffre = document.getElementById('dateOffre').value;
+  
+      // Vérification de la durée de stage
+      if (!isPositiveInteger(dureeOffre)) {
+        alert("Veuillez entrer un nombre valide pour la Durée de stage.");
+        valid = false;
+      }
+  
+      // Vérification de la base de rémunération
+      if (!isPositiveNumber(baseOffre)) {
+        alert("Veuillez entrer un nombre valide pour la Base de rémunération.");
+        valid = false;
+      }
+  
+      // Vérification du nombre de places disponibles
+      if (!isPositiveInteger(nombreOffre)) {
+        alert("Veuillez entrer un nombre valide pour le Nombre de places disponibles.");
+        valid = false;
+      }
+  
+      // Vérification du format de la date
+      if (!isValidDate(dateOffre)) {
+        alert("Veuillez entrer une date valide au format YYYY-MM-DD pour la Date de l'offre.");
+        valid = false;
+      }
+  
+      // Si une des validations échoue, empêcher l'envoi du formulaire
+      if (!valid) {
+        event.preventDefault();
+      }
     });
-});
-
+  
+    function isPositiveInteger(value) {
+      return /^\d+$/.test(value);
+    }
+  
+    function isPositiveNumber(value) {
+      return /^\d+(\.\d+)?$/.test(value);
+    }
+  
+    function isValidDate(dateString) {
+      const regex = /^\d{4}-\d{2}-\d{2}$/;
+      if (!dateString.match(regex)) return false; // Vérifie le format YYYY-MM-DD
+  
+      const date = new Date(dateString);
+      return date instanceof Date && !isNaN(date);
+    }
+  });
+  
  
