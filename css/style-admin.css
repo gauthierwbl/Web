@@ -91,8 +91,8 @@ html {
 .main-top {
   position: relative;
   background: #ededed;
-  padding-top: 25px;
-  padding-bottom: 15px;
+  padding-top: 2rem;
+  padding-bottom: 2rem;
   margin-bottom: 1rem;
   align-items: center;
   font-size: 24px;
@@ -119,9 +119,10 @@ html {
 table {
   width: 100%;
   border-collapse: collapse;
-  margin: 10px;
+  margin-top: 1rem;
   background-color: #f9f9f9;
 }
+
 
 th, td {
   padding: 8px;
@@ -133,25 +134,27 @@ th {
   background-color: #f2f2f2;
 }
 .titre-navbar {
-  position: relative;
-  margin-left:30%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+   
 }
 .grand-titre{
   font-size: 20px;
   font-weight: bold;
-  margin: auto;
+  margin: center;
   margin-bottom: 1.5rem;
   align-items: left;
   color: rgba(52, 152, 219);
   width: 100%;
+  
 }
 .grand-titre-stats{
   font-size: 18px;
   font-weight: bold;
   margin-bottom: 1.5rem;
-  align-items: left;
+  text-align: center;
   color: rgba(52, 152, 219);
-  width: 80%;
 }
 .petit-titre {
   font-size: 15px;
@@ -415,15 +418,17 @@ button:hover {
   border: 1px solid rgba(52, 152, 219);
   margin-left: 1rem;
   border-radius: 5px;
-  width: 100%;
 }
 
 .form-group{
   display: block; 
   justify-content: space-between; 
   width: 80%; 
-  padding:10px;
+  padding-left:10px;
+  padding-right:10px;
+  padding-bottom:10px;
 }
+
 .form-control {
   border: 1px solid rgba(52, 152, 219);
   margin-left: 0;
@@ -466,7 +471,8 @@ button:hover {
 @media screen and (max-width:920px) {
 
   .nav-laterale {
-    width: 45%;left: -100%;
+    width: 45%;
+    left: -100%;
     height:94%;
     bottom:0;
     transition: left 0.3s ease;
@@ -489,7 +495,6 @@ button:hover {
     list-style: none;
   }
   .container-admin {
-    width: 65%;
     left: 0rem;
   }
   .main-top {
@@ -505,20 +510,25 @@ button:hover {
 @media screen and (max-width:450px) {
 
   .container-admin {
-    width: 30%;
-    left: -1rem;
+    display: flex;
+    justify-content: space-between;
+    margin-left:0rem;
+    margin-top:0rem;
   }
   
-  .grand-titre-stats{
+  .grand-titre-stats {
     font-size: 17px;
-    margin-left: 1rem;
-  }
+    margin-left: auto;
+    width: 150%; /* Ou toute autre largeur qui convient */
+}
+
   .nom-nav{
     padding:10px;
     top:1rem;
   }
   .main-top {
     margin-left: -3rem;
+    width: 150%;
     
   }
   .titre-navbar {
@@ -554,17 +564,13 @@ button:hover {
       font-size: 18px;
     }
 
-    
-    
-    .container-admin {
-      display: flex;
-      justify-content: space-between;
-      margin-left:2rem;
-      margin-top:2rem;
-  }
-
   table{
-    width:80%;
+    width: 80%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  margin-left: 25%;
+  margin-right: 25%;
+  background-color: #f9f9f9;
   }
   .menu-toggle {
     display: block;
@@ -590,6 +596,8 @@ button:hover {
   }
   .titre-navbar {
     font-size: 15px;
+    margin-left:3rem;
+    width:70%;
   }
   .address-container {
     width: 40%;
