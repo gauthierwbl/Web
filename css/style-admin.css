@@ -109,12 +109,10 @@ html {
 /*TABLEAUX*/
 
 .container-admin {
-  width: 40%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
-  left: 15rem;
 }
 
 
