@@ -144,7 +144,6 @@ th {
   margin: auto;
   margin-bottom: 1.5rem;
   align-items: left;
-  text-decoration: underline;
   color: rgba(52, 152, 219);
   width: 100%;
 }
@@ -153,7 +152,6 @@ th {
   font-weight: bold;
   margin-bottom: 1.5rem;
   align-items: left;
-  text-decoration: underline;
   color: rgba(52, 152, 219);
   width: 80%;
 }
@@ -165,7 +163,6 @@ th {
   margin-left: 1rem;
   margin-right: 1rem; 
   align-items: center;
-  text-decoration: underline;
   text-indent: 1rem;
 }
 .titre-tableau{
