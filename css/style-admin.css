@@ -896,7 +896,7 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
-    margin: 15%;
+    margin-left: 15%;
     margin-right: 0px;
   }
   
@@ -1023,7 +1023,7 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
-    margin: 15%;
+    margin-left: 15%;
     margin-right: 0px;
   }
 
@@ -1234,7 +1234,7 @@ button:hover {
 }
 
 .form-control {
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   margin-left: 0;
   border-radius: 5px;
   display: block;
