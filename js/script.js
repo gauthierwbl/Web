@@ -6,7 +6,7 @@ document.addEventListener("DOMContentLoaded", function () {
             if (!this.classList.contains("like-active")) {
                 this.classList.add("anim-like"); // Ajoute l'animation seulement si le cœur s'allume
                 setTimeout(() => {
-                    this.classList.remove("anim-like"); // Supprime l'animation après 300ms
+                    this.classList.remove("anim-like"); // Supprime l'animation après 1000ms
                 }, 1000);
             }
 
