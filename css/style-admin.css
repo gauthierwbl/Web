@@ -616,7 +616,7 @@ button:hover {
   }
 }
   
-@media screen and (max-width:380px) {
+@media screen and (max-width:300px) {
   .container-admin {
     width: 18%;
     left: -2.25rem;
@@ -683,6 +683,9 @@ button:hover {
       margin-left:2rem;
       margin-top:2rem;
   }
+  .container-edit-offre {
+    left:6.2rem;
+}
 
 
   .fas-bars{
@@ -837,10 +840,7 @@ button:hover {
     left: 1rem;
   
 }
-.container-edit-offre {
-  width: 20%;
-  left:7.2rem;
-}
+
 }
 @media screen and (max-width: 350px) {
 
@@ -940,11 +940,7 @@ button:hover {
     width: 2rem;
     display: fixed;
   }
-  .container-edit-offre {
-    width: 40%;
-    left:0;
   
-}
   .titre-tableau
   {
     font-size: 12px;
@@ -952,22 +948,9 @@ button:hover {
   }
 }
 
-@media screen and (max-width: 450px) {
 
-  .container-edit-offre {
-    left: 1rem;
-  
-}
-.container-edit-offre {
-  width: 20%;
-  left:6rem;
-}
-}
 @media screen and (max-width: 350px) {
 
-  .container-edit-offre {
-    left: 6.2rem;
-  }
   .btn-primary-offre{
     padding: 3px 3px;
     text-align: center;
@@ -1067,11 +1050,7 @@ button:hover {
     width: 2rem;
     display: fixed;
   }
-  .container-edit-pilote {
-    width: 40%;
-    left:0;
   
-}
   .titre-tableau
   {
     font-size: 12px;
@@ -1079,22 +1058,9 @@ button:hover {
   }
 }
 
-@media screen and (max-width: 450px) {
-
-  .container-edit-pilote {
-    left: 1rem;
-  
-}
-.container-edit-pilote {
-  width: 20%;
-  left:6rem;
-}
-}
 @media screen and (max-width: 350px) {
 
-  .container-edit-pilote {
-    left: 6.2rem;
-  }
+
   .btn-primary-pilote{
     padding: 3px 3px;
     text-align: center;
@@ -1117,6 +1083,12 @@ button:hover {
 .fa-edit{
   width: 1rem;
 }
+}
+
+@media screen and (max-width: 300px) {
+  .container-edit-pilote {
+    left: 6.2rem;
+  }
 }
 
 
@@ -1223,9 +1195,7 @@ button:hover {
 
 @media screen and (max-width: 380px) {
 
-  .container-edit-etudiant {
-    left: 6.2rem;
-  }
+  
   .btn-primary-etudiant{
     padding: 3px 3px;
     text-align: center;
@@ -1248,6 +1218,12 @@ button:hover {
 .fa-edit{
   width: 1rem;
 }
+}
+
+@media screen and (max-width: 300px) {
+  .container-edit-etudiant {
+    left: 6.2rem;
+  }
 }
 
 /* DASHBOARD CANDIDATURE */
@@ -1296,9 +1272,7 @@ button:hover {
 }
 
 @media screen and (max-width: 1100px) {
-  .container-edit-candidatures {
-    left:5rem;
-  }
+  
   
   .btn-primary-candidature{
     padding: 3px 3px;
@@ -1315,7 +1289,9 @@ button:hover {
 }
 @media screen and (max-width: 920px) {
 
-  
+  .container-edit-candidatures {
+    margin-left: 0%;
+  }
   .container-edit-candidature {
     display: flex;
     flex-wrap: wrap;
@@ -1344,10 +1320,11 @@ button:hover {
 
 @media screen and (max-width: 450px) {
 
-.container-edit-candidature {
-  left:6rem;
+  .container-edit-candidatures {
+    margin-left: 6rem;
+  }
 }
-}
+
 @media screen and (max-width: 350px) {
   .titre-tableau-candidatures{
     font-size: 10px;
@@ -1369,7 +1346,7 @@ button:hover {
 }
 
 .form-control {
-  border: 1px solid rgba(140, 25, 255, 0.46);
+  border: 1px solid rgba(52, 152, 219);
   margin-left: 0;
   border-radius: 5px;
   display: block;
