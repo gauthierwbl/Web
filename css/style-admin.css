@@ -250,7 +250,7 @@ input[type="submit"]:hover {
 
 
 .container-edit-entreprise {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -258,7 +258,7 @@ input[type="submit"]:hover {
 }
 
 .container-edit-offre {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -266,7 +266,7 @@ input[type="submit"]:hover {
 }
 
 .container-edit-pilote {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -274,7 +274,7 @@ input[type="submit"]:hover {
 }
 
 .container-edit-etudiant {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -282,7 +282,7 @@ input[type="submit"]:hover {
 }
 
 .container-edit-candidatures {
-  width: 100%;
+  width: 80%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
