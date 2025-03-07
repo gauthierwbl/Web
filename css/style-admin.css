@@ -250,43 +250,50 @@ input[type="submit"]:hover {
 
 
 .container-edit-entreprise {
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+  margin-left: 15%;
+
 }
 
 .container-edit-offre {
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+  margin-left: 15%;
 }
 
 .container-edit-pilote {
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+  margin-left: 15%;
 }
 
 .container-edit-etudiant {
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .container-edit-candidatures {
-  width: 80%;
+  width: 60%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   position: relative;
+  margin-left: 15%;
 }
 
 .container-modifier {
@@ -764,10 +771,12 @@ button:hover {
 
 @media screen and (max-width: 1100px) {
   .container-edit-entreprise {
-    width: 100%;
+    width: 60%;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin-left: 15%;
+    margin-right: 0px;
   }
  
   .btn-primary-entreprise{
@@ -787,11 +796,12 @@ button:hover {
 
   
   .container-edit-pilote {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: auto;
   }
 }
 
@@ -882,10 +892,12 @@ button:hover {
 
 @media screen and (max-width: 1100px) {
   .container-edit-offre {
-    width: 100%;
+    width: 60%;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: 15%;
+    margin-right: 0px;
   }
   
   .btn-primary-offre{
@@ -905,11 +917,12 @@ button:hover {
 
   
   .container-edit-offre {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: auto;
   }
 }
 
@@ -1006,10 +1019,12 @@ button:hover {
 
 @media screen and (max-width: 1100px) {
   .container-edit-pilote {
-    width: 100%;
+    width: 60%;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: 15%;
+    margin-right: 0px;
   }
 
   .btn-primary-pilote{
@@ -1029,11 +1044,12 @@ button:hover {
 
   
   .container-edit-pilote {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: auto;
   }
 }
 
@@ -1149,10 +1165,12 @@ button:hover {
 
 @media screen and (max-width: 1100px) {
   .container-edit-etudiant {
-    width: 100%;
+    width:60%;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin-left: 15%;
+    margin-right: 0px;
   }
 
   .btn-primary-etudiant{
@@ -1172,11 +1190,12 @@ button:hover {
 
   
   .container-edit-etudiant {
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: auto;
   }
 }
 
@@ -1188,10 +1207,6 @@ button:hover {
     text-decoration: none;
     width: 2rem;
     display: fixed;
-  }
-  .container-edit-etudiant {
-    width: 40%;
-    left:0;
   
 }
   .titre-tableau
@@ -1201,18 +1216,7 @@ button:hover {
   }
 }
 
-@media screen and (max-width: 450px) {
-
-  .container-edit-etudiant {
-    left: 1rem;
-  
-}
-.container-edit-etudiant {
-  width: 20%;
-  left:6rem;
-}
-}
-@media screen and (max-width: 350px) {
+@media screen and (max-width: 380px) {
 
   .container-edit-etudiant {
     left: 6.2rem;
@@ -1312,6 +1316,7 @@ button:hover {
     flex-wrap: wrap;
     justify-content: center;
     position: relative;
+    margin: auto;
   }
 }
 
