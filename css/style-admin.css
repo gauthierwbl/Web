@@ -93,6 +93,7 @@ html {
   background: #ededed;
   padding-top: 2rem;
   padding-bottom: 2rem;
+  padding-left: 14.5rem; /* Ajoute un espace interne à gauche */
   margin-bottom: 1rem;
   align-items: center;
   font-size: 24px;
@@ -101,6 +102,7 @@ html {
   color: rgb(43, 43, 43);
   display: flex;
 }
+
 
 
 
@@ -478,6 +480,9 @@ button:hover {
 
 @media screen and (max-width:920px) {
 
+  .main-top {
+    padding-left: 0rem;
+  }
   .nav-laterale {
     width: 45%;
     left: -100%;
