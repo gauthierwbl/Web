@@ -520,11 +520,44 @@ button:hover {
   }
 }
 
+@media screen and (max-width:750px) {
+.pagination-entreprise-suivante {
+  width: 5rem;
+}
+
+.pagination-entreprise-precedente {
+  width: 5rem;
+}
+}
+
+@media screen and (max-width:500px) {
+  .pagination-entreprise-suivante {
+    width: 3rem;
+    font-size: 10px;
+  }
+  
+  .pagination-entreprise-precedente {
+    width: 3rem;
+    font-size: 10px;
+  }
+  }
+  @media screen and (max-width:550px) {
+    .pagination-entreprise-suivante {
+      width: 2rem;
+      font-size: 8px;
+    }
+    
+    .pagination-entreprise-precedente {
+      width: 2rem;
+      font-size: 8px;
+    }
+    }
+
 @media screen and (max-width:450px) {
 
   .container-admin {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     margin-left:0rem;
     margin-top:0rem;
   }
@@ -589,14 +622,6 @@ button:hover {
     width:3rem;
     height:3rem;
   }
-
-  .pagination-entreprise-suivante {
-    width: 5rem;
-  }
-
-  .pagination-entreprise-precedente {
-    width: 5rem;
-  }
 }
 
 @media screen and (max-width: 300px) {
@@ -607,20 +632,15 @@ button:hover {
       gap: 10px;
   }
 }
-
-@media screen and (min-width: 300px) {
-  .pagination-container {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-  }
-}
   
 @media screen and (max-width:300px) {
   .container-admin {
     width: 18%;
     left: -2.25rem;
   }
+  .container-edit-entreprise {
+    left: -3rem;
+}
   .container-modifier {
     margin-left:3rem;
   }
@@ -708,30 +728,15 @@ button:hover {
     height:2rem;
   }
 
-  .pagination-entreprise-suivante {
-    width: 5rem;
-  }
-
-  .pagination-entreprise-precedente {
-    width: 5rem;
-  }
 }
 
-@media screen and (max-width: 600px) {
-  .pagination-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 10px;
-  }
-}
-
-@media screen and (min-width: 350px) {
-  .pagination-container {
+@media screen and (max-width: 350px) {
+  .container-pagination {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      gap:5px
   }
+  
 }
 
 
@@ -786,6 +791,11 @@ button:hover {
     margin-left: 15%;
     margin-right: 0px;
   }
+}
+  @media screen and (max-width: 920px) {
+    .container-edit-entreprise {
+      margin-left: 0%;
+    }
  
   .btn-primary-entreprise{
     padding: 3px 3px;
@@ -832,21 +842,11 @@ button:hover {
     font-size: 12px;
     margin: 0;
   }
-}
-
-@media screen and (max-width: 450px) {
-
-  .container-edit-entreprise {
-    left: 1rem;
-  
-}
 
 }
 @media screen and (max-width: 350px) {
 
-  .container-edit-entreprise {
-    left: 4rem;
-  }
+  
   .btn-primary-entreprise{
     padding: 3px 3px;
     text-align: center;
