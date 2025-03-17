@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dashboard - Administration - Modification Offre</title>
+  <link rel="stylesheet" href="../../css/style-admin.css">
+  <link rel="icon" type="image/png" href="../../../../../../../img/icon.png">
+  <!-- Font Awesome CDN Link -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body class="body-admin" style="background: url(../../img/background.png) no-repeat center center fixed;">
+  <!-- Haut de page -->
+  <div class="main-top">
+    <div class="menu-toggle"><i class="fas fa-bars"></i></div>
+    <div class="titre-navbar">Tableau de bord</div>
+  </div>
+  
+  <!-- Navigation latérale -->
+  <nav class="nav-laterale">
+    <ul>
+      <br><br><br>
+      <li>
+        <a class="nom-nav" href="/">
+          <i class="fas fa-home"></i>
+          <span class="nav-item">Home</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/admin/entreprise">
+          <i class="fas fa-store-alt"></i>
+          <span class="nav-item">Entreprises</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/admin/offre">
+          <i class="fas fa-clipboard-list"></i>
+          <span class="nav-item">Offres</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/admin/pilote">
+          <i class="fas fa-user-tie"></i>
+          <span class="nav-item">Pilotes</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/admin/etudiants">
+          <i class="fas fa-user-graduate"></i>
+          <span class="nav-item">Étudiants</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/admin/candidatures">
+          <i class="fas fa-tasks"></i>
+          <span class="nav-item">Candidatures</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/admin">
+          <i class="fas fa-chart-bar"></i>
+          <span class="nav-item">Statistiques</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav" href="/profile">
+          <i class="fas fa-user"></i>
+          <span class="nav-item">Profil</span>
+        </a>
+      </li>
+      <li>
+        <a class="nom-nav logout" href="/logout">
+          <i class="fas fa-sign-out-alt"></i>
+          <span class="nav-item">Déconnexion</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
+  
+  <!-- Contenu principal -->
+  <section class="container-admin">
+    <div class="container-modifier">
+      <h1 class="grand-titre">Offre Exemple</h1>
+      <!-- Message de succès (affiché après modification) -->
+      <!-- <div class="alert alert-success">
+           L'offre a bien été modifiée
+      </div> -->
+      <form action="" method="post" class="verif">
+        <div class="form-group">
+          <label for="nomOffre">Nom Offre</label>
+          <input type="text" name="nomOffre" id="nomOffre" class="form-control" value="Offre Exemple">
+        </div>
+        <div class="form-group">
+          <label for="descriptionOffre">Description Offre</label>
+          <textarea name="descriptionOffre" id="descriptionOffre" class="form-control">Description de l'offre exemple.</textarea>
+        </div>
+        <div class="form-group">
+          <label for="competenceOffre">Compétences</label>
+          <input type="text" name="competenceOffre" id="competenceOffre" class="form-control" value="Compétences Exemple">
+        </div>
+        <div class="form-group">
+          <label for="dureeOffre">Durée de stage</label>
+          <input type="text" name="dureeOffre" id="dureeOffre" class="form-control" value="12">
+        </div>
+        <div class="form-group">
+          <label for="baseOffre">Base de rémunération</label>
+          <input type="text" name="baseOffre" id="baseOffre" class="form-control" value="1500">
+        </div>
+        <div class="form-group">
+          <label for="dateOffre">Date de l'offre</label>
+          <input type="text" name="dateOffre" id="dateOffre" class="form-control" value="2025-03-01">
+        </div>
+        <div class="form-group">
+          <label for="nombreOffre">Nombre de places disponible</label>
+          <input type="text" name="nombreOffre" id="nombreOffre" class="form-control" value="5">
+        </div>
+        <div class="form-group">
+          <label for="nombreCandiOffre">Nombre de candidatures</label>
+          <input type="text" name="nombreCandiOffre" id="nombreCandiOffre" class="form-control" value="10">
+        </div>
+        <div class="form-group">
+          <label for="idEnt">Entreprise *</label>
+          <select name="idEnt" id="idEnt" class="form-control" required>
+            <option value="1" selected>Entreprise Exemple</option>
+            <option value="2">Entreprise Option 2</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="idMineure">Mineure *</label>
+          <select name="idMineure" id="idMineure" class="form-control" required>
+            <option value="1" selected>Mineure Exemple</option>
+            <option value="2">Mineure Option 2</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Modifier</button>
+      </form>
+    </div>
+  </section>
+  
+  <script src="/js/script.js"></script>
+  <script src="/js/script-admin.js"></script>
+</body>
+</html>
