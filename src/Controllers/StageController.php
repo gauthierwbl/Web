@@ -20,7 +20,7 @@ class StageController extends BaseController {
     // Affiche la liste des stages
     public function index() {
         $stages = $this->stageModel->getAllStages();
-        $this->view->render('stage/list', ['stages' => $stages]);
+        $this->view->render('/offres', ['stages' => $stages]);  // Affiche la vue pour la liste des stages
     }
 
     // Crée un nouveau stage
@@ -28,10 +28,11 @@ class StageController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST; // Récupère les données du formulaire
             $this->stageModel->createStage($data); // Crée le stage
-            header('Location: /stages'); // Redirige vers la liste des stages
-            exit;
+            header('Location: /dashboard/offres'); // Redirige vers la liste des stages
+            exit; // Arrête l'exécution du script après la redirection
         }
-        $this->view->render('stage/create'); // Affiche le formulaire de création
+        // Affiche le formulaire de création
+        $this->view->render('/dashboard/offres/ajout-offre');
     }
 
     // Modifie un stage existant
@@ -40,23 +41,23 @@ class StageController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST; // Récupère les données mises à jour
             $this->stageModel->updateStage($id, $data); // Met à jour le stage
-            header('Location: /stages'); // Redirige vers la liste des stages
-            exit;
+            header('Location: /dashboard/offres'); // Redirige vers la liste des stages
+            exit; // Arrête l'exécution du script après la redirection
         }
-        // Affiche le formulaire d'édition
-        $this->view->render('stage/edit', ['stage' => $stage]);
+        // Affiche le formulaire d'édition avec les données du stage
+        $this->view->render('/dashboard/offres/modif-offre', ['stage' => $stage]);
     }
 
     // Supprime un stage
     public function delete($id) {
         $this->stageModel->deleteStage($id);
-        header('Location: /stages'); // Redirige vers la liste des stages
-        exit;
+        header('Location: /dashboard/offres'); // Redirige vers la liste des stages
+        exit; // Arrête l'exécution du script après la redirection
     }
 
     // Affiche les détails d'un stage
     public function show($id) {
         $stage = $this->stageModel->getStageById($id);
-        $this->view->render('stage/show', ['stage' => $stage]);
+        $this->view->render('/détail-offre', ['stage' => $stage]);
     }
 }

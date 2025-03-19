@@ -19,7 +19,7 @@ class AuthController extends BaseController {
 
     public function index() {
         // Affiche la page de login
-        $this->view->render('auth/login');
+        $this->view->render('connexion'); // Affiche la vue de connexion
     }
 
     public function login() {
@@ -37,11 +37,11 @@ class AuthController extends BaseController {
                     session_start();
                 }
                 $_SESSION['user'] = $user;
-                header('Location: /dashboard');
+                header('Location: /home');
                 exit;
             } else {
                 // Affiche un message d'erreur si les identifiants sont invalides
-                $this->view->render('auth/login', ['error' => 'Invalid credentials']);
+                $this->view->render('connexion', ['error' => 'Identifiants invalides']);
             }
         }
     }
@@ -52,7 +52,7 @@ class AuthController extends BaseController {
             session_start();
         }
         unset($_SESSION['user']);
-        header('Location: /login');
+        header('Location: /connexion');
         exit;
     }
 
@@ -79,6 +79,6 @@ class AuthController extends BaseController {
     public function show($id) {
         // Affiche le profil d'un utilisateur
         $user = $this->userModel->getUserById($id);
-        $this->view->render('auth/show', ['user' => $user]);
+        $this->view->render('profil', ['user' => $user]);
     }
 }

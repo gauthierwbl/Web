@@ -20,7 +20,7 @@ class EntrepriseController extends BaseController {
     // Affiche la liste des entreprises
     public function index() {
         $entreprises = $this->entrepriseModel->getAllEntreprises();
-        $this->view->render('entreprise/list', ['entreprises' => $entreprises]);
+        $this->view->render('/entreprise', ['entreprises' => $entreprises]);
     }
 
     // Crée une nouvelle entreprise
@@ -28,10 +28,10 @@ class EntrepriseController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST; // Récupère les données du formulaire
             $this->entrepriseModel->createEntreprise($data); // Crée l'entreprise
-            header('Location: /entreprises'); // Redirige vers la liste des entreprises
+            header('Location: /dashboard/entreprises'); // Redirige vers la liste des entreprises
             exit;
         }
-        $this->view->render('entreprise/create'); // Affiche le formulaire de création
+        $this->view->render('/dashboard/entreprises/ajout-entrepruise'); // Affiche le formulaire de création
     }
 
     // Modifie une entreprise existante
@@ -40,23 +40,23 @@ class EntrepriseController extends BaseController {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST; // Récupère les données mises à jour
             $this->entrepriseModel->updateEntreprise($id, $data); // Met à jour l'entreprise
-            header('Location: /entreprises'); // Redirige vers la liste des entreprises
+            header('Location: /dashboard/entreprises'); // Redirige vers la liste des entreprises
             exit;
         }
         // Affiche le formulaire d'édition
-        $this->view->render('entreprise/edit', ['entreprise' => $entreprise]);
+        $this->view->render('/dashboard/entreprises/modif-entrepruise', ['entreprise' => $entreprise]);
     }
 
     // Supprime une entreprise
     public function delete($id) {
         $this->entrepriseModel->deleteEntreprise($id);
-        header('Location: /entreprises'); // Redirige vers la liste des entreprises
+        header('Location: /dashboard/entreprises/gestion-entrepruise'); // Redirige vers la liste des entreprises
         exit;
     }
 
     // Affiche les détails d'une entreprise
     public function show($id) {
         $entreprise = $this->entrepriseModel->getEntrepriseById($id);
-        $this->view->render('entreprise/show', ['entreprise' => $entreprise]);
+        $this->view->render('/détail-entreprise', ['entreprise' => $entreprise]);
     }
 }

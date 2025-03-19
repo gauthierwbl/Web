@@ -29,14 +29,14 @@ class StatisticalDashboardController extends BaseController {
     public function index() {
         // Récupère les statistiques globales depuis le modèle
         $statistics = $this->getStatistics(); // Si la méthode 'getStatistics' est définie dans un des modèles ou dans un service
-        $this->view->render('dashboard/statistics', ['statistics' => $statistics]);
+        $this->view->render('dashboard/statistiques', ['statistics' => $statistics]);
     }
 
     // Affiche une statistique spécifique
     public function show($id) {
         // Récupère les données de la statistique spécifique
         $stat = $this->getStatById($id); // Similaire à 'getStatistics' mais pour une statistique spécifique
-        $this->view->render('dashboard/statistic', ['stat' => $stat]);
+        $this->view->render('dashboard/statistiques', ['stat' => $stat]);
     }
 
     // Méthode pour récupérer les statistiques globales

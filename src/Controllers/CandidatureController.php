@@ -17,46 +17,53 @@ class CandidatureController extends BaseController {
         parent::__construct($this->candidatureModel);
     }
 
+    // Méthode pour afficher la liste des candidatures
     public function index() {
         // Récupère toutes les candidatures
         $candidatures = $this->candidatureModel->getAllCandidatures();
-        // Affiche la liste des candidatures
-        $this->view->render('candidature/list', ['candidatures' => $candidatures]);
+        // Utilise la méthode render pour afficher la vue avec les candidatures
+        $this->view->render('/candidature', ['candidatures' => $candidatures]);
     }
 
+    // Méthode pour créer une nouvelle candidature
     public function create() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST; // Récupère les données du formulaire
             $this->candidatureModel->createCandidature($data); // Crée la candidature
-            header('Location: /candidatures'); // Redirige vers la liste des candidatures
-            exit;
+            header('Location: /dashboard/candidatures'); // Redirige vers la liste des candidatures
+            exit; // Assure que le script s'arrête après la redirection
         }
-        $this->view->render('candidature/create'); // Affiche le formulaire de création
+        // Affiche le formulaire de création de candidature
+        $this->view->render('/postuler');
     }
 
+    // Méthode pour éditer une candidature
     public function edit($id) {
         // Récupère la candidature à modifier
         $candidature = $this->candidatureModel->getCandidatureById($id);
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data = $_POST; // Récupère les données mises à jour
             $this->candidatureModel->updateCandidature($id, $data); // Met à jour la candidature
-            header('Location: /candidatures'); // Redirige vers la liste des candidatures
+            header('Location: /dashboard/candidatures'); // Redirige vers la liste des candidatures
             exit;
         }
-        // Affiche le formulaire d'édition
-        $this->view->render('candidature/edit', ['candidature' => $candidature]);
+        // Affiche le formulaire d'édition de la candidature
+        $this->view->render('/dashboard/candidatures/modif-candidature', ['candidature' => $candidature]);
     }
 
+    // Méthode pour supprimer une candidature
     public function delete($id) {
         // Supprime la candidature
         $this->candidatureModel->deleteCandidature($id);
-        header('Location: /candidatures'); // Redirige vers la liste des candidatures
+        header('Location: /dashboard/candidatures'); // Redirige vers la liste des candidatures
         exit;
     }
 
+    // Méthode pour afficher les détails d'une candidature
     public function show($id) {
-        // Affiche la candidature avec les détails
+        // Récupère les détails de la candidature
         $candidature = $this->candidatureModel->getCandidatureById($id);
-        $this->view->render('candidature/show', ['candidature' => $candidature]);
+        // Affiche la vue avec les détails de la candidature
+        $this->view->render('/dashboard/candidatures/gestion-candidatures', ['candidature' => $candidature]);
     }
 }
