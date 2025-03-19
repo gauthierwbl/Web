@@ -1,53 +1,76 @@
 <?php
-/**
- * This is the router, the main entry point of the application.
- * It handles the routing and dispatches requests to the appropriate controller methods.
- */
 
-require "vendor/autoload.php";
+require_once 'config/config.php';
+spl_autoload_register(function ($class) {
+    $file = 'app/' . str_replace('\\', '/', $class) . '.php';
+    if (file_exists($file)) {
+        require_once $file;
+    }
+});
 
-use App\Controllers\TaskController;
+// Initialisation de la connexion à la base de données
+$dbConnection = new DatabaseConnection();
 
-$loader = new \Twig\Loader\FilesystemLoader('templates');
-$twig = new \Twig\Environment($loader, [
-    'debug' => true
-]);
+// Démarrer la session
+session_start();
 
-if (isset($_GET['uri'])) {
-    $uri = $_GET['uri'];
+// Récupération de l'URL demandée
+$request = $_SERVER['REQUEST_URI'];
+
+// Définition des routes
+$routes = [
+    '/etudiants' => ['controller' => 'EtudiantController', 'method' => 'index'],
+    '/etudiants/create' => ['controller' => 'EtudiantController', 'method' => 'create'],
+    '/etudiants/edit' => ['controller' => 'EtudiantController', 'method' => 'edit'],
+    '/etudiants/delete' => ['controller' => 'EtudiantController', 'method' => 'delete'],
+    
+    '/pilotes' => ['controller' => 'PiloteController', 'method' => 'index'],
+    '/pilotes/create' => ['controller' => 'PiloteController', 'method' => 'create'],
+    '/pilotes/edit' => ['controller' => 'PiloteController', 'method' => 'edit'],
+    '/pilotes/delete' => ['controller' => 'PiloteController', 'method' => 'delete'],
+
+    '/candidature' => ['controller' => 'CandidatureController', 'method' => 'index'], 
+    '/candidatures/create' => ['controller' => 'CandidatureController', 'method' => 'create'], 
+    '/candidatures/edit/{id}' => ['controller' => 'CandidatureController', 'method' => 'edit'], 
+    '/candidatures/delete/{id}' => ['controller' => 'CandidatureController', 'method' => 'delete'], 
+    '/candidatures/show/{id}' => ['controller' => 'CandidatureController', 'method' => 'show'], 
+    
+    '/entreprise' => ['controller' => 'EntrepriseController', 'method' => 'index'], 
+    '/entreprises/create' => ['controller' => 'EntrepriseController', 'method' => 'create'], 
+    '/entreprises/edit/{id}' => ['controller' => 'EntrepriseController', 'method' => 'edit'],
+    '/entreprises/delete/{id}' => ['controller' => 'EntrepriseController', 'method' => 'delete'], 
+    '/entreprises/show/{id}' => ['controller' => 'EntrepriseController', 'method' => 'show'], 
+
+    '/stages' => ['controller' => 'StageController', 'method' => 'index'],
+    '/stages/create' => ['controller' => 'StageController', 'method' => 'create'], 
+    '/stages/edit/{id}' => ['controller' => 'StageController', 'method' => 'edit'], 
+    '/stages/delete/{id}' => ['controller' => 'StageController', 'method' => 'delete'], 
+    '/stages/show/{id}' => ['controller' => 'StageController', 'method' => 'show'], 
+
+    '/statistiques' => ['controller' => 'StatisticalDashboardController', 'method' => 'index'], 
+    '/statistiques/show/{id}' => ['controller' => 'StatisticalDashboardController', 'method' => 'show'], 
+    
+    '/' => ['controller' => 'HomeController', 'method' => 'index']
+];
+
+// Gestion du routage
+if (array_key_exists($request, $routes)) {
+    $controllerName = "Controllers\\" . $routes[$request]['controller'];
+    $method = $routes[$request]['method'];
+    
+    if (class_exists($controllerName)) {
+        $controller = new $controllerName($dbConnection);
+        if (method_exists($controller, $method)) {
+            $controller->$method();
+        } else {
+            http_response_code(404);
+            echo "Méthode non trouvée";
+        }
+    } else {
+        http_response_code(404);
+        echo "Contrôleur non trouvé";
+    }
 } else {
-    $uri = '/';
-}
-
-$controller = new TaskController($twig);
-
-switch ($uri) {
-    case '/':
-        // TODO : call the welcomePage method of the controller
-        echo 'Welcome page';
-        break;
-    case 'add_task':
-        // TODO : call the addTask method of the controller
-        echo 'Add task action';
-        break;
-    case 'check_task':
-        // TODO : call the checkTask method of the controller
-        echo 'Check task action';
-        break;
-    case 'history':
-        // TODO : call the historyPage method of the controller
-        echo 'History page';
-        break;
-    case 'uncheck_task':
-        // TODO : call the uncheckTask method of the controller
-        echo 'Uncheck task action';
-        break;
-    case 'about':
-        // TODO : call the aboutPage method of the controller
-        echo 'About page';
-        break;
-    default:
-        // TODO : return a 404 error
-        echo '404 Not Found';
-        break;
+    http_response_code(404);
+    echo "Page non trouvée";
 }
