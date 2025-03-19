@@ -1,6 +1,9 @@
 <?php
 
+/*
 require_once 'config/config.php';
+
+// Autoload des classes
 spl_autoload_register(function ($class) {
     $file = 'app/' . str_replace('\\', '/', $class) . '.php';
     if (file_exists($file)) {
@@ -13,6 +16,7 @@ $dbConnection = new DatabaseConnection();
 
 // Démarrer la session
 session_start();
+*/
 
 // Récupération de l'URL demandée
 $request = $_SERVER['REQUEST_URI'];
@@ -53,24 +57,47 @@ $routes = [
     '/' => ['controller' => 'HomeController', 'method' => 'index']
 ];
 
-// Gestion du routage
-if (array_key_exists($request, $routes)) {
-    $controllerName = "Controllers\\" . $routes[$request]['controller'];
-    $method = $routes[$request]['method'];
-    
-    if (class_exists($controllerName)) {
-        $controller = new $controllerName($dbConnection);
-        if (method_exists($controller, $method)) {
-            $controller->$method();
+// Fonction pour extraire les paramètres dynamiques
+function matchRouteWithParams($request, $routes) {
+    foreach ($routes as $route => $controllerData) {
+        // Convertir la route en expression régulière
+        $routePattern = preg_replace('/{(\w+)}/', '(\d+)', $route);  // Remplace les paramètres dynamiques par des groupes de capture
+        $routePattern = '#^' . $routePattern . '$#'; // Ajoute les délimiteurs de début et de fin de chaîne
+
+        if (preg_match($routePattern, $request, $matches)) { // Teste la correspondance de l'URL avec la route
+            // Extraire les paramètres
+            array_shift($matches); // Supprimer le premier élément (qui est l'URL correspondante)
+            return [
+                'controller' => $controllerData['controller'], // Nom du contrôleur à appeler
+                'method' => $controllerData['method'], // Méthode à appeler dans le contrôleur
+                'params' => $matches // Paramètres extraits de l'URL
+            ];
+        }
+    }
+    return null; // Si aucune correspondance n'est trouvée
+}
+
+// Gestion du routage avec paramètres dynamiques
+$routeData = matchRouteWithParams($request, $routes);
+
+if ($routeData) {
+    $controllerName = "Controllers\\" . $routeData['controller']; // Construction du nom complet du contrôleur
+    $method = $routeData['method']; // Récupération du nom de la méthode
+
+    if (class_exists($controllerName)) { // Vérifie si le contrôleur existe
+        $controller = new $controllerName($dbConnection); // Création de l'instance du contrôleur
+        if (method_exists($controller, $method)) { // Vérifie si la méthode existe
+            call_user_func_array([$controller, $method], $routeData['params']); // Appel de la méthode avec les paramètres
         } else {
             http_response_code(404);
-            echo "Méthode non trouvée";
+            echo "Méthode non trouvée"; // Gestion d'erreur si la méthode n'existe pas
         }
     } else {
         http_response_code(404);
-        echo "Contrôleur non trouvé";
+        echo "Contrôleur non trouvé"; // Gestion d'erreur si le contrôleur n'existe pas
     }
 } else {
     http_response_code(404);
-    echo "Page non trouvée";
+    echo "Page non trouvée"; // Gestion d'erreur si aucune route ne correspond
 }
+?>
