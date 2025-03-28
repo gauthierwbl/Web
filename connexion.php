@@ -71,7 +71,14 @@
             <div><input class="formulaire-contact" type="text" name="login" placeholder="Login"></div>
             <div><input class="formulaire-contact" type="password" name="password" placeholder="Password"></div>
             <div><button class="recherche-bouton" type="submit" style="background: rgba(52, 152, 219);">Login</button></div>          
-            <div><button class="recherche-bouton" type="submit" style="background: rgba(52, 152, 219);">Continuer en tant qu'invité</button></div>                    
+            <div>
+  <a href="home.php">
+    <button class="recherche-bouton" type="button" style="background: rgba(52, 152, 219);">
+      Continuer en tant qu'invité
+    </button>
+  </a>
+</div>
+                   
         </form>
         <p class="texte-login">Merci de vous adresser à votre pilote pour toute perte ou oubli de votre mot de passe.</p>
     </div>
