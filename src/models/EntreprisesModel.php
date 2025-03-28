@@ -1,6 +1,6 @@
 <?php
 
-class EntrepriseModel {
+class EntreprisesModel {
     private $pdo;
 
     public function __construct($pdo) {
@@ -10,12 +10,12 @@ class EntrepriseModel {
     // Récupérer toutes les entreprises avec pagination
     public function getEntreprises($page = 1, $limit = 10) {
         $offset = ($page - 1) * $limit;
-        $stmt = $this->pdo->prepare("SELECT * FROM entreprises LIMIT :limit OFFSET :offset");
+        $stmt = $this->pdo->prepare("SELECT * FROM entreprises WHERE is_visible = 1 LIMIT :limit OFFSET :offset");
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }    
 
     // Récupérer le nombre total de pages pour la pagination
     public function getTotalPages($limit = 10) {
@@ -27,16 +27,18 @@ class EntrepriseModel {
     // Créer une nouvelle entreprise
     public function create($nom_entreprise, $id_secteur, $id_fichier = 50, $is_visible = 1) {
         $stmt = $this->pdo->prepare("INSERT INTO entreprises (nom_entreprise, id_secteur, id_fichier, is_visible) VALUES (:nom_entreprise, :id_secteur, :id_fichier, :is_visible)");
-        return $stmt->execute([
-            ':nom_entreprise' => $this->validateInput($nom_entreprise),
-            ':id_secteur' => $id_secteur,
-            ':id_fichier' => $id_fichier,
-            ':is_visible' => $is_visible
-        ]);
+            return $stmt->execute([
+                ':nom_entreprise' => $nom_entreprise,
+                ':id_secteur' => (int)$id_secteur,
+                ':id_fichier' => (int)$id_fichier,
+                ':is_visible' => (int)$is_visible
+            ]);
     }
 
     // Récupérer une entreprise par son ID
     public function getById($id_entreprise) {
+        $id_entreprise = (int)$id_entreprise;
+        
         $stmt = $this->pdo->prepare("SELECT * FROM entreprises WHERE id_entreprise = :id_entreprise");
         $stmt->execute([':id_entreprise' => $id_entreprise]);
         return $stmt->fetch(PDO::FETCH_ASSOC);
@@ -45,18 +47,28 @@ class EntrepriseModel {
     // Mettre à jour une entreprise
     public function update($id_entreprise, $nom_entreprise, $id_secteur, $id_fichier, $is_visible) {
         $stmt = $this->pdo->prepare("UPDATE entreprises SET nom_entreprise = :nom_entreprise, id_secteur = :id_secteur, id_fichier = :id_fichier, is_visible = :is_visible WHERE id_entreprise = :id_entreprise");
-        return $stmt->execute([
-            ':id_entreprise' => $id_entreprise,
-            ':nom_entreprise' => $this->validateInput($nom_entreprise),
-            ':id_secteur' => $id_secteur,
-            ':id_fichier' => $id_fichier,
-            ':is_visible' => $is_visible
-        ]);
+            return $stmt->execute([
+                ':id_entreprise' => (int)$id_entreprise,
+                ':nom_entreprise' => $nom_entreprise,
+                ':id_secteur' => (int)$id_secteur,
+                ':id_fichier' => (int)$id_fichier,
+                ':is_visible' => (int)$is_visible
+            ]);
     }
 
     // Supprimer une entreprise
     public function delete($id_entreprise) {
         $stmt = $this->pdo->prepare("DELETE FROM entreprises WHERE id_entreprise = :id_entreprise");
-        return $stmt->execute([':id_entreprise' => $id_entreprise]);
+        $stmt->execute([':id_entreprise' => $id_entreprise]);
+    }
+
+    // Validation et nettoyage des entrées
+    public function validateInput($input) {
+        $pattern = "/^[a-zA-Z0-9\s\p{L}-]+$/u"; // Permet les lettres, chiffres et espaces, y compris les caractères spéciaux comme accents
+        $input = trim($input); // Nettoyer les espaces superflus
+        if (!preg_match($pattern, $input)) {
+            die("Erreur : Données invalides détectées.");
+        }
+        return htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); // Protection contre les injections XSS
     }
 }

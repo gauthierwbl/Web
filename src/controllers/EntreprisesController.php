@@ -1,6 +1,6 @@
 <?php
 require_once 'models/Database.php';
-require_once 'models/EntrepriseModel.php';
+require_once 'models/EntreprisesModel.php';
 
 class EntreprisesController {
     private $model;
@@ -8,7 +8,7 @@ class EntreprisesController {
 
     public function __construct() {
         $this->pdo = Database::getConnection();
-        $this->model = new EntrepriseModel($this->pdo);
+        $this->model = new EntreprisesModel($this->pdo);
     }
 
     // Afficher les entreprises avec pagination
@@ -43,12 +43,14 @@ class EntreprisesController {
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Récupérer les données du formulaire
-            $nom = $_POST['nom'] ?? '';
-            $secteur = $_POST['secteur'] ?? '';
-            $ville = $_POST['ville'] ?? '';
+            $nom_entreprise = $_POST['nom_entreprise'] ?? '';
+            $id_secteur = $_POST['id_secteur'] ?? '';
+            $id_fichier = $_POST['id_fichier'] ?? '';
+            $is_visible = isset($_POST['is_visible']) ? 1 : 0;
+
 
             // Appeler la méthode du modèle pour créer l'entreprise
-            $this->model->create($nom, $secteur, $ville);
+            $this->model->create($nom_entreprise, $id_secteur, $id_fichier, $is_visible);
 
             // Rediriger vers la page principale des entreprises
             header("Location: index.php?action=index");
@@ -72,12 +74,13 @@ class EntreprisesController {
     public function update($id) {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Récupérer les données du formulaire
-            $nom = $_POST['nom'] ?? '';
-            $secteur = $_POST['secteur'] ?? '';
-            $ville = $_POST['ville'] ?? '';
+            $nom_entreprise = $_POST['nom_entreprise'] ?? '';
+            $id_secteur = $_POST['id_secteur'] ?? '';
+            $id_fichier = $_POST['id_fichier'] ?? '';
+            $is_visible = isset($_POST['is_visible']) ? 1 : 0;
 
             // Appeler la méthode du modèle pour mettre à jour l'entreprise
-            $this->model->update($id, $nom, $secteur, $ville);
+            $this->model->update($id, $nom_entreprise, $id_secteur, $id_fichier, $is_visible);
 
             // Rediriger vers la page principale des entreprises
             header("Location: index.php?action=index");
