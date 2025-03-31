@@ -1,5 +1,15 @@
 <?php
-session_start();
+
+
+
+
+echo '<head>';
+echo '<link rel="stylesheet" href="src/Views/css/styles.css">';
+echo '<link rel="stylesheet" href="src/Views/css/animate.min.css">';
+echo '<link rel="stylesheet" href="src/Views/css/style-admin.css">';
+echo '<link rel="stylesheet" href="src/Views/css/Footer-Basic-icons.css">';
+
+echo '</head>';
 
 require_once 'src/models/Database.php';
 
@@ -8,16 +18,6 @@ require_once 'src/models/Database.php';
 $pdo = (new Database())->getConnection();
 
 
-
-// Menu de navigation (si connecté)
-echo '<nav>
-    <ul>
-        <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-        <li><a href="index.php?module=offres&action=index">Offres</a></li>
-        <li><a href="index.php?action=traitement">Téléchargement</a></li>
-        <li><a href="views/logout.php">Déconnexion</a></li>
-    </ul>
-</nav>';
 
 // Détermination du module et de l'action
 $module = $_GET['module'] ?? 'offres';  // Par défaut, afficher les offres

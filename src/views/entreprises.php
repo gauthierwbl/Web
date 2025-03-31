@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<body style="background-image: url('img/background.png');">
+<body style="background-image: url('src/Views/img/background.png');">
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
                 <a href="home.php">
                     <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                        <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                     </label>
                 </a>
             </div>
