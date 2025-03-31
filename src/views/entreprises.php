@@ -53,7 +53,9 @@
 
     <?php
     function getLogoUrl($companyName) {
-        $clearbitUrl = "https://logo.clearbit.com/" . urlencode($companyName) . ".com";
+        // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
+        $formattedName = strtolower(str_replace(' ', '', $companyName));
+        $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
 
         // Vérifier si l'image existe
         $headers = @get_headers($clearbitUrl);
@@ -64,24 +66,25 @@
         // Si aucun logo n'est trouvé, utiliser une image par défaut
         return "src/Views/img/uploads/default.png";
     }
+
     if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
     <div class="container-entreprise">
         <?php foreach ($entreprisesAffichees as $e): ?>
             <div class="entreprise">
-                <img src="img/uploads/default.png" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
                 <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
                 <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
                 <div style="margin: 10px 0;">
                     <?php for ($i = 0; $i < 5; $i++): ?>
-                        <img class="etoile" src="img/etoile.png" alt="Star">
+                        <img class="etoile" src="src/Views/img/etoile.png" alt="Star">
                     <?php endfor; ?>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
-<?php else: ?>
+    <?php else: ?>
     <p style="color: red;">Aucune entreprise trouvée.</p>
-<?php endif; ?>
+    <?php endif; ?>
 
 <div class="pagination">
     <?php if (isset($pageActuelle) && isset($totalPages)): ?>
@@ -129,5 +132,4 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
 </body>
-</html><h2>Entreprises Partenaires</h2>
 
