@@ -185,15 +185,15 @@
     <div class="pagination">
         <?php if (isset($pageActuelle) && isset($totalPages)): ?>
             <?php if ($pageActuelle > 1): ?>
-                <a href="index.php?module=stages&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+                <a href="index.php?module=Stages&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="index.php?module=stages&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+                <a href="index.php?module=Stages&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
             <?php endfor; ?>
 
             <?php if ($pageActuelle < $totalPages): ?>
-                <a href="index.php?module=stages&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+                <a href="index.php?module=Stages&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
             <?php endif; ?>
         <?php endif; ?>
     </div>

@@ -1,97 +1,80 @@
-<?php
-// Inclure le contrôleur
-
-require_once 'src/models/Database.php';
-require_once 'src/controllers/StagesController.php';
-
-// Créer une instance de la connexion à la base de données
-$db = Database::getConnection();
-
-// Créer une instance du contrôleur
-$wishlistController = new WishlistController($db);
-
-// Récupérer l'ID de l'utilisateur (pour l'exemple, on suppose que l'utilisateur est déjà connecté et que l'ID est disponible)
-$id_utilisateur = $_SESSION['id_utilisateur'];  // Assurez-vous que l'utilisateur est connecté et que son ID est dans la session
-
-// Récupérer la wishlist de l'utilisateur
-$wishlist = $wishlistController->showWishlist($id_utilisateur);
-?>
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Wishlist</title>
+    <title>Ma Wishlist</title>
     <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 </head>
 <body style="background-image: url('img/background.png');">
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
                 <a href="/">
-                    <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
-                    </label>
+                    <img class="logo" src="img/logo.png" alt="logo_img"/>
                 </a>
             </div>
             <div class="milieu">
                 <ul>
-                    <li><a href="/entreprise">Entreprises</a></li>
-                    <li><a href="/offre">Offres</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><button id="bouton-projets">Menu</button></li>
+                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
                 </ul>
-                <div id="icons"></div>
-                <div class="droite">
-                    <a href="/profile">
-                        <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
-                        </label>
-                    </a>
-                </div>
+            </div>
+            <div class="droite">
+                <a href="/profile">
+                    <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                </a>
             </div>
         </section>
     </header>
-    
-    <div class="titre-contact">Ma wishlist</div>
 
-<div class="offer">
-    <div>
-        <a class="no-decoration" href="">
-            <img class="image-offre" src="img/uploads/google.png">
-            <h4 class="texte-offre">Développeur Web Front-End</h4>
-        </a>
-    </div>
-    <div>
-        <h6>Date de l'offre: 2025-02-20 </h6>
-        <p class="description-offre">Description: Titre du poste : Ingénieur Développeur Frontend Description du poste : En tant qu'ingénieur développeur Frontend chez Google,...</p>
-        <p><a href="" class="voir-plus-offre">Voir Plus</a></p>
-        <form action="" method="POST" onsubmit="return confirm('Voulez vous supprimer')">
-            <button class="retirer-offre">Retirer</button>
-        </form>
-    </div>
-</div>
-<div class="offer">
-    <div>
-        <a class="no-decoration" href="">
-            <img class="image-offre" src="img/uploads/google.png">
-            <h4 class="texte-offre">Développeur Web Back-End</h4>
-        </a>
-    </div>
-    <div>
-        <h6>Date de l'offre: 2025-02-20 </h6>
-        <p class="description-offre">Description: Titre du poste : Ingénieur Développeur Backend Description du poste : En tant qu'ingénieur développeur Backend chez Google,...</p>
-        <p><a href="" class="voir-plus-offre">Voir Plus</a></p>
-        <form action="" method="POST" onsubmit="return confirm('Voulez vous supprimer')">
-            <button class="retirer-offre">Retirer</button>
-        </form>
-    </div>
-</div>
+    <div class="titre-entreprise">Ma Wishlist</div>
+    <p class="texte-entreprise">Voici les offres que vous avez enregistrées.</p>
 
-    
+    <main class="container-entreprise">
+        <section class="offres">
+            <?php if (!empty($offres)): ?>
+                <?php foreach ($offres as $offre): ?>
+                    <div class="offer">
+                        <div class="offre-header">
+                            <img src="img/uploads/default.png" alt="Logo Entreprise" class="image-offre">
+                            <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
+                        </div>
+                        <p class="description-offre">
+                            <strong>Description :</strong> <?= nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'], 0, 100, '...'))) ?><br>
+                            <strong>Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
+                        </p>
+                        <div class="offre-footer">
+                            <a class="wishlist like like-active" href="index.php?module=wishlist&action=delete&id=<?= $offre['id_offre'] ?>" title="Retirer de la wishlist" onclick="return confirm('Retirer cette offre de votre liste ?');"></a>
+                            <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p style="color: red;">Vous n'avez aucune offre dans votre wishlist.</p>
+            <?php endif; ?>
+        </section>
+    </main>
+
+     <!-- Pagination -->
+     <div class="pagination">
+        <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+            <?php if ($pageActuelle > 1): ?>
+                <a href="index.php?module=Wishlist&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+            <?php endif; ?>
+
+            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                <a href="index.php?module=Wishlist&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+            <?php endfor; ?>
+
+            <?php if ($pageActuelle < $totalPages): ?>
+                <a href="index.php?module=Wishlist&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+            <?php endif; ?>
+        <?php endif; ?>
+    </div>
+
+    <!-- Footer -->
     <footer class="text-center" id="footer">
         <div class="container">
             <ul class="list-inline">
@@ -122,3 +105,4 @@ $wishlist = $wishlistController->showWishlist($id_utilisateur);
     </footer>
 </body>
 </html>
+

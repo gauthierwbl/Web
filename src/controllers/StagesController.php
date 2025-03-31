@@ -1,4 +1,6 @@
 <?php
+
+require_once 'src/models/Database.php';
 require_once 'src/models/StagesModel.php';
 
 class StagesController {
