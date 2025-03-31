@@ -44,96 +44,63 @@
         </div>
     </div>
     
-    <form action="" method="get" class="text-center">
-        <div>
-            <input class="recherche" type="search" name="terme">
-            <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
-        </div>
-    </form>
-    <main class="container-entreprise">
-        <section class="offres">
-    
-            <!-- Offre 1 -->
-            <div class="offer">
-                <div class="offre-header">
-                    <img src="img/uploads/google.png" alt="Google Logo" class="image-offre">
-                    <h2 class="texte-offre">Développeur Web Front-End</h2>
-                </div>
-                <p class="description-offre">
-                    <strong>Titre du poste :</strong> Ingénieur Développeur Frontend <br>
-                    <strong>Description :</strong> En tant qu'ingénieur développeur Frontend chez Google, vous travaillerez sur des applications innovantes...
-                </p>
-                <div class="offre-footer">
-                    <div class="start-offre">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                    </div>
-                    <button class="wishlist like like-active" id="wishlist_1" name="1"></button>
-                    <button class="voir-plus-offre">Voir Plus</button>
-                </div>
-            </div>
-    
-            <!-- Offre 2 -->
-            <div class="offer">
-                <div class="offre-header">
-                    <img src="img/uploads/adobe.png" alt="Adobe Logo" class="image-offre">
-                    <h2 class="texte-offre">Responsable bureau d'études</h2>
-                </div>
-                <p class="description-offre">
-                    <strong>Titre :</strong> Responsable Bureau d'Études <br>
-                    <strong>Description :</strong> Vous serez en charge de la gestion et du développement des projets d'étude...
-                </p>
-                <div class="offre-footer">
-                    <div class="start-offre">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                    </div>
-                    <button class="wishlist like like-active" id="wishlist_2" name="2"></button>
-                    <button class="voir-plus-offre">Voir Plus</button>
-                </div>
-            </div>
-    
-            <!-- Offre 3 -->
-            <div class="offer">
-                <div class="offre-header">
-                    <img src="img/uploads/Microsoft.png" alt="Microsoft Logo" class="image-offre">
-                    <h2 class="texte-offre">Chargé d'affaires industrie</h2>
-                </div>
-                <p class="description-offre">
-                    <strong>Titre :</strong> Chargé d'Affaires Industrie <br>
-                    <strong>Description :</strong> En tant que chargé d'affaires, vous serez responsable du développement commercial de l'entreprise...
-                </p>
-                <div class="offre-footer">
-                    <div class="start-offre">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                    </div>
-                    <button class="wishlist like like-active" id="wishlist_3" name="3"></button>
-                    <button class="voir-plus-offre">Voir Plus</button>
-                </div>
-            </div>
-    
-        </section>
-    </main>
-    
-    <div class="container-pagination">
-        <div class="container-pagination-precedente">
-            <a class="pagination-entreprise-precedente" href="#">Page Précédente</a> 
-        </div>
-    
-        <div class="container-pagination-suivante">
-            <a class="pagination-entreprise-suivante" href="#">Page Suivante</a>
-        </div>
+    <form action="index.php?module=offres&action=index" method="get" class="text-center">
+    <div>
+        <input class="recherche" type="search" name="terme" placeholder="Rechercher une offre">
+        <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
     </div>
+</form>
+
+<main class="container-entreprise">
+    <section class="offres">
+        <?php if (isset($offresAffichees) && is_array($offresAffichees) && count($offresAffichees) > 0): ?>
+            <?php foreach ($offresAffichees as $offre): ?>
+                <div class="offer">
+                    <div class="offre-header">
+                        <img src="img/uploads/default.png" alt="Logo Entreprise" class="image-offre">
+                        <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
+                    </div>
+                    <p class="description-offre">
+                        <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br>
+                        <strong>Description :</strong> 
+                        <?= nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'], 0, 100, '...'))) ?><br>
+                        <strong>ID Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
+                    </p>
+                    <div class="offre-footer">
+                        <div class="start-offre">
+                            <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                            <img class="etoile active" src="img/etoile.png" alt="etoile active">
+                            <img class="etoile" src="img/etoile.png" alt="etoile">
+                            <img class="etoile" src="img/etoile.png" alt="etoile">
+                            <img class="etoile" src="img/etoile.png" alt="etoile">
+                        </div>
+                        <a class="wishlist like" href="#" title="Ajouter aux favoris"></a>
+                        <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p style="color: red;">Aucune offre trouvée.</p>
+        <?php endif; ?>
+    </section>
+</main>
+
+    
+    <div class="pagination">
+    <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+        <?php if ($pageActuelle > 1): ?>
+            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="index.php?module=offres&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($pageActuelle < $totalPages): ?>
+            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
     
     <footer class="text-center" id="footer">
         <div class="container">
