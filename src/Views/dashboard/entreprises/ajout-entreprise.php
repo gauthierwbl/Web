@@ -89,7 +89,7 @@
 
     <div class="container-modifier">
       <h1 class="grand-titre">Nouvelle entreprise</h1>
-      <form action="" method="POST" enctype="multipart/form-data" class="verif">
+      <form method="POST" action="index.php?module=entreprises&action=store" enctype="multipart/form-data" class="verif">
         <div class="form-group">
           <label for="nomEnt">Nom Entreprise</label>
           <input type="text" name="nomEnt" id="nomEnt" class="form-control" value="">

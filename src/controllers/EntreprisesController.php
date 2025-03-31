@@ -53,7 +53,7 @@ class EntreprisesController {
             $this->model->create($nom_entreprise, $id_secteur, $id_fichier, $is_visible);
 
             // Rediriger vers la page principale des entreprises
-            header("Location: index.php?action=index");
+            header("Location: index.php?module=entreprises&action=index");
             exit;
         }
     }
@@ -83,7 +83,7 @@ class EntreprisesController {
             $this->model->update($id, $nom_entreprise, $id_secteur, $id_fichier, $is_visible);
 
             // Rediriger vers la page principale des entreprises
-            header("Location: index.php?action=index");
+            header("Location: index.php?module=entreprises&action=index");
             exit;
         }
     }
@@ -94,7 +94,7 @@ class EntreprisesController {
         $this->model->delete($id);
 
         // Rediriger vers la page principale des entreprises
-        header("Location: index.php?action=index");
+        header("Location: index.php?module=entreprises&action=index");
         exit;
     }
 }

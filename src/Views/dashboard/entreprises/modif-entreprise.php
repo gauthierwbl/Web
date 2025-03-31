@@ -91,7 +91,7 @@
       <h1 class="grand-titre">Nom de l'Entreprise</h1>
       <link rel="stylesheet" href="css/style-admin.css">
 
-      <form action="" method="POST" class="verif">
+      <form action="index.php?module=entreprises&action=update&id=<?= htmlspecialchars($entreprise['id_entreprise']) ?>" method="post" class="verif">
         <div class="form-group">
           <label for="nomEnt">Nom Entreprise</label>
           <input type="text" name="nomEnt" id="nomEnt" class="form-control" value="Nom de l'Entreprise">
