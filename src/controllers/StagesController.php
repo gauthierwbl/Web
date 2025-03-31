@@ -13,7 +13,7 @@ class StagesController {
 
     // Afficher les stages validés avec pagination
     public function index() {
-        $stagesParPage = 10;  // Nombre de stages par page
+        $stagesParPage = 2;  // Nombre de stages par page
         $pageActuelle = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 
         $stagesAffiches = $this->model->getStagesValides($pageActuelle, $stagesParPage);

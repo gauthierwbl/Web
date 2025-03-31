@@ -5,10 +5,11 @@ require_once 'src/models/WishlistModel.php';
 
 class WishlistController {
     private $model;
+    private $pdo;
 
     public function __construct() {
-        session_start(); // obligatoire si ce n'est pas déjà fait
-        $_SESSION['id_utilisateurs'] = 1; // <--- utilisateur simulé
+        session_start(); // obligatoire
+        $_SESSION['id_utilisateur'] = 1; // Simuler un utilisateur
         $this->pdo = Database::getConnection();
         $this->model = new WishlistModel($this->pdo);
     }    
@@ -17,7 +18,16 @@ class WishlistController {
         $userId = $_SESSION['id_utilisateur'] ?? null;
         if (!$userId) die("Utilisateur non connecté.");
 
-        $offres = $this->model->getWishlistByUser($userId);
+        $offresParPage = 2;
+        $pageActuelle = isset($_GET["page"]) && ctype_digit($_GET["page"]) && (int)$_GET["page"] > 0
+            ? (int)$_GET["page"]
+            : 1;
+
+        $totalPages = $this->model->getTotalPages($userId, $offresParPage);
+        $pageActuelle = min($pageActuelle, $totalPages);
+
+        $offres = $this->model->getWishlistByUser($userId, $pageActuelle, $offresParPage);
+
         require 'src/views/wishlist.php';
     }
 

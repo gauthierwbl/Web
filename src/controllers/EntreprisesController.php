@@ -13,7 +13,7 @@ class EntreprisesController {
 
     // Afficher les entreprises avec pagination
     public function index() {
-        $entreprisesParPage = 10; // Nombre d'entreprises par page
+        $entreprisesParPage = 8; // Nombre d'entreprises par page
         $totalPages = $this->model->getTotalPages($entreprisesParPage); // Calcul des pages
 
         $pageActuelle = 1;

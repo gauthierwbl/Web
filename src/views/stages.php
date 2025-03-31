@@ -4,112 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Stages Validés - Pagination</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-
-        h2 {
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-
-        th, td {
-            padding: 15px;
-            text-align: left;
-        }
-
-        th {
-            background-color: #343a40;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        tr:hover { background-color: #ddd; }
-
-        .pagination {
-            margin-top: 20px;
-        }
-
-        .pagination a {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            transition: all 0.3s ease-in-out;
-        }
-
-        .pagination a:hover {
-            background-color: #343a40;
-            color: white;
-            border-color: #343a40;
-        }
-
-        .pagination a.active {
-            background-color: #007bff;
-            color: white;
-            border-color: #007bff;
-            font-weight: bold;
-        }
-
-        .icon-link {
-            text-decoration: none;
-            font-size: 20px;
-        }
-
-        .container-entreprise {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            width: 80%;
-            margin: 0 auto;
-        }
-
-        .entreprise {
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            padding: 15px;
-            background: white;
-            text-align: center;
-            width: calc(33.33% - 20px); /* 3 items per row */
-        }
-
-        .entreprise img.card-img-top {
-            max-width: 100%;
-            height: auto;
-            border-radius: 8px;
-        }
-
-        .etoile {
-            width: 20px; /* Adjust size as needed */
-            height: auto;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
 </head>
-<body style="background-image: url('img/background.png');">
+<body style="background-image: url('src/Views/img/background.png');">
 
     <!-- Navbar -->
     <header class="navbar">
@@ -117,7 +14,7 @@
             <div class="gauche">
                 <a href="/">
                     <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                     </label>
                 </a>
             </div>
@@ -132,7 +29,7 @@
                 <div class="droite">
                     <a href="/profile">
                         <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                         </label>
                     </a>
                 </div>
@@ -158,7 +55,23 @@
     <!-- Stages Container -->
     <main class="container-entreprise">
         <section class="offres">
-            <?php if (isset($stagesAffiches) && is_array($stagesAffiches) && count($stagesAffiches) > 0): ?>
+            <?php
+            function getLogoUrl($companyName) {
+                // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
+                $formattedName = strtolower(str_replace(' ', '', $companyName));
+                $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
+        
+                // Vérifier si l'image existe
+                $headers = @get_headers($clearbitUrl);
+                if ($headers && strpos($headers[0], '200')) {
+                    return $clearbitUrl;
+                }
+        
+                // Si aucun logo n'est trouvé, utiliser une image par défaut
+                return "src/Views/img/uploads/default.png";
+            }
+
+            if (isset($stagesAffiches) && is_array($stagesAffiches) && count($stagesAffiches) > 0): ?>
                 <?php foreach ($stagesAffiches as $stage): ?>
                     <div class="offer">
                         <div class="offre-header">

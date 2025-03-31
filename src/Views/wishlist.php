@@ -6,12 +6,12 @@
     <title>Ma Wishlist</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body style="background-image: url('img/background.png');">
+<body style="background-image: url('src/Views/img/background.png');">
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
                 <a href="/">
-                    <img class="logo" src="img/logo.png" alt="logo_img"/>
+                <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                 </a>
             </div>
             <div class="milieu">
@@ -23,7 +23,7 @@
             </div>
             <div class="droite">
                 <a href="/profile">
-                    <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                 </a>
             </div>
         </section>

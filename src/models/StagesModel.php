@@ -26,7 +26,7 @@ class StagesModel {
     }    
 
     // Récupérer le nombre total de pages pour les stages validés
-    public function getTotalPages($stagesParPage = 10) {
+    public function getTotalPages($stagesParPage = 2) {
         $stmt = $this->pdo->prepare("
             SELECT COUNT(*) 
             FROM offres o
