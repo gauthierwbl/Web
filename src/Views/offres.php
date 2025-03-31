@@ -124,6 +124,7 @@
                         <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
                     </div>
                     <p class="description-offre">
+                        <strong>Entreprise :</strong> <?= htmlspecialchars($offre['nom_entreprise']) ?><br>
                         <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br>
                         <strong>Description :</strong> 
                         <?= nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'], 0, 100, '...'))) ?><br>
@@ -147,6 +148,7 @@
         <?php endif; ?>
     </section>
 </main>
+
 
     
     <div class="pagination">

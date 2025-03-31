@@ -9,7 +9,7 @@ class OffresModel {
     // Récupérer toutes les offres avec pagination
     public function getOffres($page, $offresParPage) {
         $offset = ($page - 1) * $offresParPage;
-        $query = "SELECT * FROM offres LIMIT :offset, :offresParPage";
+        $query = "SELECT o.*, e.nom_entreprise FROM offres o JOIN entreprises e ON o.id_entreprise = e.id_entreprise LIMIT :offset, :offresParPage";
         $stmt = $this->pdo->prepare($query);
         $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
         $stmt->bindParam(':offresParPage', $offresParPage, PDO::PARAM_INT);
