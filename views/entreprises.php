@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Entreprise</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+</head>
+<body style="background-image: url('img/background.png');">
+    <header class="navbar">
+        <section class="contenu-nav">
+            <div class="gauche">
+                <a href="home.php">
+                    <label>
+                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                    </label>
+                </a>
+            </div>
+            <div class="milieu">
+                <ul>
+                    <li><a href="/entreprise">Entreprises</a></li>
+                    <li><a href="/offre">Offres</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><button id="bouton-projets">Menu</button></li>
+                </ul>
+                <div id="icons"></div>
+                <div class="droite">
+                    <a href="profil.php">
+                        <label>
+                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                        </label>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </header>
+    
+    <div>
+        <div>
+            <div class="titre-entreprise">Entreprises</div>
+            <p class="texte-entreprise">Vous retrouverez ci-dessous toutes les entreprises proposant des stages sur notre site.</p>
+        </div>
+    </div>
+    
+    <form action="" method="get" class="text-center">
+        <div>
+            <input class="recherche" type="search" name="terme">
+            <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
+        </div>
+    </form>
+
+    <h2>Entreprises Partenaires</h2>
+
+<?php if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
+    <div class="container-entreprise">
+        <?php foreach ($entreprisesAffichees as $e): ?>
+            <div class="entreprise">
+                <img src="img/uploads/default.png" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
+                <div style="margin: 10px 0;">
+                    <?php for ($i = 0; $i < 5; $i++): ?>
+                        <img class="etoile" src="img/etoile.png" alt="Star">
+                    <?php endfor; ?>
+                </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
+<?php else: ?>
+    <p style="color: red;">Aucune entreprise trouvée.</p>
+<?php endif; ?>
+
+<div class="pagination">
+    <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+        <?php if ($pageActuelle > 1): ?>
+            <a href="?page=<?= $pageActuelle - 1 ?>">Précédent</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="?page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($pageActuelle < $totalPages): ?>
+            <a href="?page=<?= $pageActuelle + 1 ?>">Suivant</a>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
+    
+    
+    
+    
+    <footer class="text-center" id="footer">
+        <div class="container">
+            <ul class="list-inline">
+                <li class="list-inline-item me-4"><a class="link-secondary" href="condition-general.php">Conditions générales</a></li>
+            </ul><br>
+        </div>
+        <div class="wrapper">
+            <div class="button-footer" id="button-footer-facebook">
+                <div class="icon">
+                    <a href="https://www.facebook.com/profile.php?id=61557360210487" aria-label="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
+                </div>
+                <a href="https://www.facebook.com/profile.php?id=61557360210487">Visitez notre page Facebook</a>
+            </div>
+            <div class="button-footer" id="button-footer-twitter">
+                <div class="icon">
+                    <a href="https://twitter.com/Cesi_Ton_Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
+                </div>
+                <a href="https://twitter.com/Cesi_Ton_Stage">Suivez-nous sur Twitter</a>
+            </div>
+            <div class="button-footer" id="button-footer-instagram">
+                <div class="icon">
+                    <a href="https://www.instagram.com/cesi_ton_stage/" aria-label="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
+                </div>
+                <a href="https://www.instagram.com/cesi_ton_stage/">Découvrez-nous sur Instagram</a>
+            </div>
+        </div>
+        <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
+    </footer>
+</body>
+</html>
+
