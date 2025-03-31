@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,7 +14,7 @@
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
-                <a href="/">
+                <a href="home.php">
                     <label>
                         <img class="logo" src="img/logo.png" alt="logo_img"/>
                     </label>
@@ -27,7 +29,7 @@
                 </ul>
                 <div id="icons"></div>
                 <div class="droite">
-                    <a href="/profile">
+                    <a href="profil.php">
                         <label>
                             <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
                         </label>
@@ -51,76 +53,40 @@
         </div>
     </form>
 
+    <?php if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
     <div class="container-entreprise">
-        <div class="entreprise">
-            <a href="#">
-                <img src="img/uploads/google.png" alt="Google - Logo de l'entreprise" style="width: 20%;" class="card-img-top">
-            </a>
-            <h5>Google</h5>
-            <div>
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
+        <?php foreach ($entreprisesAffichees as $e): ?>
+            <div class="entreprise">
+                <img src="img/uploads/default.png" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
+                <div style="margin: 10px 0;">
+                    <?php for ($i = 0; $i < 5; $i++): ?>
+                        <img class="etoile" src="img/etoile.png" alt="Star">
+                    <?php endfor; ?>
+                </div>
             </div>
-        </div>
-    
-        <div class="entreprise">
-            <a href="#">
-                <img src="img/uploads/google.png" alt="Microsoft - Logo de l'entreprise" style="width: 20%;" class="card-img-top">
-            </a>
-            <h5>Microsoft</h5>
-            <div>
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-            </div>
-        </div>
-    
-        <div class="entreprise">
-            <a href="#">
-                <img src="img/uploads/google.png" alt="Amazon - Logo de l'entreprise" style="width: 20%;" class="card-img-top">
-            </a>
-            <h5>Amazon</h5>
-            <div>
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-            </div>
-        </div>
-    
-        <div class="entreprise">
-            <a href="#">
-                <img src="img/uploads/google.png" alt="Apple - Logo de l'entreprise" style="width: 20%;" class="card-img-top">
-            </a>
-            <h5>Apple</h5>
-            <div>
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-                <img class="etoile" src="img/etoile.png" alt="Star">
-            </div>
-        </div>
+        <?php endforeach; ?>
     </div>
-    
-    
-    
-    
-    <div class="container-pagination">
-        <div class="container-pagination-precedente">
-            <a class="pagination-entreprise-precedente" href="#">Page Précédente</a> 
-        </div>
-    
-        <div class="container-pagination-suivante">
-            <a class="pagination-entreprise-suivante" href="#">Page Suivante</a>
-        </div>
-    </div>
+<?php else: ?>
+    <p style="color: red;">Aucune entreprise trouvée.</p>
+<?php endif; ?>
+
+<div class="pagination">
+    <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+        <?php if ($pageActuelle > 1): ?>
+            <a href="?page=<?= $pageActuelle - 1 ?>">Précédent</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="?page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($pageActuelle < $totalPages): ?>
+            <a href="?page=<?= $pageActuelle + 1 ?>">Suivant</a>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
     
     
     
@@ -128,7 +94,7 @@
     <footer class="text-center" id="footer">
         <div class="container">
             <ul class="list-inline">
-                <li class="list-inline-item me-4"><a class="link-secondary" href="/condition">Conditions générales</a></li>
+                <li class="list-inline-item me-4"><a class="link-secondary" href="condition-general.php">Conditions générales</a></li>
             </ul><br>
         </div>
         <div class="wrapper">
@@ -154,4 +120,5 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
 </body>
-</html>
+</html><h2>Entreprises Partenaires</h2>
+

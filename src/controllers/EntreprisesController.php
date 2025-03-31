@@ -31,7 +31,7 @@ class EntreprisesController {
             echo "<p style='color: red;'>⚠️ Erreur : Aucun résultat trouvé.</p>";
         }
 
-        require 'views/entreprise.php'; // Passer les données à la vue
+        require 'Views/entreprise.php'; // Passer les données à la vue
     }
 
     // Afficher le formulaire de création d'entreprise

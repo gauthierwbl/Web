@@ -1,103 +1,73 @@
 <?php
-
-/*
-require_once 'config/config.php';
-
-// Autoload des classes
-spl_autoload_register(function ($class) {
-    $file = 'app/' . str_replace('\\', '/', $class) . '.php';
-    if (file_exists($file)) {
-        require_once $file;
-    }
-});
-
-// Initialisation de la connexion à la base de données
-$dbConnection = new DatabaseConnection();
-
-// Démarrer la session
 session_start();
-*/
 
-// Récupération de l'URL demandée
-$request = $_SERVER['REQUEST_URI'];
+require_once 'models/Database.php';
+require_once 'models/UserModel.php';
 
-// Définition des routes
-$routes = [
-    '/etudiants' => ['controller' => 'EtudiantController', 'method' => 'index'],
-    '/etudiants/create' => ['controller' => 'EtudiantController', 'method' => 'create'],
-    '/etudiants/edit' => ['controller' => 'EtudiantController', 'method' => 'edit'],
-    '/etudiants/delete' => ['controller' => 'EtudiantController', 'method' => 'delete'],
-    
-    '/pilotes' => ['controller' => 'PiloteController', 'method' => 'index'],
-    '/pilotes/create' => ['controller' => 'PiloteController', 'method' => 'create'],
-    '/pilotes/edit' => ['controller' => 'PiloteController', 'method' => 'edit'],
-    '/pilotes/delete' => ['controller' => 'PiloteController', 'method' => 'delete'],
+// Connexion à la BDD
+$pdo = (new Database())->getConnection();
+$authController = new AuthController($pdo);
 
-    '/candidature' => ['controller' => 'CandidatureController', 'method' => 'index'], 
-    '/candidatures/create' => ['controller' => 'CandidatureController', 'method' => 'create'], 
-    '/candidatures/edit/{id}' => ['controller' => 'CandidatureController', 'method' => 'edit'], 
-    '/candidatures/delete/{id}' => ['controller' => 'CandidatureController', 'method' => 'delete'], 
-    '/candidatures/show/{id}' => ['controller' => 'CandidatureController', 'method' => 'show'], 
-    
-    '/entreprise' => ['controller' => 'EntrepriseController', 'method' => 'index'], 
-    '/entreprises/create' => ['controller' => 'EntrepriseController', 'method' => 'create'], 
-    '/entreprises/edit/{id}' => ['controller' => 'EntrepriseController', 'method' => 'edit'],
-    '/entreprises/delete/{id}' => ['controller' => 'EntrepriseController', 'method' => 'delete'], 
-    '/entreprises/show/{id}' => ['controller' => 'EntrepriseController', 'method' => 'show'], 
-
-    '/stages' => ['controller' => 'StageController', 'method' => 'index'],
-    '/stages/create' => ['controller' => 'StageController', 'method' => 'create'], 
-    '/stages/edit/{id}' => ['controller' => 'StageController', 'method' => 'edit'], 
-    '/stages/delete/{id}' => ['controller' => 'StageController', 'method' => 'delete'], 
-    '/stages/show/{id}' => ['controller' => 'StageController', 'method' => 'show'], 
-
-    '/statistiques' => ['controller' => 'StatisticalDashboardController', 'method' => 'index'], 
-    '/statistiques/show/{id}' => ['controller' => 'StatisticalDashboardController', 'method' => 'show'], 
-    
-    '/' => ['controller' => 'HomeController', 'method' => 'index']
-];
-
-// Fonction pour extraire les paramètres dynamiques
-function matchRouteWithParams($request, $routes) {
-    foreach ($routes as $route => $controllerData) {
-        // Convertir la route en expression régulière
-        $routePattern = preg_replace('/{(\w+)}/', '(\d+)', $route);  // Remplace les paramètres dynamiques par des groupes de capture
-        $routePattern = '#^' . $routePattern . '$#'; // Ajoute les délimiteurs de début et de fin de chaîne
-
-        if (preg_match($routePattern, $request, $matches)) { // Teste la correspondance de l'URL avec la route
-            // Extraire les paramètres
-            array_shift($matches); // Supprimer le premier élément (qui est l'URL correspondante)
-            return [
-                'controller' => $controllerData['controller'], // Nom du contrôleur à appeler
-                'method' => $controllerData['method'], // Méthode à appeler dans le contrôleur
-                'params' => $matches // Paramètres extraits de l'URL
-            ];
-        }
-    }
-    return null; // Si aucune correspondance n'est trouvée
+// Traitement login POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
+    $authController->login();
+    exit;
 }
 
-// Gestion du routage avec paramètres dynamiques
-$routeData = matchRouteWithParams($request, $routes);
-
-if ($routeData) {
-    $controllerName = "Controllers\\" . $routeData['controller']; // Construction du nom complet du contrôleur
-    $method = $routeData['method']; // Récupération du nom de la méthode
-
-    if (class_exists($controllerName)) { // Vérifie si le contrôleur existe
-        $controller = new $controllerName($dbConnection); // Création de l'instance du contrôleur
-        if (method_exists($controller, $method)) { // Vérifie si la méthode existe
-            call_user_func_array([$controller, $method], $routeData['params']); // Appel de la méthode avec les paramètres
-        } else {
-            http_response_code(404);
-            echo "Méthode non trouvée"; // Gestion d'erreur si la méthode n'existe pas
-        }
+// Afficher formulaire de connexion si non connecté
+if (!isset($_SESSION['user'])) {
+    if (isset($_GET['action']) && $_GET['action'] === 'login') {
+        $authController->showLoginForm();
     } else {
-        http_response_code(404);
-        echo "Contrôleur non trouvé"; // Gestion d'erreur si le contrôleur n'existe pas
+        header('Location: index.php?action=login');
+    }
+    exit;
+}
+
+// Menu de navigation (si connecté)
+echo '<nav>
+    <ul>
+        <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+        <li><a href="index.php?module=offres&action=index">Offres</a></li>
+        <li><a href="index.php?action=traitement">Téléchargement</a></li>
+        <li><a href="views/logout.php">Déconnexion</a></li>
+    </ul>
+</nav>';
+
+// Détermination du module et de l'action
+$module = $_GET['module'] ?? 'offres';  // Par défaut, afficher les offres
+$action = $_GET['action'] ?? 'index';
+
+// Instanciation du bon contrôleur et exécution de l'action
+switch ($module) {
+    case 'entreprises':
+        require_once 'controllers/EntreprisesController.php';
+        $controller = new EntreprisesController();
+        break;
+
+    case 'offres':
+        require_once 'controllers/OffresController.php';
+        $controller = new OffresController();
+        break;
+
+    case 'traitement':
+        require_once 'controllers/TraitementController.php';
+        $controller = new TraitementController();
+        $controller->handleForm();
+        exit;
+
+    default:
+        die("Module inconnu : $module");
+}
+
+// Exécution de l'action
+if (method_exists($controller, $action)) {
+    if (in_array($action, ['edit', 'update', 'delete']) && isset($_GET['id'])) {
+        $controller->$action($_GET['id']);
+    } else {
+        $controller->$action();
     }
 } else {
-    http_response_code(404);
-    echo "Page non trouvée"; // Gestion d'erreur si aucune route ne correspond
+    die("Action inconnue : $action");
 }
 ?>
