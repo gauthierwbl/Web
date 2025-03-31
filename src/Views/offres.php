@@ -3,166 +3,116 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Offres</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
+    <title>Offres de stage - Pagination</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h2 {
+            color: #333;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        table {
+            width: 80%;
+            margin: 0 auto;
+            border-collapse: collapse;
+            background: white;
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+        th {
+            background-color: #343a40;
+            color: white;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        tr:nth-child(even) { background-color: #f2f2f2; }
+        tr:hover { background-color: #ddd; }
+        .pagination {
+            margin-top: 20px;
+        }
+        .pagination a {
+            display: inline-block;
+            margin: 5px;
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #333;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            transition: all 0.3s ease-in-out;
+        }
+        .pagination a:hover {
+            background-color: #343a40;
+            color: white;
+            border-color: #343a40;
+        }
+        .pagination a.active {
+            background-color: #007bff;
+            color: white;
+            border-color: #007bff;
+            font-weight: bold;
+        }
+        .icon-link {
+            text-decoration: none;
+            font-size: 20px;
+        }
+    </style>
 </head>
-<body style="background-image: url('img/background.png');">
-    <header class="navbar">
-        <section class="contenu-nav">
-            <div class="gauche">
-                <a href="/">
-                    <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
-                    </label>
-                </a>
-            </div>
-            <div class="milieu">
-                <ul>
-                    <li><a href="/entreprise">Entreprises</a></li>
-                    <li><a href="/offre">Offres</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><button id="bouton-projets">Menu</button></li>
-                </ul>
-                <div id="icons"></div>
-                <div class="droite">
-                    <a href="/profile">
-                        <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
-                        </label>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </header>
-    
-    <div>
-        <div>
-            <div class="titre-entreprise">Offres</div>
-            <p class="texte-entreprise">Vous retrouverez ci-dessous toutes offres de Stage.</p>
-        </div>
-    </div>
-    
-    <form action="" method="get" class="text-center">
-        <div>
-            <input class="recherche" type="search" name="terme">
-            <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
-        </div>
-    </form>
-    <main class="container-entreprise">
-        <section class="offres">
-    
-            <!-- Offre 1 -->
-            <div class="offer">
-                <div class="offre-header">
-                    <img src="img/uploads/google.png" alt="Google Logo" class="image-offre">
-                    <h2 class="texte-offre">Développeur Web Front-End</h2>
-                </div>
-                <p class="description-offre">
-                    <strong>Titre du poste :</strong> Ingénieur Développeur Frontend <br>
-                    <strong>Description :</strong> En tant qu'ingénieur développeur Frontend chez Google, vous travaillerez sur des applications innovantes...
-                </p>
-                <div class="offre-footer">
-                    <div class="start-offre">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                    </div>
-                    <button class="wishlist like like-active" id="wishlist_1" name="1"></button>
-                    <button class="voir-plus-offre">Voir Plus</button>
-                </div>
-            </div>
-    
-            <!-- Offre 2 -->
-            <div class="offer">
-                <div class="offre-header">
-                    <img src="img/uploads/adobe.png" alt="Adobe Logo" class="image-offre">
-                    <h2 class="texte-offre">Responsable bureau d'études</h2>
-                </div>
-                <p class="description-offre">
-                    <strong>Titre :</strong> Responsable Bureau d'Études <br>
-                    <strong>Description :</strong> Vous serez en charge de la gestion et du développement des projets d'étude...
-                </p>
-                <div class="offre-footer">
-                    <div class="start-offre">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                    </div>
-                    <button class="wishlist like like-active" id="wishlist_2" name="2"></button>
-                    <button class="voir-plus-offre">Voir Plus</button>
-                </div>
-            </div>
-    
-            <!-- Offre 3 -->
-            <div class="offer">
-                <div class="offre-header">
-                    <img src="img/uploads/Microsoft.png" alt="Microsoft Logo" class="image-offre">
-                    <h2 class="texte-offre">Chargé d'affaires industrie</h2>
-                </div>
-                <p class="description-offre">
-                    <strong>Titre :</strong> Chargé d'Affaires Industrie <br>
-                    <strong>Description :</strong> En tant que chargé d'affaires, vous serez responsable du développement commercial de l'entreprise...
-                </p>
-                <div class="offre-footer">
-                    <div class="start-offre">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                        <img class="etoile" src="img/etoile.png" alt="etoile">
-                    </div>
-                    <button class="wishlist like like-active" id="wishlist_3" name="3"></button>
-                    <button class="voir-plus-offre">Voir Plus</button>
-                </div>
-            </div>
-    
-        </section>
-    </main>
-    
-    <div class="container-pagination">
-        <div class="container-pagination-precedente">
-            <a class="pagination-entreprise-precedente" href="#">Page Précédente</a> 
-        </div>
-    
-        <div class="container-pagination-suivante">
-            <a class="pagination-entreprise-suivante" href="#">Page Suivante</a>
-        </div>
-    </div>
-    
-    <footer class="text-center" id="footer">
-        <div class="container">
-            <ul class="list-inline">
-                <li class="list-inline-item me-4"><a class="link-secondary" href="/condition">Conditions générales</a></li>
-            </ul><br>
-        </div>
-        <div class="wrapper">
-            <div class="button-footer" id="button-footer-facebook">
-                <div class="icon">
-                    <a href="https://www.facebook.com/profile.php?id=61557360210487" aria-label="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
-                </div>
-                <a href="https://www.facebook.com/profile.php?id=61557360210487">Visitez notre page Facebook</a>
-            </div>
-            <div class="button-footer" id="button-footer-twitter">
-                <div class="icon">
-                    <a href="https://twitter.com/Cesi_Ton_Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
-                <a href="https://twitter.com/Cesi_Ton_Stage">Suivez-nous sur Twitter</a>
-            </div>
-            <div class="button-footer" id="button-footer-instagram">
-                <div class="icon">
-                    <a href="https://www.instagram.com/cesi_ton_stage/" aria-label="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-                <a href="https://www.instagram.com/cesi_ton_stage/">Découvrez-nous sur Instagram</a>
-            </div>
-        </div>
-        <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
-    </footer>
+<body>
+<h2>Liste des offres</h2>
+<p><a href="index.php?action=create" style="padding:10px;background-color:#28a745;color:white;border-radius:5px;text-decoration:none;">➕ Ajouter une offre</a></p>
+
+<?php if (isset($offresAffichees) && is_array($offresAffichees) && count($offresAffichees) > 0): ?>
+    <table>
+        <tr>
+            <th>Titre</th>
+            <th>Secteur</th>
+            <th>Fichier</th>
+            <th>Actions</th>
+        </tr>
+        <?php foreach ($offresAffichees as $offre): ?>
+            <tr>
+                <td><?= htmlspecialchars($offre['nom_offre']) ?></td>
+                <td><?= htmlspecialchars($offre['description_offre']) ?></td>
+                <td><?= htmlspecialchars($offre['id_mineure']) ?></td>
+                <td>
+                    <a class="icon-link" href="index.php?action=edit&id=<?= $offre['id_offre'] ?>">✏️</a>
+                    <a class="icon-link" href="index.php?action=delete&id=<?= $offre['id_offre'] ?>" onclick="return confirm('Confirmer la suppression ?');">🗑️</a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    </table>
+<?php else: ?>
+    <p style="color: red;">Aucune offre trouvée.</p>
+<?php endif; ?>
+
+<div class="pagination">
+    <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+        <?php if ($pageActuelle > 1): ?>
+            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+        <?php endif; ?>
+
+        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+            <a href="index.php?module=offres&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+        <?php endfor; ?>
+
+        <?php if ($pageActuelle < $totalPages): ?>
+            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
 </body>
-<script src="js/script.js"></script>
 </html>
