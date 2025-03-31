@@ -1,15 +1,16 @@
+<?php var_dump($stages); ?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact</title>
+    <title>Stages Validés</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-    <script src="js/script.js"></script>
-
 </head>
 <body style="background-image: url('img/background.png');">
+
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
@@ -37,31 +38,42 @@
             </div>
         </section>
     </header>
-    
-    <div class="titre-contact">Contactez-nous !</div>
-   
-<div>
-<form action="send_mail.php" method="POST">
-    <div class="form-group">
-    <div class="texte-contact">Prénom :</div>
-      <input type="text" class="formulaire-contact" id="fname" placeholder="Entrez votre prénom" name="fname">
+
+    <div class="titre-postuler">Mes Stages</div>
+
+    <div class="offer">
+    <table class="table-stages">
+        <tr>
+            <th>Détail de l'offre</th>
+            <th>Lettre de Motivation</th>
+            <th>ID du fichier</th>
+            <th>Actions</th>
+        </tr>
+        <?php if (!empty($stages)): ?>
+            <?php foreach ($stages as $stage) : ?>
+                <tr>
+                    <td><?= htmlspecialchars($stage['id_offre']) ?></td>
+                    <td><?= htmlspecialchars($stage['lettre_motivation']) ?></td>
+                    <td><?= htmlspecialchars($stage['id_fichier']) ?></td>
+                    <td>
+                        <a class="btn-modifier" href="index.php?action=edit_stage&id=<?= $stage['id_offre'] ?>">
+                            <i class="fas fa-edit"></i> Modifier
+                        </a>
+                        <a class="btn-supprimer" href="index.php?action=delete_stage&id=<?= $stage['id_offre'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce stage ?');">
+                            <i class="fas fa-trash-alt"></i> Supprimer
+                        </a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <tr>
+                <td colspan="4" style="text-align: center;">Aucun stage validé pour le moment.</td>
+            </tr>
+        <?php endif; ?>
+    </table>
     </div>
-    <div class="form-group">
-    <div class="texte-contact">Nom de famille :</div>
-      <input type="text" class="formulaire-contact" id="lname" placeholder="Entrez votre nom de famille" name="lname">
-    </div>
-    <div class="form-group">
-    <div class="texte-contact">E-mail :</div>
-      <input type="email" class="formulaire-contact" id="email" placeholder="Entrez votre email" name="email">
-    </div>
-    <div class="form-group">
-    <div class="texte-contact">Message :</div>
-      <textarea class="message-contact" id="message" placeholder="Entrez votre message" name="message"></textarea>
-    </div>
-    <button type="submit" class="bouton-envoyer-contact">Envoyer</button>
-</form>
-</div>
-    
+  
+
     <footer class="text-center" id="footer">
         <div class="container">
             <ul class="list-inline">
@@ -77,9 +89,9 @@
             </div>
             <div class="button-footer" id="button-footer-twitter">
                 <div class="icon">
-                    <a href="https://twitter.com/Cesi_Ton_Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
+                    <a href="https://twitter.com/Cesi Ton Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
                 </div>
-                <a href="https://twitter.com/Cesi_Ton_Stage">Suivez-nous sur Twitter</a>
+                <a href="https://twitter.com/Cesi Ton Stage">Suivez-nous sur Twitter</a>
             </div>
             <div class="button-footer" id="button-footer-instagram">
                 <div class="icon">
@@ -90,5 +102,6 @@
         </div>
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
+
 </body>
 </html>

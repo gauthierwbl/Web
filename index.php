@@ -34,12 +34,13 @@ switch ($module) {
         require_once 'src/controllers/OffresController.php';
         $controller = new OffresController();
         break;
+        
+    case 'MesStages':
+            require_once 'src/controllers/StagesController.php';
+            $controller = new StagesController();
+            exit;
 
-    case 'traitement':
-        require_once 'controllers/TraitementController.php';
-        $controller = new TraitementController();
-        $controller->handleForm();
-        exit;
+        
 
     default:
         die("Module inconnu : $module");

@@ -1672,7 +1672,54 @@ button[type="submit"] {
 
 /* END POSTULER PAGE */
 
+/* MESSTAGES PAGE */
+.table-stages {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+}
 
+.table-stages th, .table-stages td {
+  padding: 15px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.table-stages th {
+  background-color: #f8f8f8;
+}
+
+.table-stages tr:hover {
+  background-color: #f1f1f1;
+}
+
+.btn-modifier, .btn-supprimer {
+  padding: 8px 12px;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+.btn-modifier {
+  background-color: #28a745;
+}
+
+.btn-supprimer {
+  background-color: #dc3545;
+}
+
+.btn-modifier:hover {
+  background-color: #218838;
+}
+
+.btn-supprimer:hover {
+  background-color: #c82333;
+}
+
+/* END MESSTAGES PAGE */
 
 /* ERREUR */
 .error-title {

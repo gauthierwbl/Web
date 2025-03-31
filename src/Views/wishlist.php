@@ -1,3 +1,22 @@
+<?php
+// Inclure le contrôleur
+
+require_once 'src/models/Database.php';
+require_once 'src/controllers/StagesController.php';
+
+// Créer une instance de la connexion à la base de données
+$db = Database::getConnection();
+
+// Créer une instance du contrôleur
+$wishlistController = new WishlistController($db);
+
+// Récupérer l'ID de l'utilisateur (pour l'exemple, on suppose que l'utilisateur est déjà connecté et que l'ID est disponible)
+$id_utilisateur = $_SESSION['id_utilisateur'];  // Assurez-vous que l'utilisateur est connecté et que son ID est dans la session
+
+// Récupérer la wishlist de l'utilisateur
+$wishlist = $wishlistController->showWishlist($id_utilisateur);
+?>
+
 <!DOCTYPE html>
 <html lang="fr">
 <head>
