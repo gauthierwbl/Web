@@ -1,5 +1,4 @@
 <?php
-require_once 'src/models/Database.php';
 
 class StagesModel {
     private $pdo;
@@ -8,65 +7,49 @@ class StagesModel {
         $this->pdo = $pdo;
     }
 
-    public function getStages() {
-        $stmt = $this->pdo->prepare("SELECT * FROM candidater WHERE id_status = 3 LIMIT :limit OFFSET :offset");
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    // Récupérer tous les stages validés avec pagination
+    public function getStagesValides($page = 1, $stagesParPage = 10) {
+        $offset = ($page - 1) * $stagesParPage;
+        $stmt = $this->pdo->prepare("
+            SELECT o.id_offre, o.nom_offre, e.nom_entreprise, c.id_status
+            FROM offres o
+            JOIN candidater c ON o.id_offre = c.id_offre
+            JOIN entreprises e ON o.id_entreprise = e.id_entreprise
+            JOIN statuts s ON c.id_status = s.id_status
+            WHERE s.type_status = 'validé'
+            LIMIT :limit OFFSET :offset
+        ");
+        $stmt->bindValue(':limit', $stagesParPage, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
-/*
-    // Récupérer tous les stages avec pagination
-    public function getStages($page = 1, $limit = 10) {
-        $offset = ($page - 1) * $limit;
-        $stmt = $this->pdo->prepare("SELECT * FROM candidater WHERE id_status = 3");
-        //$stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        //$stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+    }    
+
+    // Récupérer le nombre total de pages pour les stages validés
+    public function getTotalPages($stagesParPage = 10) {
+        $stmt = $this->pdo->prepare("
+            SELECT COUNT(*) 
+            FROM offres o
+            JOIN candidater c ON o.id_offre = c.id_offre
+            JOIN statuts s ON c.id_status = s.id_status
+            WHERE s.type_status = 'validé'
+        ");
         $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
-    
+        $totalStages = $stmt->fetchColumn();
+        return ceil($totalStages / $stagesParPage);
+    }    
 
-    // Récupérer le nombre total de pages pour la pagination
-    public function getTotalPages($limit = 10) {
-        $stmt = $this->pdo->query("SELECT COUNT(*) FROM candidater");
-        $count = $stmt->fetchColumn();
-        return ceil($count / $limit);
-    }
-*/
-    // Créer un nouveau stage
-    public function create($offre, $status, $utilisateur) {
-        $stmt = $this->pdo->prepare("INSERT INTO candidater (offre, status, utilisateur) VALUES (:offre, :status, :utilisateur)");
-        $stmt->execute([
-            ':offre' => $this->validateInput($offre),
-            ':status' => $this->validateInput($status),
-            ':utilisateur' => $this->validateInput($utilisateur),
-        ]);
-    }
-
-    // Récupérer un stage par son ID
-    public function getById($id) {
-        $stmt = $this->pdo->prepare("SELECT * FROM candidater WHERE id_offre = :id AND id_status = 3");
-        $stmt->execute([':id' => $id]);
-        return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-    
-/*
-    // Modifier un stage
-    public function edit($id, $id_utilisateur, $lettre_motivation, $id_fichier) {
-        $stmt = $this->pdo->prepare("UPDATE candidater SET id_utilisateur = :utilisateur, lettre_motivation = :lettre, id_fichier = :fichier WHERE id_offre = :id AND id_status = 3");
-        $stmt->execute([
-            ':utilisateur' => $id_utilisateur,
-            ':lettre' => htmlspecialchars($lettre_motivation, ENT_QUOTES, 'UTF-8'),
-            ':fichier' => $id_fichier,
-            ':id' => $id
-        ]);
-    }
-*/
     // Supprimer un stage
-    public function delete($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM candidater WHERE id_offre = :id AND id_status = 3");
-        $stmt->execute([':id' => $id]);
+    public function deleteStage($id_offre) {
+        // Supprimer l'entrée de candidater
+        $stmt = $this->pdo->prepare("DELETE FROM candidater WHERE id_offre = :id_offre");
+        $stmt->bindValue(':id_offre', $id_offre, PDO::PARAM_INT);
+        $stmt->execute();
+
+        // Optionnel : Supprimer l'offre de la table offres si nécessaire
+        // $stmt = $this->pdo->prepare("DELETE FROM offres WHERE id_offre = :id_offre");
+        // $stmt->bindValue(':id_offre', $id_offre, PDO::PARAM_INT);
+        // $stmt->execute();
     }
 
     // Validation et nettoyage des entrées

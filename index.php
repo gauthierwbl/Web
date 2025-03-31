@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 echo '<head>';
 echo '<link rel="stylesheet" href="src/Views/css/styles.css">';
 echo '<link rel="stylesheet" href="src/Views/css/animate.min.css">';
@@ -35,12 +32,10 @@ switch ($module) {
         $controller = new OffresController();
         break;
         
-    case 'MesStages':
-            require_once 'src/controllers/StagesController.php';
-            $controller = new StagesController();
-            exit;
-
-        
+    case 'Stages':
+        require_once 'src/controllers/StagesController.php';
+        $controller = new StagesController();
+        break;
 
     default:
         die("Module inconnu : $module");
