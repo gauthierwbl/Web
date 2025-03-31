@@ -1,12 +1,11 @@
 <?php
 session_start();
 
-require_once 'models/Database.php';
-require_once 'models/UserModel.php';
+require_once 'src/models/Database.php';
+
 
 // Connexion à la BDD
 $pdo = (new Database())->getConnection();
-$authController = new AuthController($pdo);
 
 // Traitement login POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
@@ -41,12 +40,12 @@ $action = $_GET['action'] ?? 'index';
 // Instanciation du bon contrôleur et exécution de l'action
 switch ($module) {
     case 'entreprises':
-        require_once 'controllers/EntreprisesController.php';
+        require_once 'src/controllers/EntreprisesController.php';
         $controller = new EntreprisesController();
         break;
 
     case 'offres':
-        require_once 'controllers/OffresController.php';
+        require_once 'src/controllers/OffresController.php';
         $controller = new OffresController();
         break;
 

@@ -1,6 +1,6 @@
 <?php
-require_once 'models/Database.php';
-require_once 'models/EntreprisesModel.php';
+require_once 'src/models/Database.php';
+require_once 'src/models/EntreprisesModel.php';
 
 class EntreprisesController {
     private $model;
@@ -31,12 +31,12 @@ class EntreprisesController {
             echo "<p style='color: red;'>⚠️ Erreur : Aucun résultat trouvé.</p>";
         }
 
-        require 'Views/entreprise.php'; // Passer les données à la vue
+        require 'src/views/entreprises.php'; // Passer les données à la vue
     }
 
     // Afficher le formulaire de création d'entreprise
     public function create() {
-        require 'views/dashboard/entreprises/ajout-entreprise.php';
+        require 'src/views/dashboard/entreprises/ajout-entreprise.php';
     }
 
     // Enregistrer une nouvelle entreprise
@@ -67,7 +67,7 @@ class EntreprisesController {
             die("Entreprise non trouvée.");
         }
 
-        require 'views/dashboard/entreprises/modif-entreprise.php'; // Passer l'entreprise à la vue
+        require 'src/views/dashboard/entreprises/modif-entreprise.php'; // Passer l'entreprise à la vue
     }
 
     // Mettre à jour les informations d'une entreprise

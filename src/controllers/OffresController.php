@@ -1,6 +1,6 @@
 <?php
-require_once 'models/Database.php';
-require_once 'models/OffresModel.php';
+require_once 'src/models/Database.php';
+require_once 'src/models/OffresModel.php';
 
 class OffresController {
     private $model;
@@ -30,12 +30,12 @@ class OffresController {
             echo "<p style='color: red;'>⚠️ Erreur : Aucune offre trouvée.</p>";
         }
 
-        require 'views/offres.php';
+        require 'src/views/offres.php';
     }
 
     // Afficher le formulaire de création d'offre
     public function create() {
-        require 'views/dashboard/offres/ajout-offre.php';
+        require 'src/views/dashboard/offres/ajout-offre.php';
     }
 
     // Enregistrer une nouvelle offre
@@ -66,7 +66,7 @@ class OffresController {
         if (isset($_GET['id'])) {
             $id_offre = $_GET['id'];
             $offre = $this->model->getOffreById($id_offre);
-            require 'views/dashboard/offres/modif-offre.php';
+            require 'src/views/dashboard/offres/modif-offre.php';
         } else {
             echo "Erreur : Offre non trouvée.";
         }
