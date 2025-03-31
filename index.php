@@ -7,21 +7,7 @@ require_once 'src/models/Database.php';
 // Connexion à la BDD
 $pdo = (new Database())->getConnection();
 
-// Traitement login POST
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_GET['action']) && $_GET['action'] === 'login') {
-    $authController->login();
-    exit;
-}
 
-// Afficher formulaire de connexion si non connecté
-if (!isset($_SESSION['user'])) {
-    if (isset($_GET['action']) && $_GET['action'] === 'login') {
-        $authController->showLoginForm();
-    } else {
-        header('Location: index.php?action=login');
-    }
-    exit;
-}
 
 // Menu de navigation (si connecté)
 echo '<nav>
