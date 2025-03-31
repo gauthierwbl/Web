@@ -29,7 +29,7 @@
                 <div class="droite">
                     <a href="profil.php">
                         <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                         </label>
                     </a>
                 </div>
@@ -51,26 +51,46 @@
         </div>
     </form>
 
-    <?php if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
-    <div class="container-entreprise">
-        <?php foreach ($entreprisesAffichees as $e): ?>
-            <div class="entreprise">
-                <img src="img/uploads/default.png" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
-                <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
-                <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
-                <div style="margin: 10px 0;">
-                    <?php for ($i = 0; $i < 5; $i++): ?>
-                        <img class="etoile" src="img/etoile.png" alt="Star">
-                    <?php endfor; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php else: ?>
-    <p style="color: red;">Aucune entreprise trouvée.</p>
-<?php endif; ?>
+    <?php
+    function getLogoUrl($companyName) {
+        $clearbitUrl = "https://logo.clearbit.com/" . urlencode($companyName) . ".com";
 
-<div class="pagination">
+        // Vérifier si l'image existe
+        $headers = @get_headers($clearbitUrl);
+        if ($headers && strpos($headers[0], '200')) {
+            return $clearbitUrl;
+        }
+
+        // Si aucun logo n'est trouvé, utiliser une image par défaut
+        return "src/Views/img/uploads/default.png";
+    }
+
+    if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
+        <div class="container-entreprise">
+            <?php foreach ($entreprisesAffichees as $e):
+                $logoUrl = getLogoUrl($e['nom_entreprise']);
+                $entrepriseId = htmlspecialchars($e['id_entreprise']); // Vérifie que 'id_entreprise' est bien présent
+                ?>
+                <div class="entreprise">
+                    <a href="détail-entreprise.php?id=<?= $entrepriseId ?>">
+                        <img src="<?= $logoUrl ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                    </a>
+                    <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                    <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
+                    <div style="margin: 10px 0;">
+                        <?php for ($i = 0; $i < 5; $i++): ?>
+                            <img class="etoile" src="src/Views/img/etoile.png" alt="Star">
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    <?php else: ?>
+        <p style="color: red;">Aucune entreprise trouvée.</p>
+    <?php endif; ?>
+
+
+    <div class="pagination">
     <?php if (isset($pageActuelle) && isset($totalPages)): ?>
         <?php if ($pageActuelle > 1): ?>
             <a href="?page=<?= $pageActuelle - 1 ?>">Précédent</a>
@@ -118,5 +138,5 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
 </body>
-</html><h2>Entreprises Partenaires</h2>
+
 
