@@ -77,7 +77,7 @@
             <div class="gauche">
                 <a href="/">
                     <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                        <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                     </label>
                 </a>
             </div>
@@ -92,21 +92,21 @@
                 <div class="droite">
                     <a href="/profile">
                         <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                         </label>
                     </a>
                 </div>
             </div>
         </section>
     </header>
-    
+
     <div>
         <div>
             <div class="titre-entreprise">Offres</div>
             <p class="texte-entreprise">Vous retrouverez ci-dessous toutes offres de Stage.</p>
         </div>
     </div>
-    
+
     <form action="index.php?module=offres&action=index" method="get" class="text-center">
     <div>
         <input class="recherche" type="search" name="terme" placeholder="Rechercher une offre">
@@ -114,43 +114,46 @@
     </div>
 </form>
 
-<main class="container-entreprise">
-    <section class="offres">
-        <?php if (isset($offresAffichees) && is_array($offresAffichees) && count($offresAffichees) > 0): ?>
-            <?php foreach ($offresAffichees as $offre): ?>
-                <div class="offer">
-                    <div class="offre-header">
-                        <img src="img/uploads/default.png" alt="Logo Entreprise" class="image-offre">
-                        <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
-                    </div>
-                    <p class="description-offre">
-                        <strong>Entreprise :</strong> <?= htmlspecialchars($offre['nom_entreprise']) ?><br>
-                        <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br>
-                        <strong>Description :</strong> 
-                        <?= nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'], 0, 100, '...'))) ?><br>
-                        <strong>ID Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
-                    </p>
-                    <div class="offre-footer">
-                        <div class="start-offre">
-                            <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                            <img class="etoile active" src="img/etoile.png" alt="etoile active">
-                            <img class="etoile" src="img/etoile.png" alt="etoile">
-                            <img class="etoile" src="img/etoile.png" alt="etoile">
-                            <img class="etoile" src="img/etoile.png" alt="etoile">
+    <main class="container-entreprise">
+        <section class="offres">
+
+            <?php if (isset($offresAffichees) && is_array($offresAffichees) && count($offresAffichees) > 0): ?>
+                <?php foreach ($offresAffichees as $offre): ?>
+                    <div class="offer">
+                        <div class="offre-header">
+                            <!-- Affichage dynamique du logo de l'entreprise -->
+                            <img src="https://logo.clearbit.com/<?= urlencode($offre['nom_entreprise']) ?>.com" class="image-offre" onerror="this.src='src/Views/img/profil.png'">
+                            <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
                         </div>
-                        <a class="wishlist like" href="#" title="Ajouter aux favoris"></a>
-                        <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+                        <p class="description-offre">
+                            <strong>Entreprise :</strong> <?= htmlspecialchars($offre['nom_entreprise']) ?><br>
+                            <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br>
+                            <strong>Description :</strong>
+                            <?= nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'], 0, 100, '...'))) ?><br>
+                            <strong>ID Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
+                        </p>
+                        <div class="offre-footer">
+                            <div class="start-offre">
+                                <img class="etoile active" src="src/Views/img/etoile.png" alt="etoile active">
+                                <img class="etoile active" src="src/Views/img/etoile.png" alt="etoile active">
+                                <img class="etoile" src="src/Views/img/etoile.png" alt="etoile">
+                                <img class="etoile" src="src/Views/img/etoile.png" alt="etoile">
+                                <img class="etoile" src="src/Views/img/etoile.png" alt="etoile">
+                            </div>
+                            <a class="wishlist like" href="#" title="Ajouter aux favoris"></a>
+                            <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+                        </div>
                     </div>
-                </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <p style="color: red;">Aucune offre trouvée.</p>
-        <?php endif; ?>
-    </section>
-</main>
+                <?php endforeach; ?>
+            <?php else: ?>
+                <p style="color: red;">Aucune offre trouvée.</p>
+            <?php endif; ?>
+        </section>
+    </main>
 
 
-    
+
+
     <div class="pagination">
     <?php if (isset($pageActuelle) && isset($totalPages)): ?>
         <?php if ($pageActuelle > 1): ?>
@@ -166,7 +169,7 @@
         <?php endif; ?>
     <?php endif; ?>
 </div>
-    
+
     <footer class="text-center" id="footer">
         <div class="container">
             <ul class="list-inline">
