@@ -53,42 +53,40 @@
     </form>
 
     <!-- Stages Container -->
-    <main class="container-entreprise">
-        <section class="offres">
-            <?php
-            function getLogoUrl($companyName) {
-                // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
-                $formattedName = strtolower(str_replace(' ', '', $companyName));
-                $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
-        
-                // Vérifier si l'image existe
-                $headers = @get_headers($clearbitUrl);
-                if ($headers && strpos($headers[0], '200')) {
-                    return $clearbitUrl;
-                }
-        
-                // Si aucun logo n'est trouvé, utiliser une image par défaut
-                return "src/Views/img/uploads/default.png";
+<main class="container-entreprise">
+    <section class="offres">
+        <?php
+        function getLogoUrl($companyName) {
+            $formattedName = strtolower(str_replace(' ', '', $companyName));
+            $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
+            $headers = @get_headers($clearbitUrl);
+            if ($headers && strpos($headers[0], '200')) {
+                return $clearbitUrl;
             }
+            return "src/Views/img/uploads/default.png";
+        }
 
-            if (isset($stagesAffiches) && is_array($stagesAffiches) && count($stagesAffiches) > 0): ?>
-                <?php foreach ($stagesAffiches as $stage): ?>
-                    <div class="offer">
-                        <div class="offre-header">
-                            <img src="https://logo.clearbit.com/<?= urlencode($offre['nom_entreprise']) ?>.com" class="image-offre" onerror="this.src='src/Views/img/profil.png'">
-                            <h2 class="texte-offre"><?= htmlspecialchars($stage['nom_offre']) ?></h2>
-                        </div>
-                        <p class="description-offre">
-                            <strong>Entreprise :</strong> <?= htmlspecialchars($stage['nom_entreprise']) ?><br>
-                            <strong>Nom du stage :</strong> <?= htmlspecialchars($stage['nom_offre']) ?>
-                        </p>
+        if (isset($stagesAffiches) && is_array($stagesAffiches) && count($stagesAffiches) > 0): ?>
+            <?php foreach ($stagesAffiches as $stage): ?>
+                <div class="offer">
+                    <div class="offre-header">
+                        <img src="<?= getLogoUrl($stage['nom_entreprise']) ?>" class="image-offre" onerror="this.src='src/Views/img/profil.png'">
+                        <h2 class="texte-offre"><?= htmlspecialchars($stage['nom_offre']) ?></h2>
                     </div>
-                <?php endforeach; ?>
-            <?php else: ?>
-                <p style="color: red;">Aucun stage validé trouvé.</p>
-            <?php endif; ?>
-        </section>
-    </main>
+                    <p class="description-offre">
+                        <strong>Entreprise :</strong> <?= htmlspecialchars($stage['nom_entreprise']) ?><br>
+                        <strong>Nom du stage :</strong> <?= htmlspecialchars($stage['nom_offre']) ?>
+                    </p>
+                    <div class="offre-footer">
+                        <a class="voir-plus-offre" href="index.php?module=stages&action=evaluer&id=<?= $stage['id_offre'] ?>">Évaluer</a>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <p style="color: red;">Aucun stage validé trouvé.</p>
+        <?php endif; ?>
+    </section>
+</main>
 
     <!-- Pagination -->
     <div class="pagination">
