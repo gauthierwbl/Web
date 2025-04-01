@@ -34,7 +34,7 @@ class OffresController {
 
     // Afficher les offres avec pagination
     public function index() {
-        $offresParPage = 10;
+        $offresParPage = 2;
         $totalPages = $this->model->getTotalPages($offresParPage);
 
         $pageActuelle = 1;

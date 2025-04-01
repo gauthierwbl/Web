@@ -4,74 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Offres de stage - Pagination</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
-            padding: 0;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        h2 {
-            color: #333;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-bottom: 20px;
-        }
-        table {
-            width: 80%;
-            margin: 0 auto;
-            border-collapse: collapse;
-            background: white;
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            overflow: hidden;
-        }
-        th, td {
-            padding: 15px;
-            text-align: left;
-        }
-        th {
-            background-color: #343a40;
-            color: white;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-        tr:nth-child(even) { background-color: #f2f2f2; }
-        tr:hover { background-color: #ddd; }
-        .pagination {
-            margin-top: 20px;
-        }
-        .pagination a {
-            display: inline-block;
-            margin: 5px;
-            padding: 10px 15px;
-            text-decoration: none;
-            color: #333;
-            border-radius: 5px;
-            border: 1px solid #ddd;
-            transition: all 0.3s ease-in-out;
-        }
-        .pagination a:hover {
-            background-color: #343a40;
-            color: white;
-            border-color: #343a40;
-        }
-        .pagination a.active {
-            background-color: #007bff;
-            color: white;
-            border-color: #007bff;
-            font-weight: bold;
-        }
-        .icon-link {
-            text-decoration: none;
-            font-size: 20px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+ 
 </head>
-<body style="background-image: url('img/background.png');">
+<body style="background-image: url('src/Views/img/background.png');">
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
