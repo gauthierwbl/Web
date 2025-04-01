@@ -122,7 +122,7 @@
                     <div class="offer">
                         <div class="offre-header">
                             <!-- Affichage dynamique du logo de l'entreprise -->
-                            <img src="https://logo.clearbit.com/<?= urlencode($offre['nom_entreprise']) ?>.com" class="image-offre" onerror="this.src='src/Views/img/profil.png'">
+                            <img src="https://logo.clearbit.com/<?= urlencode($offre['nom_entreprise']) ?>.com" class="image-offre" onerror="this.src='src/Views/img/usine.png'">
                             <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
                         </div>
                         <p class="description-offre">
