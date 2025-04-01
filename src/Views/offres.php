@@ -77,7 +77,11 @@
                                 <img class="etoile" src="src/Views/img/etoile.png" alt="etoile">
                                 <img class="etoile" src="src/Views/img/etoile.png" alt="etoile">
                             </div>
-                            <a class="wishlist like" href="#" title="Ajouter aux favoris"></a>
+                            <a class="wishlist like"
+                                href="index.php?module=wishlist&action=add&id=<?= $offre['id_offre'] ?>"
+                                title="Ajouter à la wishlist"
+                                onclick="return confirm('Ajouter cette offre à votre wishlist ?');">
+                            </a>
                             <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
                         </div>
                     </div>
