@@ -44,8 +44,7 @@
                 <h4 class="titre-top-box-offre-detail">Développeur Web Front-End</h4>
                 <div class="start-offre-detail"></div>
                 <div class="coeur-detail">
-                    <button class="wishlist like" id="" name=""></button>
-                    
+                    <button class="wishlist like" id="" name=""></button>  
                 </div>
                 <div class="start-offre-detail">
                     <img class="etoile" src="img/etoile.png" alt="Étoile">
