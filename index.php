@@ -55,7 +55,12 @@ switch ($module) {
     case 'Contact':
         require_once 'src/controllers/ContactController.php';
         $controller = new ContactController();
-        break;    
+        break;  
+        
+    case 'Candidature':
+        require_once 'src/controllers/CandidatureController.php';
+        $controller = new CandidatureController();
+        break;
             
     default:
         die("Module inconnu : $module");
