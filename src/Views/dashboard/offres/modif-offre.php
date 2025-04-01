@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,123 +20,87 @@
   <nav class="nav-laterale">
     <ul>
       <br><br><br>
-      <li>
-        <a class="nom-nav" href="/">
-          <i class="fas fa-home"></i>
-          <span class="nav-item">Home</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/entreprise">
-          <i class="fas fa-store-alt"></i>
-          <span class="nav-item">Entreprises</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/offre">
-          <i class="fas fa-clipboard-list"></i>
-          <span class="nav-item">Offres</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/pilote">
-          <i class="fas fa-user-tie"></i>
-          <span class="nav-item">Pilotes</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/etudiants">
-          <i class="fas fa-user-graduate"></i>
-          <span class="nav-item">Étudiants</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/candidatures">
-          <i class="fas fa-tasks"></i>
-          <span class="nav-item">Candidatures</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Statistiques</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/profile">
-          <i class="fas fa-user"></i>
-          <span class="nav-item">Profil</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav logout" href="/logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Déconnexion</span>
-        </a>
-      </li>
+      <li><a class="nom-nav" href="/"><i class="fas fa-home"></i><span class="nav-item">Home</span></a></li>
+      <li><a class="nom-nav" href="/admin/entreprise"><i class="fas fa-store-alt"></i><span class="nav-item">Entreprises</span></a></li>
+      <li><a class="nom-nav" href="/admin/offre"><i class="fas fa-clipboard-list"></i><span class="nav-item">Offres</span></a></li>
+      <li><a class="nom-nav" href="/admin/pilote"><i class="fas fa-user-tie"></i><span class="nav-item">Pilotes</span></a></li>
+      <li><a class="nom-nav" href="/admin/etudiants"><i class="fas fa-user-graduate"></i><span class="nav-item">Étudiants</span></a></li>
+      <li><a class="nom-nav" href="/admin/candidatures"><i class="fas fa-tasks"></i><span class="nav-item">Candidatures</span></a></li>
+      <li><a class="nom-nav" href="/admin"><i class="fas fa-chart-bar"></i><span class="nav-item">Statistiques</span></a></li>
+      <li><a class="nom-nav" href="/profile"><i class="fas fa-user"></i><span class="nav-item">Profil</span></a></li>
+      <li><a class="nom-nav logout" href="/logout"><i class="fas fa-sign-out-alt"></i><span class="nav-item">Déconnexion</span></a></li>
     </ul>
   </nav>
   
   <!-- Contenu principal -->
   <section class="container-admin">
     <div class="container-modifier">
-      <h1 class="grand-titre">Offre Exemple</h1>
-      <!-- Message de succès (affiché après modification) -->
-      <!-- <div class="alert alert-success">
-           L'offre a bien été modifiée
-      </div> -->
-      <form action="" method="post" class="verif">
+      <h1 class="grand-titre"><?= htmlspecialchars($offre['nom_offre']) ?></h1>
+
+      <form action="index.php?module=offres&action=update" method="post" class="verif">
+        <input type="hidden" name="id_offre" value="<?= htmlspecialchars($offre['id_offre']) ?>">
+
         <div class="form-group">
-          <label for="nomOffre">Nom Offre</label>
-          <input type="text" name="nomOffre" id="nomOffre" class="form-control" value="Offre Exemple">
+          <label for="nom_offre">Nom Offre</label>
+          <input type="text" name="nom_offre" id="nom_offre" class="form-control" value="<?= htmlspecialchars($offre['nom_offre']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="descriptionOffre">Description Offre</label>
-          <textarea name="descriptionOffre" id="descriptionOffre" class="form-control">Description de l'offre exemple.</textarea>
+          <label for="description_offre">Description Offre</label>
+          <textarea name="description_offre" id="description_offre" class="form-control"><?= htmlspecialchars($offre['description_offre']) ?></textarea>
         </div>
+
         <div class="form-group">
-          <label for="competenceOffre">Compétences</label>
-          <input type="text" name="competenceOffre" id="competenceOffre" class="form-control" value="Compétences Exemple">
+          <label for="competences">Compétences</label>
+          <input type="text" name="competences" id="competences" class="form-control" value="<?= htmlspecialchars($offre['competences']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="dureeOffre">Durée de stage</label>
-          <input type="text" name="dureeOffre" id="dureeOffre" class="form-control" value="12">
+          <label for="duree_stage">Durée de stage</label>
+          <input type="text" name="duree_stage" id="duree_stage" class="form-control" value="<?= htmlspecialchars($offre['duree_stage']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="baseOffre">Base de rémunération</label>
-          <input type="text" name="baseOffre" id="baseOffre" class="form-control" value="1500">
+          <label for="base_remuneration">Base de rémunération</label>
+          <input type="text" name="base_remuneration" id="base_remuneration" class="form-control" value="<?= htmlspecialchars($offre['base_remuneration']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="dateOffre">Date de l'offre</label>
-          <input type="text" name="dateOffre" id="dateOffre" class="form-control" value="2025-03-01">
+          <label for="date_offre">Date de l'offre</label>
+          <input type="date" name="date_offre" id="date_offre" class="form-control" value="<?= htmlspecialchars($offre['date_offre']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="nombreOffre">Nombre de places disponible</label>
-          <input type="text" name="nombreOffre" id="nombreOffre" class="form-control" value="5">
+          <label for="nombre_place">Nombre de places disponibles</label>
+          <input type="number" name="nombre_place" id="nombre_place" class="form-control" value="<?= htmlspecialchars($offre['nombre_place']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="nombreCandiOffre">Nombre de candidatures</label>
-          <input type="text" name="nombreCandiOffre" id="nombreCandiOffre" class="form-control" value="10">
+          <label for="nombre_candidature">Nombre de candidatures</label>
+          <input type="number" name="nombre_candidature" id="nombre_candidature" class="form-control" value="<?= htmlspecialchars($offre['nombre_candidature']) ?>">
         </div>
+
         <div class="form-group">
-          <label for="idEnt">Entreprise *</label>
-          <select name="idEnt" id="idEnt" class="form-control" required>
-            <option value="1" selected>Entreprise Exemple</option>
-            <option value="2">Entreprise Option 2</option>
+          <label for="id_entreprise">Entreprise *</label>
+          <select name="id_entreprise" id="id_entreprise" class="form-control" required>
+            <option value="<?= $offre['id_entreprise'] ?>" selected><?= $offre['id_entreprise'] ?></option>
+            <!-- Optionnel : ajouter dynamiquement d'autres entreprises ici -->
           </select>
         </div>
+
         <div class="form-group">
-          <label for="idMineure">Mineure *</label>
-          <select name="idMineure" id="idMineure" class="form-control" required>
-            <option value="1" selected>Mineure Exemple</option>
-            <option value="2">Mineure Option 2</option>
+          <label for="id_mineure">Mineure *</label>
+          <select name="id_mineure" id="id_mineure" class="form-control" required>
+            <option value="<?= $offre['id_mineure'] ?>" selected><?= $offre['id_mineure'] ?></option>
+            <!-- Optionnel : ajouter dynamiquement d'autres mineures ici -->
           </select>
         </div>
+
         <button type="submit" class="btn btn-primary">Modifier</button>
       </form>
     </div>
   </section>
-  
+
   <script src="/js/script.js"></script>
   <script src="/js/script-admin.js"></script>
 </body>

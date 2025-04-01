@@ -84,7 +84,7 @@
       <!-- <div class="alert alert-success">
            L'offre a bien été créée
       </div> -->
-      <form action="" method="post" class="verif">
+      <form action="index.php?module=offres&action=store" method="post" class="verif">
         <div class="form-group">
           <label for="nomOffre">Nom Offre</label>
           <input type="text" name="nomOffre" id="nomOffre" class="form-control" value="">
@@ -129,7 +129,7 @@
             <option value="2">Mineure B</option>
           </select>
         </div>
-        <button type="submit" class="btn btn-primary">Modifier</button>
+        <button type="submit" class="btn btn-primary">Créer</button>
       </form>
     </div>
   </section>

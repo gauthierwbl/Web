@@ -11,6 +11,27 @@ class OffresController {
         $this->model = new OffresModel($this->pdo);
     }
 
+    public function index_dashboard() {
+        $offresParPage = 10; // Nombre d'offres par page
+        $totalPages = $this->model->getTotalPages($offresParPage);
+    
+        $pageActuelle = 1;
+        if (isset($_GET["page"])) {
+            if (!ctype_digit($_GET["page"]) || (int)$_GET["page"] < 1) {
+                die("Erreur : Numéro de page invalide.");
+            }
+            $pageActuelle = min((int)$_GET["page"], $totalPages);
+        }
+    
+        $offresAffichees = $this->model->getOffres($pageActuelle, $offresParPage);
+    
+        if (empty($offresAffichees)) {
+            echo "<p style='color: red;'>⚠️ Erreur : Aucune offre trouvée.</p>";
+        }
+    
+        require 'src/views/dashboard/offres/gestion-offres.php';
+    }  
+
     // Afficher les offres avec pagination
     public function index() {
         $offresParPage = 10;
@@ -56,7 +77,7 @@ class OffresController {
             $this->model->create($nom_offre, $description_offre, $id_mineure, $competences, $duree_stage, $base_remuneration, $date_offre, $nombre_place, $nombre_candidature, $id_entreprise);
 
             // Redirection vers la liste des offres après création
-            header("Location: index.php?module=offres&action=index");
+            header("Location: index.php?module=offres&action=index_dashboard");
             exit();
         }
     }
@@ -91,7 +112,7 @@ class OffresController {
             $this->model->update($id_offre, $nom_offre, $description_offre, $id_mineure, $competences, $duree_stage, $base_remuneration, $date_offre, $nombre_place, $nombre_candidature, $id_entreprise);
 
             // Redirection vers la liste des offres après modification
-            header("Location: index.php?module=offres&action=index");
+            header("Location: index.php?module=offres&action=index_dashboard");
             exit();
         }
     }
@@ -104,7 +125,7 @@ class OffresController {
             $this->model->delete($id_offre);
 
             // Redirection vers la liste des offres après suppression
-            header("Location: index.php?module=offres&action=index");
+            header("Location: index.php?module=offres&action=index_dashboard");
             exit();
         } else {
             echo "Erreur : Offre non trouvée.";

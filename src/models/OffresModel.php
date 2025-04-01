@@ -6,6 +6,27 @@ class OffresModel {
         $this->pdo = $pdo;
     }
 
+    public function index_dashboard() {
+        $offresParPage = 10; // Nombre d'offres par page
+        $totalPages = $this->model->getTotalPages($offresParPage);
+    
+        $pageActuelle = 1;
+        if (isset($_GET["page"])) {
+            if (!ctype_digit($_GET["page"]) || (int)$_GET["page"] < 1) {
+                die("Erreur : Numéro de page invalide.");
+            }
+            $pageActuelle = min((int)$_GET["page"], $totalPages);
+        }
+    
+        $offresAffichees = $this->model->getOffres($pageActuelle, $offresParPage);
+    
+        if (empty($offresAffichees)) {
+            echo "<p style='color: red;'>⚠️ Erreur : Aucune offre trouvée.</p>";
+        }
+    
+        require 'src/views/dashboard/offres/gestion-offres.php';
+    }    
+
     // Récupérer toutes les offres avec pagination
     public function getOffres($page, $offresParPage) {
         $offset = ($page - 1) * $offresParPage;
