@@ -11,6 +11,30 @@ class EntreprisesController {
         $this->model = new EntreprisesModel($this->pdo);
     }
 
+     // Afficher les entreprises avec pagination
+     public function index_dashboard() {
+        $entreprisesParPage = 10; // Nombre d'entreprises par page
+        $totalPages = $this->model->getTotalPages($entreprisesParPage); // Calcul des pages
+
+        $pageActuelle = 1;
+        if (isset($_GET["page"])) {
+            if (!ctype_digit($_GET["page"]) || (int)$_GET["page"] < 1) {
+                die("Erreur : Numéro de page invalide.");
+            }
+            $pageActuelle = min((int)$_GET["page"], $totalPages);
+        }
+
+        // Récupérer les entreprises pour la page actuelle
+        $entreprisesAffichees = $this->model->getEntreprises_dashboard($pageActuelle, $entreprisesParPage);
+
+        if (empty($entreprisesAffichees)) {
+            echo "<p style='color: red;'>⚠️ Erreur : Aucun résultat trouvé.</p>";
+        }
+
+        require 'src/views/dashboard/entreprises/gestion-entreprises.php'; // Passer les données à la vue
+    }
+
+
     // Afficher les entreprises avec pagination
     public function index() {
         $entreprisesParPage = 8; // Nombre d'entreprises par page
@@ -53,7 +77,7 @@ class EntreprisesController {
             $this->model->create($nom_entreprise, $id_secteur, $id_fichier, $is_visible);
 
             // Rediriger vers la page principale des entreprises
-            header("Location: index.php?module=entreprises&action=index");
+            header("Location: index.php?module=entreprises&action=index_dashboard");
             exit;
         }
     }
@@ -83,7 +107,7 @@ class EntreprisesController {
             $this->model->update($id, $nom_entreprise, $id_secteur, $id_fichier, $is_visible);
 
             // Rediriger vers la page principale des entreprises
-            header("Location: index.php?module=entreprises&action=index");
+            header("Location: index.php?module=entreprises&action=index_dashboard");
             exit;
         }
     }
@@ -94,7 +118,22 @@ class EntreprisesController {
         $this->model->delete($id);
 
         // Rediriger vers la page principale des entreprises
-        header("Location: index.php?module=entreprises&action=index");
+        header("Location: index.php?module=entreprises&action=index_dashboard");
         exit;
     }
+
+    // Toggle la visibilité d'une entreprise
+    public function toggleVisibility($id) {
+    $entreprise = $this->model->getById($id);
+
+    if ($entreprise) {
+        $nouvelleVisibilite = $entreprise['is_visible'] ? 0 : 1;
+        $this->model->setVisibility($id, $nouvelleVisibilite);
+    }
+
+    // Redirection vers le dashboard après le changement
+    header("Location: index.php?module=entreprises&action=index_dashboard");
+    exit;
+}
+
 }

@@ -38,10 +38,11 @@
                 <?php foreach ($offres as $offre): ?>
                     <div class="offer">
                         <div class="offre-header">
-                            <img src="img/uploads/default.png" alt="Logo Entreprise" class="image-offre">
+                            <img src="https://logo.clearbit.com/<?= urlencode($offre['nom_entreprise']) ?>.com" class="image-offre" onerror="this.src='src/Views/img/profil.png'">
                             <h2 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h2>
                         </div>
                         <p class="description-offre">
+                            <strong>Entreprise :</strong> <?= htmlspecialchars($offre['nom_entreprise']) ?><br>
                             <strong>Description :</strong> <?= nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'], 0, 100, '...'))) ?><br>
                             <strong>Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
                         </p>

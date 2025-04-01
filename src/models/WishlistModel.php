@@ -10,18 +10,19 @@ class WishlistModel {
     public function getWishlistByUser($userId, $page = 1, $limit = 10) {
         $offset = ($page - 1) * $limit;
         $stmt = $this->pdo->prepare("
-            SELECT o.* 
+            SELECT o.*, e.nom_entreprise
             FROM ajouter_wishlist w
             JOIN offres o ON w.id_offre = o.id_offre
+            JOIN entreprises e ON o.id_entreprise = e.id_entreprise
             WHERE w.id_utilisateurs = :userId
             LIMIT :limit OFFSET :offset
         ");
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
-        $stmt->bindParam(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    }    
 
     public function getTotalPages($userId, $limit = 10) {
         $stmt = $this->pdo->prepare("

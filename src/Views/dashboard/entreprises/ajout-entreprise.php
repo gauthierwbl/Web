@@ -90,31 +90,32 @@
     <div class="container-modifier">
       <h1 class="grand-titre">Nouvelle entreprise</h1>
       <form method="POST" action="index.php?module=entreprises&action=store" enctype="multipart/form-data" class="verif">
-        <div class="form-group">
-          <label for="nomEnt">Nom Entreprise</label>
-          <input type="text" name="nomEnt" id="nomEnt" class="form-control" value="">
-        </div>
-        <div class="form-group">
-          <label for="secteurActivite">Secteur d'activité *</label>
-          <select name="secteurActivite" class="form-control" id="secteurActivite" required>
-            <option value="1">Secteur 1</option>
-            <option value="2">Secteur 2</option>
-            <option value="3">Secteur 3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="fileToUpload" class="form-label">Logo :</label>
-          <input class="fichier-logo" type="file" name="fileToUpload" id="fileToUpload">
-        </div>
-        <div class="form-group" id="adresses">
-          <!-- Les adresses seront ajoutées ici dynamiquement -->
-        </div>
-        <div class="form-group">
-          <label for="nbrAdresse">Nombre d'Adresses</label>
-          <input type="number" name="nbrAdresse" id="nbrAdresse" class="form-control" value="0">
-        </div>
-        <button type="submit" class="btn btn-primary" onsubmit="validerFormulaire()">Creer</button>
-      </form>
+  <div class="form-group">
+    <label for="nom_entreprise">Nom Entreprise</label>
+    <input type="text" name="nom_entreprise" id="nom_entreprise" class="form-control" required>
+  </div>
+  
+  <div class="form-group">
+    <label for="id_secteur">Secteur d'activité *</label>
+    <select name="id_secteur" class="form-control" id="id_secteur" required>
+      <option value="1">Secteur 1</option>
+      <option value="2">Secteur 2</option>
+      <option value="3">Secteur 3</option>
+    </select>
+  </div>
+
+  <div class="form-group">
+    <label for="id_fichier" class="form-label">ID Fichier :</label>
+    <input type="number" name="id_fichier" id="id_fichier" class="form-control" value="1">
+  </div>
+
+  <div class="form-group">
+    <label><input type="checkbox" name="is_visible" checked> Visible</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Créer</button>
+</form>
+
     </div>
   </section>
 

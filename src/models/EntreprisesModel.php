@@ -7,6 +7,16 @@ class EntreprisesModel {
         $this->pdo = $pdo;
     }
 
+    // Récupère toutes les entreprises
+    public function getEntreprises_dashboard($page = 1, $limit = 10) {
+        $offset = ($page - 1) * $limit;
+        $stmt = $this->pdo->prepare("SELECT * FROM entreprises LIMIT :limit OFFSET :offset");
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }    
+
     // Récupérer toutes les entreprises avec pagination
     public function getEntreprises($page = 1, $limit = 10) {
         $offset = ($page - 1) * $limit;
@@ -61,6 +71,14 @@ class EntreprisesModel {
         $stmt = $this->pdo->prepare("DELETE FROM entreprises WHERE id_entreprise = :id_entreprise");
         $stmt->execute([':id_entreprise' => $id_entreprise]);
     }
+
+    public function setVisibility($id, $is_visible) {
+        $stmt = $this->pdo->prepare("UPDATE entreprises SET is_visible = :is_visible WHERE id_entreprise = :id");
+        $stmt->execute([
+            ':is_visible' => $is_visible,
+            ':id' => $id
+        ]);
+    }    
 
     // Validation et nettoyage des entrées
     public function validateInput($input) {
