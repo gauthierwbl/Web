@@ -78,7 +78,8 @@
                         <strong>Nom du stage :</strong> <?= htmlspecialchars($stage['nom_offre']) ?>
                     </p>
                     <div class="offre-footer">
-                        <a class="voir-plus-offre" href="index.php?module=stages&action=evaluer&id=<?= $stage['id_offre'] ?>">Évaluer</a>
+                        <a class="voir-plus-offre" href="http://localhost/Web/src/views/evaluation.php?action=evaluation.php&id=<?= $stage['id_offre'] ?>">Évaluer</a>
+
                     </div>
                 </div>
             <?php endforeach; ?>

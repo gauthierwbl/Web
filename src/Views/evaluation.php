@@ -36,17 +36,31 @@
             </div>
         </section>
     </header>
+   
+<div class="titre-postuler">Évaluation du stage : </div>
     
-    <div class="titre-postuler">Evaluation du stage : </div>
-<div class="offer">
-    <p>Choisir un nombre entre 1 et 20</p>
-<form action="" method="post" class="verif">
-    <label for="note">Note global du stage</label>
-    <input type="text" class="formulaire-contact" name="note" id="note" placeholder="" value="">
-    <button class="bouton-envoyer-contact">Envoyer</button>   
-</form>
-</div>
-    
+    <div class="offer">
+        <?php if(isset($_GET['error'])): ?>
+            <p class="error-message">Une erreur s'est produite lors de l'enregistrement de votre évaluation.</p>
+        <?php endif; ?>
+        
+        <?php if(isset($_GET['success'])): ?>
+            <p class="success-message">Votre évaluation a été enregistrée avec succès !</p>
+        <?php endif; ?>
+        
+        <p>Merci de noter votre expérience de stage sur une échelle de 0 à 20</p>
+        
+        <form action="evaluation.php?action=evaluation.php" method="post" class="verif">
+            <input type="hidden" name="id_utilisateur" value="<?php echo $_SESSION['user_id'] ?? 1; ?>">
+            <input type="hidden" name="id_entreprise" value="<?php echo $_GET['id_entreprise'] ?? 1; ?>">
+            
+            <label for="note">Note globale du stage :</label>
+            <input type="number" class="formulaire-contact" name="note" id="note" min="0" max="20" required>
+            
+            <button type="submit" class="bouton-envoyer-contact">Envoyer</button>   
+        </form>
+    </div>
+
     <footer class="text-center" id="footer">
         <div class="container">
             <ul class="list-inline">
@@ -76,4 +90,5 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
 </body>
+
 </html>

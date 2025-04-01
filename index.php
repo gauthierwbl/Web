@@ -40,7 +40,12 @@ switch ($module) {
     case 'Wishlist':
         require_once 'src/controllers/WishlistController.php';
         $controller = new WishlistController();
-        break;    
+        break;   
+        
+    case 'Evaluation':
+        require_once 'src/controllers/EvaluationController.php';
+        $controller = new EvaluationController();
+        break;  
 
     default:
         die("Module inconnu : $module");
