@@ -17,7 +17,7 @@ $pdo = (new Database())->getConnection();
 
 
 // Détermination du module et de l'action
-$module = $_GET['module'] ?? 'offres';  // Par défaut, afficher les offres
+$module = $_GET['module'] ?? 'offres';  
 $action = $_GET['action'] ?? 'index';
 
 // Instanciation du bon contrôleur et exécution de l'action
@@ -46,6 +46,12 @@ switch ($module) {
         require_once 'src/controllers/EvaluationController.php';
         $controller = new EvaluationController();
         break;  
+
+    case 'Statistiques':
+        require_once 'src/controllers/StatistiquesController.php';
+        $controller = new StatistiquesController();
+        break;
+        
 
     default:
         die("Module inconnu : $module");
