@@ -21,16 +21,5 @@ class StagesController {
 
         require 'src/views/stages.php';  // Afficher la vue
     }
-
-    // Supprimer un stage
-    public function delete() {
-        if (isset($_GET['id'])) {
-            $id_offre = $_GET['id'];
-            $this->model->deleteStage($id_offre);
-            header("Location: index.php?module=stages&action=index");  // Rediriger après suppression
-        } else {
-            echo "Erreur : Stage non trouvé.";
-        }
-    }
 }
 ?>

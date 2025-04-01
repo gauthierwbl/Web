@@ -82,10 +82,6 @@
                             <strong>Entreprise :</strong> <?= htmlspecialchars($stage['nom_entreprise']) ?><br>
                             <strong>Nom du stage :</strong> <?= htmlspecialchars($stage['nom_offre']) ?>
                         </p>
-                        <div class="offre-footer">
-                            <a class="wishlist like" href="#" title="Ajouter aux favoris"></a>
-                            <a class="voir-plus-offre" href="index.php?module=stages&action=delete&id=<?= $stage['id_offre'] ?>" onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce stage ?');">Supprimer</a>
-                        </div>
                     </div>
                 <?php endforeach; ?>
             <?php else: ?>

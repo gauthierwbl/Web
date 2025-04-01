@@ -47,8 +47,21 @@
                             <strong>Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
                         </p>
                         <div class="offre-footer">
-                            <a class="wishlist like like-active" href="index.php?module=wishlist&action=delete&id=<?= $offre['id_offre'] ?>" title="Retirer de la wishlist" onclick="return confirm('Retirer cette offre de votre liste ?');"></a>
-                            <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+                        <a class="wishlist like like-active"
+                            href="index.php?module=wishlist&action=delete&id=<?= $offre['id_offre'] ?>"
+                            title="Retirer de la wishlist"
+                            onclick="return confirm('Retirer cette offre de votre liste ?');">
+                        </a>
+
+                        <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+
+                        <!-- Bouton Supprimer -->
+                        <form action="index.php?module=Wishlist&action=delete&id=<?= $offre['id_offre'] ?>" method="POST"
+                            onsubmit="return confirm('Voulez-vous vraiment supprimer cette offre ?');" style="display:inline;">
+                            <button class="btn btn-danger-offre" title="Supprimer définitivement l'offre">
+                                <i class="fas fa-trash"></i> Supprimer
+                            </button>
+                        </form>
                         </div>
                     </div>
                 <?php endforeach; ?>
