@@ -19,9 +19,9 @@
 </div>
 
 <div class="navigation-profil">
-    <a class="nav-link" href="/profile/stages">Mes Stages</a>
-    <a class="nav-link" href="/profile/info">Informations générales</a>
-    <a class="nav-link" href="/profile/wishlist">Ma Wishlist</a>
+                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
 </div>
 
 <div class="statistiques-profil">

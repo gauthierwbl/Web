@@ -21,8 +21,8 @@
             </div>
             <div class="milieu">
                 <ul>
-                    <li><a href="/entreprise">Entreprises</a></li>
-                    <li><a href="/offre">Offres</a></li>
+                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
                     <li><a href="/contact">Contact</a></li>
                     <li><button id="bouton-projets">Menu</button></li>
                 </ul>

@@ -47,6 +47,10 @@ switch ($module) {
         $controller = new EvaluationController();
         break;  
 
+    case 'contact':
+        require_once 'src/Views/contact.php';
+         break; 
+
     default:
         die("Module inconnu : $module");
 }
