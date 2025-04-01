@@ -11,7 +11,7 @@
         <section class="contenu-nav">
             <div class="gauche">
                 <a href="/">
-                <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                 </a>
             </div>
             <div class="milieu">
@@ -23,7 +23,7 @@
             </div>
             <div class="droite">
                 <a href="/profile">
-                <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
+                    <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                 </a>
             </div>
         </section>
@@ -47,21 +47,16 @@
                             <strong>Mineure :</strong> <?= htmlspecialchars($offre['id_mineure']) ?>
                         </p>
                         <div class="offre-footer">
-                        <a class="wishlist like like-active"
-                            href="index.php?module=wishlist&action=delete&id=<?= $offre['id_offre'] ?>"
-                            title="Retirer de la wishlist"
-                            onclick="return confirm('Retirer cette offre de votre liste ?');">
-                        </a>
+                            <!-- Cœur pour retirer de la wishlist -->
+                            <a class="wishlist like like-active"
+                               href="index.php?module=wishlist&action=delete&id=<?= $offre['id_offre'] ?>"
+                               title="Retirer de la wishlist"
+                               onclick="return confirm('Retirer cette offre de votre liste ?');">
+                                <i class="fas fa-heart"></i>
+                            </a>
 
-                        <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
-
-                        <!-- Bouton Supprimer -->
-                        <form action="index.php?module=Wishlist&action=delete&id=<?= $offre['id_offre'] ?>" method="POST"
-                            onsubmit="return confirm('Voulez-vous vraiment supprimer cette offre ?');" style="display:inline;">
-                            <button class="btn btn-danger-offre" title="Supprimer définitivement l'offre">
-                                <i class="fas fa-trash"></i> Supprimer
-                            </button>
-                        </form>
+                            <!-- Voir plus -->
+                            <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
                         </div>
                     </div>
                 <?php endforeach; ?>
@@ -71,19 +66,19 @@
         </section>
     </main>
 
-     <!-- Pagination -->
-     <div class="pagination">
+    <!-- Pagination -->
+    <div class="pagination">
         <?php if (isset($pageActuelle) && isset($totalPages)): ?>
             <?php if ($pageActuelle > 1): ?>
-                <a href="index.php?module=Wishlist&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+                <a href="index.php?module=wishlist&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
             <?php endif; ?>
 
             <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="index.php?module=Wishlist&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
+                <a href="index.php?module=wishlist&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
             <?php endfor; ?>
 
             <?php if ($pageActuelle < $totalPages): ?>
-                <a href="index.php?module=Wishlist&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+                <a href="index.php?module=wishlist&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
             <?php endif; ?>
         <?php endif; ?>
     </div>
@@ -119,4 +114,3 @@
     </footer>
 </body>
 </html>
-
