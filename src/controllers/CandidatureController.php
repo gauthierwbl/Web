@@ -10,5 +10,10 @@ class CandidatureController {
         $pdo = Database::getConnection();
         $this->model = new CandidatureModel($pdo);
     }
+
+    // Affichage classique
+    public function index() {
+        require 'src/views/dashboard/candidatures/gestion-candidatures.php'; 
+    }
 }
 ?>
