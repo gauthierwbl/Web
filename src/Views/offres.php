@@ -6,9 +6,70 @@
     <title>Offres de stage - Pagination</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <style>
+        /* Styles pour les cœurs de wishlist */
+        .wishlist {
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            background: none;
+            border: none;
+            padding: 0;
+        }
 
+        .wishlist .fa-heart {
+            color: #ccc;
+            transition: color 0.3s ease;
+            font-size: 18px;
+        }
+
+        .wishlist.like-active .fa-heart {
+            color: #ff4757;
+        }
+
+        .wishlist:hover .fa-heart {
+            transform: scale(1.1);
+            color: #ff4757;
+        }
+        /* CSS pour positionner le cœur au milieu à droite de chaque offre */
+
+        /* S'assurer que l'offre a une position relative pour le positionnement absolu du cœur */
+        .offer {
+            position: relative;
+        }
+
+        /* Positionnement du cœur au milieu à droite */
+        .wishlist {
+            position: absolute;
+            top: 50%; /* Centrer verticalement */
+            right: 15px;
+            transform: translateY(-50%); /* Ajustement pour centrer parfaitement */
+            z-index: 10;
+        }
+
+        /* Augmenter la taille du cœur pour qu'il soit bien visible */
+        .wishlist .fa-heart {
+            font-size: 24px;
+        }
+
+        /* Couleurs du cœur */
+        .wishlist .fa-heart {
+            color: #ccc;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .wishlist.like-active .fa-heart {
+            color: #ff4757;
+        }
+
+        .wishlist:hover .fa-heart {
+            transform: scale(1.1);
+            color: #ff4757;
+        }
+    </style>
 </head>
-
+<body>
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
@@ -22,12 +83,12 @@
             <ul>
                 <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
                 <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
                 <li><a href="/contact">Contact</a></li>
-                <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="/profile">
+                <a href="index.php?module=profil&action=index&id=<?= $_SESSION['id_utilisateur'] ?? 0 ?>">
                     <label>
                         <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                     </label>
@@ -36,6 +97,19 @@
         </div>
     </section>
 </header>
+
+<!-- Affichage des messages de succès ou d'erreur -->
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert success">
+        <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert error">
+        <?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
 
 <div>
     <div>
@@ -53,7 +127,6 @@
 
 <main class="container-entreprise">
     <section class="offres">
-
         <?php if (isset($offresAffichees) && is_array($offresAffichees) && count($offresAffichees) > 0): ?>
             <?php foreach ($offresAffichees as $offre): ?>
                 <div class="offer">
@@ -97,13 +170,22 @@
                             for ($i = 0; $i < $noteVide; $i++): ?>
                                 <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                             <?php endfor; ?>
-                        </div>       
-                        <a class="wishlist like"
-                           href="index.php?module=wishlist&action=add&id=<?= $offre['id_offre'] ?>"
-                           title="Ajouter à la wishlist"
-                           onclick="return confirm('Ajouter cette offre à votre wishlist ?');">
+                        </div>
+
+                        <?php
+                        // Vérifier si l'offre est dans la wishlist
+                        $isInWishlist = isset($offre['in_wishlist']) ? $offre['in_wishlist'] : false;
+                        ?>
+
+                        <!-- Cœur pour la wishlist -->
+                        <a class="wishlist <?= $isInWishlist ? 'like-active' : '' ?>"
+                           href="index.php?module=wishlist&action=<?= $isInWishlist ? 'delete' : 'add' ?>&id=<?= $offre['id_offre'] ?>"
+                           title="<?= $isInWishlist ? 'Retirer de la wishlist' : 'Ajouter à la wishlist' ?>">
+                            <i class="fas fa-heart"></i>
                         </a>
-                        <a class="voir-plus-offre" href="index.php?module=offres&action=edit&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+
+                        <!-- Lien pour voir les détails de l'offre -->
+                        <a class="voir-plus-offre" href="index.php?module=offres&action=details&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -112,7 +194,6 @@
         <?php endif; ?>
     </section>
 </main>
-
 
 <div class="container-pagination">
     <div class="container-pagination-precedente">

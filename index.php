@@ -37,7 +37,7 @@ switch ($module) {
         $controller = new StagesController();
         break;
 
-    case 'Wishlist':
+    case 'wishlist':
         require_once 'src/controllers/WishlistController.php';
         $controller = new WishlistController();
         break;   
