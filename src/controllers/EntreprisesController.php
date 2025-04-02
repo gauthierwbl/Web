@@ -11,7 +11,7 @@ class EntreprisesController {
         $this->model = new EntreprisesModel($this->pdo);
     }
 
-     // Afficher les entreprises avec pagination
+    // Afficher les entreprises avec pagination
     public function index_dashboard() {
         $entreprisesParPage = 10;
         $totalPages = $this->model->getTotalPages($entreprisesParPage);
@@ -22,10 +22,8 @@ class EntreprisesController {
 
         $entreprisesAffichees = $this->model->getEntreprisesAvecNotes($pageActuelle, $entreprisesParPage);
 
-        require 'src/views/dashboard/entreprises/gestion-entreprises.php';
+        require 'src/views/entreprises.php'; // Passer les données à la vue
     }
-
-
 
     // Afficher les entreprises avec pagination
     public function index() {
@@ -40,8 +38,8 @@ class EntreprisesController {
             $pageActuelle = min((int)$_GET["page"], $totalPages);
         }
 
-        // Récupérer les entreprises pour la page actuelle
-        $entreprisesAffichees = $this->model->getEntreprises($pageActuelle, $entreprisesParPage);
+        // Récupérer les entreprises pour la page actuelle avec leurs notes
+        $entreprisesAffichees = $this->model->getEntreprisesAvecNotes($pageActuelle, $entreprisesParPage);
 
         if (empty($entreprisesAffichees)) {
             echo "<p style='color: red;'>⚠️ Erreur : Aucun résultat trouvé.</p>";
@@ -50,6 +48,7 @@ class EntreprisesController {
         require 'src/views/entreprises.php'; // Passer les données à la vue
     }
 
+    // Autres méthodes inchangées...
     // Afficher le formulaire de création d'entreprise
     public function create() {
         require 'src/views/dashboard/entreprises/ajout-entreprise.php';
@@ -116,16 +115,15 @@ class EntreprisesController {
 
     // Toggle la visibilité d'une entreprise
     public function toggleVisibility($id) {
-    $entreprise = $this->model->getById($id);
+        $entreprise = $this->model->getById($id);
 
-    if ($entreprise) {
-        $nouvelleVisibilite = $entreprise['is_visible'] ? 0 : 1;
-        $this->model->setVisibility($id, $nouvelleVisibilite);
+        if ($entreprise) {
+            $nouvelleVisibilite = $entreprise['is_visible'] ? 0 : 1;
+            $this->model->setVisibility($id, $nouvelleVisibilite);
+        }
+
+        // Redirection vers le dashboard après le changement
+        header("Location: index.php?module=entreprises&action=index_dashboard");
+        exit;
     }
-
-    // Redirection vers le dashboard après le changement
-    header("Location: index.php?module=entreprises&action=index_dashboard");
-    exit;
-}
-
 }

@@ -14,7 +14,7 @@ class OffresController {
     public function index_dashboard() {
         $offresParPage = 10; // Nombre d'offres par page
         $totalPages = $this->model->getTotalPages($offresParPage);
-    
+
         $pageActuelle = 1;
         if (isset($_GET["page"])) {
             if (!ctype_digit($_GET["page"]) || (int)$_GET["page"] < 1) {
@@ -22,15 +22,15 @@ class OffresController {
             }
             $pageActuelle = min((int)$_GET["page"], $totalPages);
         }
-    
-        $offresAffichees = $this->model->getOffres($pageActuelle, $offresParPage);
-    
+
+        $offresAffichees = $this->model->getOffresAvecNotes($pageActuelle, $offresParPage);
+
         if (empty($offresAffichees)) {
             echo "<p style='color: red;'>⚠️ Erreur : Aucune offre trouvée.</p>";
         }
-    
+
         require 'src/views/dashboard/offres/gestion-offres.php';
-    }  
+    }
 
     // Afficher les offres avec pagination
     public function index() {
@@ -45,7 +45,8 @@ class OffresController {
             $pageActuelle = min((int)$_GET["page"], $totalPages);
         }
 
-        $offresAffichees = $this->model->getOffres($pageActuelle, $offresParPage);
+        // Utiliser la méthode qui inclut les notes moyennes
+        $offresAffichees = $this->model->getOffresAvecNotes($pageActuelle, $offresParPage);
 
         if (empty($offresAffichees)) {
             echo "<p style='color: red;'>⚠️ Erreur : Aucune offre trouvée.</p>";
@@ -54,6 +55,7 @@ class OffresController {
         require 'src/views/offres.php';
     }
 
+    // Autres méthodes inchangées...
     // Afficher le formulaire de création d'offre
     public function create() {
         require 'src/views/dashboard/offres/ajout-offre.php';

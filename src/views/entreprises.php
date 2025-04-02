@@ -9,65 +9,65 @@
 
 </head>
 <body style="background-image: url('src/Views/img/background.png');">
-    <header class="navbar">
-        <section class="contenu-nav">
-            <div class="gauche">
-                <a href="home.php">
+<header class="navbar">
+    <section class="contenu-nav">
+        <div class="gauche">
+            <a href="home.php">
+                <label>
+                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                </label>
+            </a>
+        </div>
+        <div class="milieu">
+            <ul>
+                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><button id="bouton-projets">Menu</button></li>
+            </ul>
+            <div id="icons"></div>
+            <div class="droite">
+                <a href="profil.php">
                     <label>
-                        <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                     </label>
                 </a>
             </div>
-            <div class="milieu">
-                <ul>
-                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><button id="bouton-projets">Menu</button></li>
-                </ul>
-                <div id="icons"></div>
-                <div class="droite">
-                    <a href="profil.php">
-                        <label>
-                            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
-                        </label>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </header>
-    
+        </div>
+    </section>
+</header>
+
+<div>
     <div>
-        <div>
-            <div class="titre-entreprise">Entreprises</div>
-            <p class="texte-entreprise">Vous retrouverez ci-dessous toutes les entreprises proposant des stages sur notre site.</p>
-        </div>
+        <div class="titre-entreprise">Entreprises</div>
+        <p class="texte-entreprise">Vous retrouverez ci-dessous toutes les entreprises proposant des stages sur notre site.</p>
     </div>
-    
-    <form action="index.php?module=entreprises&action=index" method="get" class="text-center">
-        <div>
-            <input class="recherche" type="search" name="terme">
-            <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
-        </div>
-    </form>
+</div>
 
-    <?php
-    function getLogoUrl($companyName) {
-        // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
-        $formattedName = strtolower(str_replace(' ', '', $companyName));
-        $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
+<form action="index.php?module=entreprises&action=index" method="get" class="text-center">
+    <div>
+        <input class="recherche" type="search" name="terme">
+        <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
+    </div>
+</form>
 
-        // Vérifier si l'image existe
-        $headers = @get_headers($clearbitUrl);
-        if ($headers && strpos($headers[0], '200')) {
-            return $clearbitUrl;
-        }
+<?php
+function getLogoUrl($companyName) {
+    // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
+    $formattedName = strtolower(str_replace(' ', '', $companyName));
+    $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
 
-        // Si aucun logo n'est trouvé, utiliser une image par défaut
-        return "src/Views/img/uploads/default.png";
+    // Vérifier si l'image existe
+    $headers = @get_headers($clearbitUrl);
+    if ($headers && strpos($headers[0], '200')) {
+        return $clearbitUrl;
     }
 
-    if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
+    // Si aucun logo n'est trouvé, utiliser une image par défaut
+    return "src/Views/img/uploads/default.png";
+}
+
+if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
     <div class="container-entreprise">
         <?php foreach ($entreprisesAffichees as $e): ?>
             <div class="entreprise">
@@ -76,8 +76,8 @@
                 <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
                 <div style="margin: 10px 0;">
                     <?php
-                    // Récupérer la note de la base de données (note sur 20)
-                    $noteSur20 = isset($e['note']) ? (float)$e['note'] : 0;
+                    // Récupérer la note moyenne de la base de données (note sur 20)
+                    $noteSur20 = isset($e['moyenne_note']) ? (float)$e['moyenne_note'] : 0;
 
                     // Calculer la note sur 5
                     $noteSur5 = $noteSur20 / 4;
@@ -89,7 +89,7 @@
 
                     // Afficher les étoiles pleines
                     for ($i = 0; $i < $notePleine; $i++): ?>
-                        <img class="etoile" src="src/Views/img/etoile-pleine.png" alt="Étoile pleine">
+                        <img class="etoile" src="src/Views/img/etoile.png" alt="Étoile pleine">
                     <?php endfor;
 
                     // Afficher une demi-étoile si nécessaire
@@ -99,15 +99,15 @@
 
                     // Afficher les étoiles vides pour compléter à 5
                     for ($i = 0; $i < $noteVide; $i++): ?>
-                        <img class="etoile" src="src/Views/img/profil.png" alt="Étoile vide">
+                        <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                     <?php endfor; ?>
                 </div>
             </div>
         <?php endforeach; ?>
     </div>
-    <?php else: ?>
+<?php else: ?>
     <p style="color: red;">Aucune entreprise trouvée.</p>
-    <?php endif; ?>
+<?php endif; ?>
 
 <div class="pagination">
     <?php if (isset($pageActuelle) && isset($totalPages)): ?>
@@ -124,36 +124,35 @@
         <?php endif; ?>
     <?php endif; ?>
 </div>
-    
-    
-    <footer class="text-center" id="footer">
-        <div class="container">
-            <ul class="list-inline">
-                <li class="list-inline-item me-4"><a class="link-secondary" href="condition-general.php">Conditions générales</a></li>
-            </ul><br>
+
+
+<footer class="text-center" id="footer">
+    <div class="container">
+        <ul class="list-inline">
+            <li class="list-inline-item me-4"><a class="link-secondary" href="condition-general.php">Conditions générales</a></li>
+        </ul><br>
+    </div>
+    <div class="wrapper">
+        <div class="button-footer" id="button-footer-facebook">
+            <div class="icon">
+                <a href="https://www.facebook.com/profile.php?id=61557360210487" aria-label="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
+            </div>
+            <a href="https://www.facebook.com/profile.php?id=61557360210487">Visitez notre page Facebook</a>
         </div>
-        <div class="wrapper">
-            <div class="button-footer" id="button-footer-facebook">
-                <div class="icon">
-                    <a href="https://www.facebook.com/profile.php?id=61557360210487" aria-label="Lien vers notre page Facebook"><i class="fab fa-facebook-f"></i></a>
-                </div>
-                <a href="https://www.facebook.com/profile.php?id=61557360210487">Visitez notre page Facebook</a>
+        <div class="button-footer" id="button-footer-twitter">
+            <div class="icon">
+                <a href="https://twitter.com/Cesi_Ton_Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
             </div>
-            <div class="button-footer" id="button-footer-twitter">
-                <div class="icon">
-                    <a href="https://twitter.com/Cesi_Ton_Stage" aria-label="Lien vers notre compte Twitter"><i class="fab fa-twitter"></i></a>
-                </div>
-                <a href="https://twitter.com/Cesi_Ton_Stage">Suivez-nous sur Twitter</a>
-            </div>
-            <div class="button-footer" id="button-footer-instagram">
-                <div class="icon">
-                    <a href="https://www.instagram.com/cesi_ton_stage/" aria-label="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
-                </div>
-                <a href="https://www.instagram.com/cesi_ton_stage/">Découvrez-nous sur Instagram</a>
-            </div>
+            <a href="https://twitter.com/Cesi_Ton_Stage">Suivez-nous sur Twitter</a>
         </div>
-        <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
-    </footer>
+        <div class="button-footer" id="button-footer-instagram">
+            <div class="icon">
+                <a href="https://www.instagram.com/cesi_ton_stage/" aria-label="Lien vers notre compte Instagram"><i class="fab fa-instagram"></i></a>
+            </div>
+            <a href="https://www.instagram.com/cesi_ton_stage/">Découvrez-nous sur Instagram</a>
+        </div>
+    </div>
+    <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
+</footer>
 </body>
 </html>
-

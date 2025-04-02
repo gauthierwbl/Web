@@ -4,7 +4,7 @@ class OffresModel {
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
-    }  
+    }
 
     // Récupérer toutes les offres avec pagination
     public function getOffres($page, $offresParPage) {
@@ -15,6 +15,34 @@ class OffresModel {
         $stmt->bindParam(':offresParPage', $offresParPage, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Récupérer toutes les offres avec notes et pagination
+    public function getOffresAvecNotes($page, $offresParPage) {
+        $offset = ($page - 1) * $offresParPage;
+
+        // D'abord, vérifier si la table notes contient id_offre ou id_entreprise
+        $this->checkNotesTableStructure();
+
+        // Si la table notes est liée aux entreprises et non aux offres directement
+        $query = "SELECT o.*, e.nom_entreprise, COALESCE(AVG(n.note), 0) AS moyenne_note
+                 FROM offres o 
+                 JOIN entreprises e ON o.id_entreprise = e.id_entreprise
+                 LEFT JOIN notes n ON e.id_entreprise = n.id_entreprise
+                 GROUP BY o.id_offre
+                 LIMIT :offset, :offresParPage";
+
+        $stmt = $this->pdo->prepare($query);
+        $stmt->bindParam(':offset', $offset, PDO::PARAM_INT);
+        $stmt->bindParam(':offresParPage', $offresParPage, PDO::PARAM_INT);
+        $stmt->execute();
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    // Fonction pour vérifier la structure de la table notes
+    private function checkNotesTableStructure() {
+        // Cette méthode peut être utilisée pour déboguer si nécessaire
+        // Elle est actuellement vide car nous utilisons directement id_entreprise
     }
 
     // Obtenir le nombre total de pages pour la pagination

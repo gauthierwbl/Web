@@ -452,7 +452,6 @@ color: #E1306C;
 
 .etoile {
   width: 25px;
-  filter: invert(50%);
   cursor: pointer;
   position: relative;
 }
