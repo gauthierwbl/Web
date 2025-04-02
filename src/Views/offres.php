@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
  
 </head>
-<body style="background-image: url('src/Views/img/background.png');">
+
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">

@@ -1,10 +1,16 @@
 /* HEADER + BODY */ 
-body {
+html, body {
+  height: 100%;
   margin: 0;
   padding: 0;
-  background-repeat: no-repeat;
-  background-size:cover;
 }
+
+
+body {
+  background: radial-gradient(circle, #d4f1ff 10%, #b5e1f1 40%, #95d8f0 90%);
+  min-height: 100vh;
+}
+
 
 
 .navbar{

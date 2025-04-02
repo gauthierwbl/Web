@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<body style="background-image: url('img/background.png');">
+
 <div class="profil-detail">
     <img class="image-profil" src="img/profil.png" alt="Photo de profil">
     <div class="texte-box-profil">

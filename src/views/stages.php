@@ -6,7 +6,6 @@
     <title>Stages Validés - Pagination</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body style="background-image: url('src/Views/img/background.png');">
 
     <!-- Navbar -->
     <header class="navbar">

@@ -6,7 +6,7 @@
     <title>Ma Wishlist</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body style="background-image: url('src/Views/img/background.png');">
+
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">
