@@ -1,143 +1,87 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Administration - Modification Pilote</title>
   <link rel="stylesheet" href="../../css/style-admin.css">
-  <link rel="icon" type="image/png" href="../../../../../../../img/icon.png">
-  <!-- Font Awesome CDN Link -->
+  <link rel="icon" type="image/png" href="../../img/icon.png">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body class="body-admin" style="background: url(../../img/background.png) no-repeat center center fixed;">
+
   <!-- Haut de page -->
   <div class="main-top">
-    <div class="menu-toggle">
-      <i class="fas fa-bars"></i>
-    </div>
+    <div class="menu-toggle"><i class="fas fa-bars"></i></div>
     <div class="titre-navbar">Tableau de bord</div>
   </div>
-  
+
   <!-- Navigation latérale -->
   <nav class="nav-laterale">
     <ul>
       <br><br><br>
-      <li>
-        <a class="nom-nav" href="/">
-          <i class="fas fa-home"></i>
-          <span class="nav-item">Home</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/entreprise">
-          <i class="fas fa-store-alt"></i>
-          <span class="nav-item">Entreprises</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/offre">
-          <i class="fas fa-clipboard-list"></i>
-          <span class="nav-item">Offres</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/pilote">
-          <i class="fas fa-user-tie"></i>
-          <span class="nav-item">Pilotes</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/etudiants">
-          <i class="fas fa-user-graduate"></i>
-          <span class="nav-item">Étudiants</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/candidatures">
-          <i class="fas fa-tasks"></i>
-          <span class="nav-item">Candidatures</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Statistiques</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/profile">
-          <i class="fas fa-user"></i>
-          <span class="nav-item">Profil</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav logout" href="/logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Déconnexion</span>
-        </a>
-      </li>
+      <li><a class="nom-nav" href="/"><i class="fas fa-home"></i><span class="nav-item">Home</span></a></li>
+      <li><a class="nom-nav" href="/admin/entreprise"><i class="fas fa-store-alt"></i><span class="nav-item">Entreprises</span></a></li>
+      <li><a class="nom-nav" href="/admin/offre"><i class="fas fa-clipboard-list"></i><span class="nav-item">Offres</span></a></li>
+      <li><a class="nom-nav" href="/admin/pilote"><i class="fas fa-user-tie"></i><span class="nav-item">Pilotes</span></a></li>
+      <li><a class="nom-nav" href="/admin/etudiants"><i class="fas fa-user-graduate"></i><span class="nav-item">Étudiants</span></a></li>
+      <li><a class="nom-nav" href="/admin/candidatures"><i class="fas fa-tasks"></i><span class="nav-item">Candidatures</span></a></li>
+      <li><a class="nom-nav" href="/admin"><i class="fas fa-chart-bar"></i><span class="nav-item">Statistiques</span></a></li>
+      <li><a class="nom-nav" href="/profile"><i class="fas fa-user"></i><span class="nav-item">Profil</span></a></li>
+      <li><a class="nom-nav logout" href="/logout"><i class="fas fa-sign-out-alt"></i><span class="nav-item">Déconnexion</span></a></li>
     </ul>
   </nav>
-  
+
   <!-- Contenu principal -->
   <section class="container-admin">
     <div class="container-modifier">
-      <h1 class="grand-titre">PiloteExemple</h1>
-      <form action="" method="post" class="verif">
+      <h1 class="grand-titre">Modifier le pilote : <?= htmlspecialchars($pilote['prenom']) . ' ' . htmlspecialchars($pilote['nom']) ?></h1>
+
+      <form action="index.php?module=pilotes&action=update" method="post" class="verif">
+
+        <input type="hidden" name="id_utilisateur" value="<?= $pilote['id_utilisateurs'] ?>">
+
         <div class="form-group">
           <label for="nom">Nom :</label>
-          <input type="text" name="nom" id="nom" class="form-control" value="Dupont">
+          <input type="text" name="nom" id="nom" class="form-control" value="<?= htmlspecialchars($pilote['nom']) ?>" required>
         </div>
+
         <div class="form-group">
           <label for="prenom">Prénom :</label>
-          <input type="text" name="prenom" id="prenom" class="form-control" value="Jean">
+          <input type="text" name="prenom" id="prenom" class="form-control" value="<?= htmlspecialchars($pilote['prenom']) ?>" required>
         </div>
+
         <div class="form-group">
           <label for="login">Nom d'utilisateur :</label>
-          <input type="text" name="login" id="login" class="form-control" value="jdupont">
+          <input type="text" name="login" id="login" class="form-control" value="<?= htmlspecialchars($pilote['login']) ?>" required>
         </div>
+
         <div class="form-group">
-          <label for="password">Mot de Passe :</label>
-          <input type="password" name="password" id="password" class="form-control" value="********">
+          <label for="mot_de_passe">Mot de passe :</label>
+          <input type="password" name="mot_de_passe" id="mot_de_passe" class="form-control" placeholder="Laisser vide pour ne pas changer">
         </div>
+
         <div class="form-group">
-          <input type="hidden" name="nbrAdresse" id="nbrAdresse" value="1">
-          <div class="form-group" id="adresses">
-            <label for="adresse">Adresse :</label>
-            <input type="text" name="adresse" id="adresse" class="form-control" value="123 Rue Exemple">
-            <label for="zipCode">Code Postal :</label>
-            <input type="text" name="zipCode" id="zipCode" class="form-control" value="75000">
-            <label for="city">Ville :</label>
-            <input type="text" name="city" id="city" class="form-control" value="Paris">
-          </div>
+          <label for="adresse">Adresse :</label>
+          <input type="text" name="adresse" id="adresse" class="form-control" value="<?= htmlspecialchars($pilote['adresse']) ?>" required>
         </div>
+
         <div class="form-group">
-          <label for="idCampus">Campus *</label>
-          <select name="idCampus" id="idCampus" class="form-control" required>
-            <option value="1" selected>Campus Principal</option>
-            <option value="2">Campus Optionnel</option>
+          <label for="id_ville">Ville :</label>
+          <select name="id_ville" id="id_ville" class="form-control" required>
+            <option value="">Sélectionnez une ville</option>
+            <?php foreach ($villes as $ville): ?>
+              <option value="<?= $ville['id_ville'] ?>" <?= $ville['id_ville'] == $pilote['id_ville'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($ville['nom_ville']) ?> (<?= htmlspecialchars($ville['zipcode']) ?>)
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
-        <div class="form-group">
-          <label for="idPromo">Promotions *</label>
-          <select name="idPromo" id="idPromo" class="form-control" required>
-            <option value="2021" selected>CPI A1</option>
-            <option value="2022">CPI A2</option>
-            <option value="2022">CPI A3</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="idMineure">Mineure *</label>
-          <select name="idMineure" id="idMineure" class="form-control" required>
-            <option value="1" selected>Mineure Informatique</option>
-            <option value="2">Mineure Mathématiques</option>
-          </select>
-        </div>
+
         <button type="submit" class="btn btn-primary">Modifier</button>
       </form>
     </div>
   </section>
-  
+
   <script src="/js/script.js"></script>
   <script src="/js/script-admin.js"></script>
 </body>
