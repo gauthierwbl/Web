@@ -66,7 +66,27 @@ switch ($module) {
         require_once 'src/controllers/EtudiantsController.php';
         $controller = new EtudiantsController();
         break;
-            
+
+    case 'profil':
+        // Inclure le contrôleur Profil
+        require_once 'src/controllers/ProfilController.php';
+
+        // Vérifier si l'ID de l'utilisateur est passé dans l'URL
+        if (isset($_GET['id'])) {
+            $userId = $_GET['id'];  // Récupérer l'ID de l'utilisateur
+
+            // Créer une instance du contrôleur ProfilController
+            $controller = new ProfilController();
+
+            // Appeler la méthode index() avec l'ID de l'utilisateur
+            $controller->index($userId);
+        } else {
+            // Si l'ID n'est pas passé, afficher une erreur ou rediriger
+            echo "ID de l'utilisateur manquant.";
+        }
+        break;
+
+
     default:
         die("Module inconnu : $module");
 }

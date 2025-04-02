@@ -5,27 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5b19985-2994-4dd4-8f0a-424b47513943" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/controllers/EtudiantsController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/models/EtudiantsModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.name" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/candidature.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/candidature.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/condition-general.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/condition-general.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/connexion.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/contact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/css/styles.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/css/styles.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/détail-entreprise.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/détail-entreprise.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/détail-offre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/détail-offre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/erreur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/erreur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/evaluation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/home.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/offres.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/offres.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/postuler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/postuler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Views/profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/profil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/wishlist.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/wishlist.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/OffresController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/OffresController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/entreprises.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/entreprises.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/stages.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/stages.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/controllers/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/ProfilController.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -93,20 +76,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;Merging developp&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/mytodoo/Web/src/Views/img&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "developp",
+    "last_opened_file_path": "C:/xampp/htdocs/mytodoo/Web/src/Views/img",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\mytodoo\Web\src\Views\img" />

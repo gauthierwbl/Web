@@ -10,18 +10,40 @@
 
 </head>
 
+<header class="navbar">
+    <section class="contenu-nav">
+        <div class="gauche">
+            <a href="/">
+                <label>
+                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                </label>
+            </a>
+        </div>
+        <div class="milieu">
+            <ul>
+                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                <li><a href="/contact">Contact</a></li>
+                <li><button id="bouton-projets">Menu</button></li>
+            </ul>
+            <div id="icons"></div>
+            <div class="droite">
+                <a href="/profile">
+                    <label>
+                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
+                    </label>
+                </a>
+            </div>
+        </div>
+    </section>
+</header>
+
 <div class="profil-detail">
     <img class="image-profil" src="img/profil.png" alt="Photo de profil">
     <div class="texte-box-profil">
         <br>
         <h4>Mon Profil : <?php echo htmlspecialchars($login); ?></h4>
     </div>
-</div>
-
-<div class="navigation-profil">
-                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
 </div>
 
 <div class="statistiques-profil">
