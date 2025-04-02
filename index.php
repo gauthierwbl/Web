@@ -67,6 +67,11 @@ switch ($module) {
         $controller = new EtudiantsController();
         break;
 
+    case 'pilotes':
+        require_once 'src/controllers/PilotesController.php';
+        $controller = new PilotesController();
+        break;
+
     case 'profil':
         // Inclure le contrôleur Profil
         require_once 'src/controllers/ProfilController.php';
