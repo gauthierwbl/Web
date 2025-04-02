@@ -1,153 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Dashboard - Administration - Modification Pilote</title>
+  <title>Dashboard - Administration - Modification Étudiant</title>
   <link rel="stylesheet" href="../../css/style-admin.css">
-  <link rel="icon" type="image/png" href="../../../../../../../img/icon.png" />
-  <!-- Font Awesome CDN Link -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+  <link rel="icon" type="image/png" href="../../img/icon.png">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body class="body-admin" style="background: url(../../img/background.png) no-repeat center center fixed;">
   <!-- Haut de page -->
   <div class="main-top">
-    <div class="menu-toggle">
-      <i class="fas fa-bars"></i>
-    </div>
+    <div class="menu-toggle"><i class="fas fa-bars"></i></div>
     <div class="titre-navbar">Tableau de bord</div>
   </div>
-  
+
   <!-- Navigation latérale -->
   <nav class="nav-laterale">
     <ul>
       <br><br><br>
-      <li>
-        <a class="nom-nav" href="/">
-          <i class="fas fa-home"></i>
-          <span class="nav-item">Home</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/entreprise">
-          <i class="fas fa-store-alt"></i>
-          <span class="nav-item">Entreprises</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/offre">
-          <i class="fas fa-clipboard-list"></i>
-          <span class="nav-item">Offres</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/pilote">
-          <i class="fas fa-user-tie"></i>
-          <span class="nav-item">Pilotes</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/etudiants">
-          <i class="fas fa-user-graduate"></i>
-          <span class="nav-item">Étudiants</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/candidatures">
-          <i class="fas fa-tasks"></i>
-          <span class="nav-item">Candidatures</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Statistiques</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/profile">
-          <i class="fas fa-user"></i>
-          <span class="nav-item">Profil</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav logout" href="/logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Déconnexion</span>
-        </a>
-      </li>
+      <li><a class="nom-nav" href="/"><i class="fas fa-home"></i><span class="nav-item">Home</span></a></li>
+      <li><a class="nom-nav" href="/admin/entreprise"><i class="fas fa-store-alt"></i><span class="nav-item">Entreprises</span></a></li>
+      <li><a class="nom-nav" href="/admin/offre"><i class="fas fa-clipboard-list"></i><span class="nav-item">Offres</span></a></li>
+      <li><a class="nom-nav" href="/admin/pilote"><i class="fas fa-user-tie"></i><span class="nav-item">Pilotes</span></a></li>
+      <li><a class="nom-nav" href="/admin/etudiants"><i class="fas fa-user-graduate"></i><span class="nav-item">Étudiants</span></a></li>
+      <li><a class="nom-nav" href="/admin/candidatures"><i class="fas fa-tasks"></i><span class="nav-item">Candidatures</span></a></li>
+      <li><a class="nom-nav" href="/admin"><i class="fas fa-chart-bar"></i><span class="nav-item">Statistiques</span></a></li>
+      <li><a class="nom-nav" href="/profile"><i class="fas fa-user"></i><span class="nav-item">Profil</span></a></li>
+      <li><a class="nom-nav logout" href="/logout"><i class="fas fa-sign-out-alt"></i><span class="nav-item">Déconnexion</span></a></li>
     </ul>
   </nav>
-  
+
   <!-- Contenu principal -->
   <section class="container-admin">
-    <!-- Message de succès -->
-    <!-- <div class="alert alert-success">
-      L'étudiant a bien été modifié
-    </div> -->
-
-    
     <div class="container-modifier">
-      <h1 class="grand-titre">NomUtilisateur</h1>
-      <form action="" method="post" class="verif">
+      <h1 class="grand-titre"><?= htmlspecialchars($etudiant['login']) ?></h1>
+
+      <form action="index.php?module=etudiants&action=update" method="post" class="verif">
+        <input type="hidden" name="id_utilisateur" value="<?= $etudiant['id_utilisateurs'] ?>">
+
         <div class="form-group">
           <label for="nom">Nom :</label>
-          <input type="text" name="nom" id="nom" class="form-control" value="NomExemple">
+          <input type="text" name="nom" id="nom" class="form-control" value="<?= htmlspecialchars($etudiant['nom']) ?>" required>
         </div>
+
         <div class="form-group">
-          <label for="prenom">Prenom :</label>
-          <input type="text" name="prenom" id="prenom" class="form-control" value="PrenomExemple">
+          <label for="prenom">Prénom :</label>
+          <input type="text" name="prenom" id="prenom" class="form-control" value="<?= htmlspecialchars($etudiant['prenom']) ?>" required>
         </div>
+
         <div class="form-group">
           <label for="login">Nom d'utilisateur :</label>
-          <input type="text" name="login" id="login" class="form-control" value="LoginExemple">
+          <input type="text" name="login" id="login" class="form-control" value="<?= htmlspecialchars($etudiant['login']) ?>" required>
         </div>
+
         <div class="form-group">
-          <label for="password">Mot de Passe :</label>
-          <input type="password" name="password" id="password" class="form-control" value="********">
+          <label for="mot_de_passe">Mot de Passe :</label>
+          <input type="password" name="mot_de_passe" id="mot_de_passe" class="form-control" placeholder="Laisser vide pour ne pas changer">
         </div>
+
         <div class="form-group">
           <label for="adresse">Adresse :</label>
-          <input type="text" name="adresse" id="adresse" class="form-control" value="123 Rue Exemple">
+          <input type="text" name="adresse" id="adresse" class="form-control" value="<?= htmlspecialchars($etudiant['adresse']) ?>" required>
         </div>
+
         <div class="form-group">
-          <label for="zipCode">Code Postal :</label>
-          <input type="text" name="zipCode" id="zipCode" class="form-control" value="75000">
-        </div>
-        <div class="form-group">
-          <label for="city">Ville :</label>
-          <input type="text" name="city" id="city" class="form-control" value="Paris">
-        </div>
-        <div class="form-group">
-          <label for="idCampus">Campus *</label>
-          <select name="idCampus" id="idCampus" class="form-control" required>
-            <option value="1" selected>Campus Exemple</option>
-            <option value="2">Campus Option 2</option>
-            <option value="3">Campus Option 3</option>
+          <label for="id_ville">Ville :</label>
+          <select name="id_ville" id="id_ville" class="form-control" required>
+            <option value="">Sélectionnez une ville</option>
+            <?php foreach ($villes as $ville): ?>
+              <option value="<?= $ville['id_ville'] ?>" <?= $ville['id_ville'] == $etudiant['id_ville'] ? 'selected' : '' ?>>
+                <?= htmlspecialchars($ville['nom_ville']) ?> (<?= htmlspecialchars($ville['zipcode']) ?>)
+              </option>
+            <?php endforeach; ?>
           </select>
         </div>
-        <div class="form-group">
-          <label for="idPromo">Promotions *</label>
-          <select name="idPromo" id="idPromo" class="form-control" required>
-            <option value="2021" selected>Promotion 2021</option>
-            <option value="2022">Promotion 2022</option>
-            <option value="2023">Promotion 2023</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label for="idMineure">Mineure *</label>
-          <select name="idMineure" id="idMineure" class="form-control" required>
-            <option value="1" selected>Mineure Exemple</option>
-            <option value="2">Mineure Option 2</option>
-            <option value="3">Mineure Option 3</option>
-          </select>
-        </div>
+
         <button type="submit" class="btn btn-primary">Modifier</button>
       </form>
     </div>
   </section>
-  
+
   <script src="/js/script.js"></script>
   <script src="/js/script-admin.js"></script>
 </body>
