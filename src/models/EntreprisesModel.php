@@ -1,5 +1,7 @@
 <?php
 
+
+
 class EntreprisesModel {
     private $pdo;
 
@@ -89,4 +91,31 @@ class EntreprisesModel {
         }
         return htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); // Protection contre les injections XSS
     }
+
+    public function getEntreprisesAvecNotes($page = 1, $limit = 10) {
+        // Calcul de l'offset pour la pagination
+        $offset = ($page - 1) * $limit;
+
+        // Préparer la requête SQL avec pagination et jointure
+        $stmt = $this->pdo->prepare("
+        SELECT e.*, 
+               COALESCE(AVG(n.note), 0) AS moyenne_note
+        FROM entreprises e
+        LEFT JOIN notes n ON e.id_entreprise = n.id_entreprise
+        GROUP BY e.id_entreprise
+        LIMIT :limit OFFSET :offset
+    ");
+
+        // Lier les paramètres :limit et :offset
+        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+        // Exécuter la requête
+        $stmt->execute();
+
+        // Retourner les résultats sous forme de tableau associatif
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+
 }

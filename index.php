@@ -51,8 +51,17 @@ switch ($module) {
         require_once 'src/controllers/StatistiquesController.php';
         $controller = new StatistiquesController();
         break;
-        
 
+    case 'Contact':
+        require_once 'src/controllers/ContactController.php';
+        $controller = new ContactController();
+        break;  
+        
+    case 'Candidature':
+        require_once 'src/controllers/CandidatureController.php';
+        $controller = new CandidatureController();
+        break;
+            
     default:
         die("Module inconnu : $module");
 }
