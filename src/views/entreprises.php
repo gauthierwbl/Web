@@ -75,8 +75,31 @@
                 <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
                 <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
                 <div style="margin: 10px 0;">
-                    <?php for ($i = 0; $i < 5; $i++): ?>
-                        <img class="etoile" src="src/Views/img/etoile.png" alt="Star">
+                    <?php
+                    // Récupérer la note de la base de données (note sur 20)
+                    $noteSur20 = isset($e['note']) ? (float)$e['note'] : 0;
+
+                    // Calculer la note sur 5
+                    $noteSur5 = $noteSur20 / 4;
+
+                    // Calculer le nombre d'étoiles pleines, demi et vides
+                    $notePleine = floor($noteSur5); // Nombre d'étoiles pleines
+                    $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0; // Vérifie s'il faut une demi-étoile
+                    $noteVide = 5 - ($notePleine + $noteDemi); // Complète à 5 étoiles
+
+                    // Afficher les étoiles pleines
+                    for ($i = 0; $i < $notePleine; $i++): ?>
+                        <img class="etoile" src="src/Views/img/etoile-pleine.png" alt="Étoile pleine">
+                    <?php endfor;
+
+                    // Afficher une demi-étoile si nécessaire
+                    if ($noteDemi): ?>
+                        <img class="etoile" src="src/Views/img/etoile-demi.png" alt="Étoile demi-remplie">
+                    <?php endif;
+
+                    // Afficher les étoiles vides pour compléter à 5
+                    for ($i = 0; $i < $noteVide; $i++): ?>
+                        <img class="etoile" src="src/Views/img/profil.png" alt="Étoile vide">
                     <?php endfor; ?>
                 </div>
             </div>

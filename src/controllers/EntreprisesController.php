@@ -12,27 +12,19 @@ class EntreprisesController {
     }
 
      // Afficher les entreprises avec pagination
-     public function index_dashboard() {
-        $entreprisesParPage = 10; // Nombre d'entreprises par page
-        $totalPages = $this->model->getTotalPages($entreprisesParPage); // Calcul des pages
+    public function index_dashboard() {
+        $entreprisesParPage = 10;
+        $totalPages = $this->model->getTotalPages($entreprisesParPage);
 
-        $pageActuelle = 1;
-        if (isset($_GET["page"])) {
-            if (!ctype_digit($_GET["page"]) || (int)$_GET["page"] < 1) {
-                die("Erreur : Numéro de page invalide.");
-            }
-            $pageActuelle = min((int)$_GET["page"], $totalPages);
-        }
+        $pageActuelle = isset($_GET["page"]) && ctype_digit($_GET["page"]) && (int)$_GET["page"] > 0
+            ? min((int)$_GET["page"], $totalPages)
+            : 1;
 
-        // Récupérer les entreprises pour la page actuelle
-        $entreprisesAffichees = $this->model->getEntreprises_dashboard($pageActuelle, $entreprisesParPage);
+        $entreprisesAffichees = $this->model->getEntreprisesAvecNotes($pageActuelle, $entreprisesParPage);
 
-        if (empty($entreprisesAffichees)) {
-            echo "<p style='color: red;'>⚠️ Erreur : Aucun résultat trouvé.</p>";
-        }
-
-        require 'src/views/dashboard/entreprises/gestion-entreprises.php'; // Passer les données à la vue
+        require 'src/views/dashboard/entreprises/gestion-entreprises.php';
     }
+
 
 
     // Afficher les entreprises avec pagination
