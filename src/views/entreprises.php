@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<body style="background-image: url('src/Views/img/background.png');">
+
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
@@ -109,20 +109,21 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
     <p style="color: red;">Aucune entreprise trouvée.</p>
 <?php endif; ?>
 
-<div class="pagination">
-    <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+
+<div class="container-pagination">
+    <div class="container-pagination-precedente">
+        <?php if (isset($pageActuelle) && isset($totalPages)): ?>
         <?php if ($pageActuelle > 1): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente" >Précédent</a>
         <?php endif; ?>
+    </div>
 
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
-        <?php endfor; ?>
-
+    <div class="container-pagination-suivante">
         <?php if ($pageActuelle < $totalPages): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante" > Suivant</a>
         <?php endif; ?>
-    <?php endif; ?>
+        <?php endif; ?>
+    </div>
 </div>
 
 
@@ -156,3 +157,4 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
 </footer>
 </body>
 </html>
+

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 
 </head>
-<body style="background-image: url('src/Views/img/background.png');">
+
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
@@ -98,6 +98,10 @@
                                 <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                             <?php endfor; ?>
                         </div>
+                        <div>
+                            Note : <?= isset($offre['moyenne_note']) && $offre['moyenne_note'] > 0 ?
+                                number_format($offre['moyenne_note'], 1) . "/20" : "Non disponible" ?>
+                        </div>
                         <a class="wishlist like"
                            href="index.php?module=wishlist&action=add&id=<?= $offre['id_offre'] ?>"
                            title="Ajouter à la wishlist"
@@ -113,20 +117,20 @@
     </section>
 </main>
 
-<div class="pagination">
-    <?php if (isset($pageActuelle) && isset($totalPages)): ?>
-        <?php if ($pageActuelle > 1): ?>
-            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+
+<div class="container-pagination">
+    <div class="container-pagination-precedente">
+        <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+            <?php if ($pageActuelle > 1): ?>
+                <a href="index.php?module=offres&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente">Précédent</a>
+            <?php endif; ?>
         <?php endif; ?>
-
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="index.php?module=offres&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
-        <?php endfor; ?>
-
+    </div>
+    <div class="container-pagination-suivante">
         <?php if ($pageActuelle < $totalPages): ?>
-            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+            <a href="index.php?module=offres&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante">Suivant</a>
         <?php endif; ?>
-    <?php endif; ?>
+    </div>
 </div>
 
 <footer class="text-center" id="footer">

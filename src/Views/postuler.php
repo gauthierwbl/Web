@@ -9,7 +9,7 @@
     <script src="js/script.js"></script>
 
 </head>
-<body style="background-image: url('img/background.png');">
+
     <header class="navbar">
         <section class="contenu-nav">
             <div class="gauche">

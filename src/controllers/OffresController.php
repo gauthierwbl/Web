@@ -34,7 +34,7 @@ class OffresController {
 
     // Afficher les offres avec pagination
     public function index() {
-        $offresParPage = 2;
+        $offresParPage = 4;
         $totalPages = $this->model->getTotalPages($offresParPage);
 
         $pageActuelle = 1;
@@ -51,7 +51,6 @@ class OffresController {
         if (empty($offresAffichees)) {
             echo "<p style='color: red;'>⚠️ Erreur : Aucune offre trouvée.</p>";
         }
-
         require 'src/views/offres.php';
     }
 

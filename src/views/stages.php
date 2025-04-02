@@ -6,7 +6,6 @@
     <title>Stages Validés - Pagination</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
-<body style="background-image: url('src/Views/img/background.png');">
 
     <!-- Navbar -->
     <header class="navbar">
@@ -90,21 +89,20 @@
 </main>
 
     <!-- Pagination -->
-    <div class="pagination">
+<div class="container-pagination">
+    <div class="container-pagination-precedente">
         <?php if (isset($pageActuelle) && isset($totalPages)): ?>
             <?php if ($pageActuelle > 1): ?>
-                <a href="index.php?module=Stages&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
-            <?php endif; ?>
-
-            <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-                <a href="index.php?module=Stages&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
-            <?php endfor; ?>
-
-            <?php if ($pageActuelle < $totalPages): ?>
-                <a href="index.php?module=Stages&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+                <a href="index.php?module=stages&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente">Précédent</a>
             <?php endif; ?>
         <?php endif; ?>
     </div>
+    <div class="container-pagination-suivante">
+        <?php if ($pageActuelle < $totalPages): ?>
+            <a href="index.php?module=stages&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante">Suivant</a>
+        <?php endif; ?>
+    </div>
+</div>
 
     <!-- Footer -->
     <footer class="text-center" id="footer">
