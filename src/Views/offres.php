@@ -97,11 +97,7 @@
                             for ($i = 0; $i < $noteVide; $i++): ?>
                                 <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                             <?php endfor; ?>
-                        </div>
-                        <div>
-                            Note : <?= isset($offre['moyenne_note']) && $offre['moyenne_note'] > 0 ?
-                                number_format($offre['moyenne_note'], 1) . "/20" : "Non disponible" ?>
-                        </div>
+                        </div>       
                         <a class="wishlist like"
                            href="index.php?module=wishlist&action=add&id=<?= $offre['id_offre'] ?>"
                            title="Ajouter à la wishlist"

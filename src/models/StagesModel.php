@@ -16,7 +16,7 @@ class StagesModel {
             JOIN candidater c ON o.id_offre = c.id_offre
             JOIN entreprises e ON o.id_entreprise = e.id_entreprise
             JOIN statuts s ON c.id_status = s.id_status
-            WHERE s.type_status = 'validé'
+            WHERE s.id_status = '3'
             LIMIT :limit OFFSET :offset
         ");
         $stmt->bindValue(':limit', $stagesParPage, PDO::PARAM_INT);
@@ -32,7 +32,7 @@ class StagesModel {
             FROM offres o
             JOIN candidater c ON o.id_offre = c.id_offre
             JOIN statuts s ON c.id_status = s.id_status
-            WHERE s.type_status = 'validé'
+            WHERE s.id_status = '3'
         ");
         $stmt->execute();
         $totalStages = $stmt->fetchColumn();

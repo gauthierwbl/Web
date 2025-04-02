@@ -8,6 +8,8 @@ class WishlistModel {
     }
 
     public function getWishlistByUser($userId, $page = 1, $limit = 10) {
+        $page = max(1, (int)$page);
+        $limit = max(1, (int)$limit);
         $offset = ($page - 1) * $limit;
         $stmt = $this->pdo->prepare("
             SELECT o.*, e.nom_entreprise

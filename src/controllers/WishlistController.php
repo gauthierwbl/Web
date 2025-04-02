@@ -9,7 +9,7 @@ class WishlistController {
 
     public function __construct() {
         session_start(); // obligatoire
-        $_SESSION['id_utilisateur'] = 1; // Simuler un utilisateur
+        $_SESSION['id_utilisateur'] = 6; // Simuler un utilisateur
         $this->pdo = Database::getConnection();
         $this->model = new WishlistModel($this->pdo);
     }    
