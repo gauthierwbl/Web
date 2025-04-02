@@ -22,7 +22,7 @@ class EntreprisesController {
 
         $entreprisesAffichees = $this->model->getEntreprisesAvecNotes($pageActuelle, $entreprisesParPage);
 
-        require 'src/views/entreprises.php'; // Passer les données à la vue
+        require 'src/views/dashboard/entreprises/gestion-entreprises.php'; // Passer les données à la vue
     }
 
     // Afficher les entreprises avec pagination

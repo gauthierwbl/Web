@@ -61,6 +61,11 @@ switch ($module) {
         require_once 'src/controllers/CandidatureController.php';
         $controller = new CandidatureController();
         break;
+
+    case 'etudiants':
+        require_once 'src/controllers/EtudiantsController.php';
+        $controller = new EtudiantsController();
+        break;
             
     default:
         die("Module inconnu : $module");
