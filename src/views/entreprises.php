@@ -86,20 +86,21 @@
     <p style="color: red;">Aucune entreprise trouvée.</p>
     <?php endif; ?>
 
-<div class="pagination">
+    
+<div class="container-pagination">
+    <div class="container-pagination-precedente">
     <?php if (isset($pageActuelle) && isset($totalPages)): ?>
         <?php if ($pageActuelle > 1): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle - 1 ?>">Précédent</a>
+            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente" >Précédent</a>
         <?php endif; ?>
-
-        <?php for ($i = 1; $i <= $totalPages; $i++): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $i ?>" class="<?= ($i == $pageActuelle) ? 'active' : '' ?>"><?= $i ?></a>
-        <?php endfor; ?>
-
+    </div>
+           
+    <div class="container-pagination-suivante">
         <?php if ($pageActuelle < $totalPages): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle + 1 ?>">Suivant</a>
+            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante" > Suivant</a>
         <?php endif; ?>
     <?php endif; ?>
+    </div>
 </div>
     
     
