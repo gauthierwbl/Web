@@ -14,6 +14,10 @@ class TraitementController {
         $this->model = new TraitementModel();
     }
 
+    public function index() {
+        require 'src/views/postuler.php';
+    }
+
     // Méthode pour gérer le traitement du formulaire
     public function handleForm() {
         // Vérifie si la requête est de type POST
@@ -35,7 +39,7 @@ class TraitementController {
             }
         }
          // Inclusion de la vue pour afficher le traitement du formulaire
-         include 'views/traitement.php';
+         include 'src/views/postuler.php';
     }
     
     

@@ -86,10 +86,10 @@ switch ($module) {
         }
         break;
 
-        case 'Traitement':
-            require_once 'src/controllers/TraitementController.php';
-            $controller = new TraitementController();
-            break;
+    case 'Traitement':
+         require_once 'src/controllers/TraitementController.php';
+         $controller = new TraitementController();
+         break;
 
 
     default:

@@ -15,7 +15,7 @@
             <div class="gauche">
                 <a href="/">
                     <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                        <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                     </label>
                 </a>
             </div>
@@ -30,7 +30,7 @@
                 <div class="droite">
                     <a href="/profile">
                         <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                         </label>
                     </a>
                 </div>
@@ -40,7 +40,7 @@
     
     <div class="titre-postuler">Candidater pour l'offre</div>
 <div class="offer">
-    <form action="" method="post" enctype="multipart/form-data" class="verif">
+    <form action="index.php?module=Traitement&action=index" method="post" enctype="multipart/form-data" class="verif">
         <div class="formulaire-postuler">
             <label for="formFile" class="selection-CV">Sélectionner un curriculum vitae pour postuler à l'offre</label>
             <input class="fichier-CV" type="file" name="fileToUpload" id="fileToUpload">
