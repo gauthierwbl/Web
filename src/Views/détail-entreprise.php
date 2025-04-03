@@ -65,8 +65,6 @@ if ($_SESSION['user']['id_role'] != 4): ?>
 
 <section class="statistiques-profil">
     <h4 class="texte-entreprise">Statistiques de l'entreprise</h4>
-    <p class="informations-entreprise-detail"><strong>Moyenne Étudiante :</strong> <?= isset($entreprise['moyenne_etudiante']) ? htmlspecialchars($entreprise['moyenne_etudiante']) : 'Non disponible' ?></p>
-    <p class="informations-entreprise-detail"><strong>Moyenne Pilote :</strong> <?= isset($entreprise['moyenne_pilote']) ? htmlspecialchars($entreprise['moyenne_pilote']) : 'Non disponible' ?></p>
     <p class="informations-entreprise-detail"><strong>Secteur d'activité :</strong> <?= htmlspecialchars($secteur['nom_secteur']) ?></p>
     <p class="informations-entreprise-detail"><strong>Promotions concernées :</strong> <?= htmlspecialchars($entreprise['promotion_concernee'] ?? 'Non spécifié') ?></p>
 </section>
