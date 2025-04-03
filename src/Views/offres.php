@@ -88,7 +88,7 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="index.php?module=profil&action=index&id=<?= $_SESSION['id_utilisateur'] ?? 0 ?>">
+                <a href="index.php?module=profil&action=index">
                     <label>
                         <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                     </label>

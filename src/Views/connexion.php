@@ -27,7 +27,7 @@
                 </ul>
                 <div id="icons"></div>
                 <div class="droite">
-                    <a href="/profile">
+                    <a href="index.php?module=profil&action=index">
                         <label>
                             <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
                         </label>
