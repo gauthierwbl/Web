@@ -29,7 +29,7 @@
                 <div class="droite">
                     <a href="index.php?module=profil&action=index">
                         <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                            <img class="profil profil-img" src="src/Views/img/profil.png" alt="Photo de profil"/>
                         </label>
                     </a>
                 </div>

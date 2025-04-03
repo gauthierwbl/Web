@@ -26,13 +26,12 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="profil.php">
+                <a href=>
                     <label>
-                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="Photo de profil"/>
                     </label>
                 </a>
             </div>
-<<<<<<< HEAD
         </div>
     </section>
     <section class="navplus">
@@ -57,7 +56,6 @@
     </div>
 </section>
 </header>
-=======
             <div class="milieu">
                 <ul>
                     <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
@@ -100,7 +98,6 @@
             </div>
         </section>
     </header>
->>>>>>> 5a7859d366eca50fd124513d2726612b070933a7
     
     <div class="titres-login">
         <h1>Connectez vous !</h1>

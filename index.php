@@ -92,19 +92,11 @@ switch ($module) {
     case 'profil':
         // Inclure le contrôleur Profil
         require_once 'src/controllers/ProfilController.php';
+        $controller = new ProfilController();
 
-        // Vérifier si l'ID de l'utilisateur est passé dans l'URL
-        if (isset($_GET['id'])) {
-            $userId = $_GET['id'];  // Récupérer l'ID de l'utilisateur
-
-            // Créer une instance du contrôleur ProfilController
-            $controller = new ProfilController();
-
-            // Appeler la méthode index() avec l'ID de l'utilisateur
-            $controller->index($userId);
-        } else {
-            // Si l'ID n'est pas passé, afficher une erreur ou rediriger
-            echo "ID de l'utilisateur manquant.";
+        // Si aucune action n'est spécifiée, utiliser 'index' par défaut
+        if (!isset($_GET['action']) || empty($_GET['action'])) {
+            $action = 'index';
         }
         break;
 
