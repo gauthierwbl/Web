@@ -25,13 +25,15 @@ class WishlistModel {
     public function getWishlistByUser($userId, $page = 1, $limit = 10) {
         $offset = ($page - 1) * $limit;
 
-        // Requête modifiée sans référence à date_ajout
+        // Requête modifiée pour inclure la note moyenne
         $query = "
-            SELECT o.*, e.nom_entreprise 
+            SELECT o.*, e.nom_entreprise, COALESCE(AVG(n.note), 0) AS moyenne_note
             FROM ajouter_wishlist w
             JOIN offres o ON w.id_offre = o.id_offre
             JOIN entreprises e ON o.id_entreprise = e.id_entreprise
+            LEFT JOIN notes n ON e.id_entreprise = n.id_entreprise
             WHERE w.id_utilisateurs = :userId
+            GROUP BY o.id_offre
             LIMIT :limit OFFSET :offset
         ";
 
