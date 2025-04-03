@@ -6,22 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="b5b19985-2994-4dd4-8f0a-424b47513943" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/candidature.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/candidature.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/condition-general.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/condition-general.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/connexion.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/connexion.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Views/contact.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/contact.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/détail-entreprise.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/détail-entreprise.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/détail-offre.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/détail-offre.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/erreur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/erreur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/evaluation.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/evaluation.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/home.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/home.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Views/offres.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/offres.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/postuler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/postuler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/profil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/profil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/wishlist.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/wishlist.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/ProfilController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/ProfilController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/models/ProfilModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/models/ProfilModel.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
