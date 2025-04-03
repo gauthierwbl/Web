@@ -49,7 +49,7 @@
       </a>
     </li>
     <li>
-      <a class="nom-nav" href="index.php?module=candidatures&action=index_dashboard">
+      <a class="nom-nav" href="index.php?module=candidatures&action=index">
         <i class="fas fa-tasks"></i>
         <span class="nav-item">Candidatures</span>
       </a>

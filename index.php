@@ -83,7 +83,7 @@ switch ($module) {
         $controller = new ContactController();
         break;  
         
-    case 'Candidature':
+    case 'candidatures':
         require_once 'src/controllers/CandidatureController.php';
         $controller = new CandidatureController();
         break;
