@@ -33,6 +33,7 @@
                     </label>
                 </a>
             </div>
+<<<<<<< HEAD
         </div>
     </section>
     <section class="navplus">
@@ -57,6 +58,50 @@
     </div>
 </section>
 </header>
+=======
+            <div class="milieu">
+                <ul>
+                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                    <li><a href="/contact">Contact</a></li>
+                    <li><button id="bouton-projets">Menu</button></li>
+                </ul>
+                <div id="icons"></div>
+                <div class="droite">
+                    <a href="index.php?module=profil&action=index">
+                        <label>
+                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
+                        </label>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section class="navplus">
+            <div class="contenu-navplus">
+                <ul>
+                  
+                    <li><a href="/">Accueil</a></li>
+                    <li><a href="/admin">Dashboard</a></li>
+                    <li class="liennavplus"><a href="/entreprise">Entreprises</a></li>
+                    <li class="liennavplus"><a href="/offre">Offres</a></li>
+                    <li class="liennavplus"><a href="/contact">Contact</a></li>
+                    <li><a href="/profile/wishlist">Wishlist</a></li>
+                    <li><a href="/profile/stages">Mes stages</a></li>
+                    
+                    <li>
+                        <?php if(isset($_COOKIE["UCOOKIE"])): ?>
+                            <form action="/logout" method="post">
+                                <button class="bouton-deconnexion">Déconnexion</button>
+                            </form>
+                            <?php else: ?>
+                                <a href="/login">Se connecter</a>
+                            <?php endif; ?>
+                    </li>
+                </ul>
+            </div>
+        </section>
+    </header>
+>>>>>>> 5a7859d366eca50fd124513d2726612b070933a7
     
     <div class="titres-login">
         <h1>Connectez vous !</h1>
