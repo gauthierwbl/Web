@@ -105,20 +105,33 @@ class EntreprisesModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Récupérer tous les secteurs d'activité
-    public function getSecteursActivite() {
-    try {
-        $stmt = $this->pdo->query("SELECT id_secteur, nom_secteur FROM secteur_activites");
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch (PDOException $e) {
-        error_log("Erreur dans getSecteursActivite : " . $e->getMessage());
-        return [];
-    }
-}
 
 public function getOffresByEntreprise($id_entreprise) {
     // Récupérer les offres liées à cette entreprise
     $stmt = $this->pdo->prepare("SELECT * FROM offres WHERE id_entreprise = :id_entreprise");
+    $stmt->bindParam(':id_entreprise', $id_entreprise, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+// Récupérer le secteur d'activité par ID
+public function getSecteurById($id_secteur) {
+    $stmt = $this->pdo->prepare("SELECT * FROM secteur_activites WHERE id_secteur = :id_secteur");
+    $stmt->bindParam(':id_secteur', $id_secteur, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetch(PDO::FETCH_ASSOC); // S'assurer que c'est bien un secteur qui est retourné
+}
+
+
+// Récupérer les adresses liées à une entreprise
+public function getAdressesByEntreprise($id_entreprise) {
+    // Requête SQL pour joindre 'entreprises', 'adresses' et 'resider'
+    $stmt = $this->pdo->prepare("
+        SELECT a.*
+        FROM adresses a
+        INNER JOIN resider r ON a.id_adresse = r.id_adresse
+        WHERE r.id_entreprise = :id_entreprise
+    ");
     $stmt->bindParam(':id_entreprise', $id_entreprise, PDO::PARAM_INT);
     $stmt->execute();
     return $stmt->fetchAll(PDO::FETCH_ASSOC);

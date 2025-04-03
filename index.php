@@ -39,10 +39,19 @@ switch ($module) {
         $controller = new AuthController($pdo);
         break;
 
-    case 'entreprises':
-        require_once 'src/controllers/EntreprisesController.php';
-        $controller = new EntreprisesController();
-        break;
+        case 'entreprises':
+            require_once 'src/controllers/EntreprisesController.php';
+            $controller = new EntreprisesController();
+            // Si l'action est 'show' et que l'ID est passé dans l'URL
+            if ($action === 'show' && isset($_GET['id'])) {
+                $id = (int)$_GET['id'];
+                $controller->show($id);
+            } else {
+                // Exécuter l'action normalement pour les autres cas
+                $controller->$action();
+            }
+            break;
+        
 
     case 'offres':
         require_once 'src/controllers/OffresController.php';
