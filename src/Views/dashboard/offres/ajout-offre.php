@@ -18,64 +18,63 @@
   
   <!-- Navigation latérale -->
   <nav class="nav-laterale">
-    <ul>
-      <br><br><br>
-      <li>
-        <a class="nom-nav" href="/">
-          <i class="fas fa-home"></i>
-          <span class="nav-item">Home</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/entreprise">
-          <i class="fas fa-store-alt"></i>
-          <span class="nav-item">Entreprises</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/offre">
-          <i class="fas fa-clipboard-list"></i>
-          <span class="nav-item">Offres</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/pilote">
-          <i class="fas fa-user-tie"></i>
-          <span class="nav-item">Pilotes</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/etudiants">
-          <i class="fas fa-user-graduate"></i>
-          <span class="nav-item">Étudiants</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin/candidatures">
-          <i class="fas fa-tasks"></i>
-          <span class="nav-item">Candidatures</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/admin">
-          <i class="fas fa-chart-bar"></i>
-          <span class="nav-item">Statistiques</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav" href="/profile">
-          <i class="fas fa-user"></i>
-          <span class="nav-item">Profil</span>
-        </a>
-      </li>
-      <li>
-        <a class="nom-nav logout" href="/logout">
-          <i class="fas fa-sign-out-alt"></i>
-          <span class="nav-item">Déconnexion</span>
-        </a>
-      </li>
-    </ul>
-  </nav>
+  <ul><br><br><br>
+    <li>
+      <a class="nom-nav" href="index.php?module=entreprises&action=index">
+        <i class="fas fa-home"></i>
+        <span class="nav-item">Home</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=entreprises&action=index_dashboard">
+        <i class="fas fa-store-alt"></i>
+        <span class="nav-item">Entreprises</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=offres&action=index_dashboard">
+        <i class="fas fa-clipboard-list"></i>
+        <span class="nav-item">Offres</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=pilotes&action=index_dashboard">
+        <i class="fas fa-user-tie"></i>
+        <span class="nav-item">Pilotes</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=etudiants&action=index_dashboard">
+        <i class="fas fa-user-graduate"></i>
+        <span class="nav-item">Étudiants</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=candidatures&action=index">
+        <i class="fas fa-tasks"></i>
+        <span class="nav-item">Candidatures</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=Statistiques&action=index">
+        <i class="fas fa-chart-bar"></i>
+        <span class="nav-item">Statistiques</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=profile&action=view">
+        <i class="fas fa-user"></i>
+        <span class="nav-item">Profil</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav logout" href="index.php?module=auth&action=logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="nav-item">Déconnexion</span>
+      </a>
+    </li>
+  </ul>
+</nav>
   
   <!-- Contenu principal -->
   <section class="container-admin">
@@ -99,34 +98,36 @@
         </div>
         <div class="form-group">
           <label for="dureeOffre">Durée de stage en semaines</label>
-          <input type="text" name="dureeOffre" id="dureeOffre" class="form-control" value="">
+          <input type="number" name="dureeOffre" id="dureeOffre" class="form-control" value="" min="1" required>
         </div>
         <div class="form-group">
           <label for="baseOffre">Base de rémunération</label>
-          <input type="text" name="baseOffre" id="baseOffre" class="form-control" value="">
+          <input type="number" name="baseOffre" id="baseOffre" class="form-control" value="" min="0" required>
         </div>
         <div class="form-group">
-          <label for="dateOffre">Date de l'offre</label>
-          <input type="text" name="dateOffre" id="dateOffre" class="form-control" value="">
+          <label for="date_offre">Date de l'offre</label>
+          <input type="date" name="date_offre" id="date_offre" class="form-control" value="<?= htmlspecialchars($offre['date_offre']) ?>">
         </div>
         <div class="form-group">
-          <label for="nombreOffre">Nombre de places disponibles</label>
-          <input type="text" name="nombreOffre" id="nombreOffre" class="form-control" value="">
+          <label for="nombre_place">Nombre de places disponibles</label>
+          <input type="number" name="nombre_place" id="nombre_place" class="form-control" value="<?= htmlspecialchars($offre['nombre_place']) ?>">
         </div>
         <div class="form-group">
           <label for="idEnt">Entreprise *</label>
-          <select name="idEnt" id="idEnt" class="form-control" required>
-            <!-- Options dynamiques -->
-            <option value="1">Entreprise A</option>
-            <option value="2">Entreprise B</option>
+          <select name="id_entreprise" id="id_entreprise" class="form-control" required>
+          <option value="">-- Choisir une entreprise --</option>
+          <?php foreach ($entreprises as $ent): ?>
+          <option value="<?= $ent['id_entreprise'] ?>"><?= htmlspecialchars($ent['nom_entreprise']) ?></option>
+          <?php endforeach; ?>
           </select>
         </div>
         <div class="form-group">
           <label for="idMineure">Mineure *</label>
-          <select name="idMineure" id="idMineure" class="form-control" required>
-            <!-- Options dynamiques -->
-            <option value="1">Mineure A</option>
-            <option value="2">Mineure B</option>
+          <select name="id_mineure" id="id_mineure" class="form-control" required>
+          <option value="">-- Choisir une mineure --</option>
+          <?php foreach ($mineures as $min): ?>
+          <option value="<?= $min['id_mineure'] ?>"><?= htmlspecialchars($min['nom_mineure']) ?></option>
+          <?php endforeach; ?>
           </select>
         </div>
         <button type="submit" class="btn btn-primary">Créer</button>

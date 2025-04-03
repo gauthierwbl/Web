@@ -9,33 +9,54 @@
 
 </head>
 
-    <header class="navbar">
-        <section class="contenu-nav">
-            <div class="gauche">
-                <a href="/">
+<header class="navbar">
+    <section class="contenu-nav">
+        <div class="gauche">
+            <a href="index.php?module=entreprises&action=index">
+                <label>
+                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                </label>
+            </a>
+        </div>
+        <div class="milieu">
+            <ul>
+                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                <li><a href="src/views/contact.php">Contact</a></li>
+                <li><button id="bouton-projets">Menu</button></li>
+            </ul>
+            <div id="icons"></div>
+            <div class="droite">
+                <a href="profil.php">
                     <label>
-                        <img class="logo" src="img/logo.png" alt="logo_img"/>
+                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
                     </label>
                 </a>
             </div>
-            <div class="milieu">
-                <ul>
-                    <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-                    <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                    <li><a href="/contact">Contact</a></li>
-                    <li><button id="bouton-projets">Menu</button></li>
-                </ul>
-                <div id="icons"></div>
-                <div class="droite">
-                    <a href="/profile">
-                        <label>
-                            <img class="profil profil-img" src="img/profil.png" alt="photo_de_profile"/>
-                        </label>
-                    </a>
-                </div>
-            </div>
-        </section>
-    </header>
+        </div>
+    </section>
+    <section class="navplus">
+    <div class="contenu-navplus">
+        <ul>
+            <li><a href="/">Accueil</a></li>
+            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+            
+            <li>
+                <?php if (isset($_SESSION["user"])): ?>
+                    <form action="logout.php" method="post">
+                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
+                </form>
+
+                <?php else: ?>
+                    <a href="index.php?module=login&action=index">Se connecter</a>
+                <?php endif; ?>
+            </li>
+        </ul>
+    </div>
+</section>
+</header>
     
         <h1 class="error-title">Oops! Une erreur est survenue.</h1>
         <p class="error-message">Désolé, la page que vous cherchez est introuvable. Veuillez réessayer plus tard.</p>
@@ -74,4 +95,5 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
 </body>
+<script src="src/Views/js/script.js"></script>
 </html>

@@ -15,19 +15,65 @@
     <div class="titre-navbar">Tableau de bord</div>
   </div>
 
+  <!-- Navigation latérale -->
   <nav class="nav-laterale">
-    <ul><br><br><br>
-      <li><a class="nom-nav" href="/"><i class="fas fa-home"></i><span class="nav-item">Home</span></a></li>
-      <li><a class="nom-nav" href="/admin/entreprise"><i class="fas fa-store-alt"></i><span class="nav-item">Entreprises</span></a></li>
-      <li><a class="nom-nav" href="/admin/offre"><i class="fas fa-clipboard-list"></i><span class="nav-item">Offres</span></a></li>
-      <li><a class="nom-nav" href="/admin/pilote"><i class="fas fa-user-tie"></i><span class="nav-item">Pilotes</span></a></li>
-      <li><a class="nom-nav" href="/admin/etudiants"><i class="fas fa-user-graduate"></i><span class="nav-item">Étudiants</span></a></li>
-      <li><a class="nom-nav" href="/admin/candidatures"><i class="fas fa-tasks"></i><span class="nav-item">Candidatures</span></a></li>
-      <li><a class="nom-nav" href="/admin"><i class="fas fa-chart-bar"></i><span class="nav-item">Statistiques</span></a></li>
-      <li><a class="nom-nav" href="/profile"><i class="fas fa-user"></i><span class="nav-item">Profil</span></a></li>
-      <li><a class="nom-nav logout" href="/logout"><i class="fas fa-sign-out-alt"></i><span class="nav-item">Déconnexion</span></a></li>
-    </ul>
-  </nav>
+  <ul><br><br><br>
+    <li>
+      <a class="nom-nav" href="index.php?module=entreprises&action=index">
+        <i class="fas fa-home"></i>
+        <span class="nav-item">Home</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=entreprises&action=index_dashboard">
+        <i class="fas fa-store-alt"></i>
+        <span class="nav-item">Entreprises</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=offres&action=index_dashboard">
+        <i class="fas fa-clipboard-list"></i>
+        <span class="nav-item">Offres</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=pilotes&action=index_dashboard">
+        <i class="fas fa-user-tie"></i>
+        <span class="nav-item">Pilotes</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=etudiants&action=index_dashboard">
+        <i class="fas fa-user-graduate"></i>
+        <span class="nav-item">Étudiants</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=candidatures&action=index">
+        <i class="fas fa-tasks"></i>
+        <span class="nav-item">Candidatures</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=Statistiques&action=index">
+        <i class="fas fa-chart-bar"></i>
+        <span class="nav-item">Statistiques</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav" href="index.php?module=profile&action=view">
+        <i class="fas fa-user"></i>
+        <span class="nav-item">Profil</span>
+      </a>
+    </li>
+    <li>
+      <a class="nom-nav logout" href="index.php?module=auth&action=logout">
+        <i class="fas fa-sign-out-alt"></i>
+        <span class="nav-item">Déconnexion</span>
+      </a>
+    </li>
+  </ul>
+</nav>
 
   <section class="container-admin">
     <div class="container-modifier">
@@ -40,18 +86,17 @@
         </div>
 
         <div class="form-group">
-          <label for="id_secteur">Secteur d'activité *</label>
-          <select name="id_secteur" class="form-control" id="id_secteur" required>
-            <option value="1" <?= $entreprise['id_secteur'] == 1 ? 'selected' : '' ?>>Secteur 1</option>
-            <option value="2" <?= $entreprise['id_secteur'] == 2 ? 'selected' : '' ?>>Secteur 2</option>
-            <option value="3" <?= $entreprise['id_secteur'] == 3 ? 'selected' : '' ?>>Secteur 3</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="id_fichier">ID Fichier (Logo)</label>
-          <input type="text" name="id_fichier" id="id_fichier" class="form-control" value="<?= htmlspecialchars($entreprise['id_fichier']) ?>">
-        </div>
+  <label for="id_secteur">Secteur d'activité *</label>
+  <select name="id_secteur" id="id_secteur" class="form-control" required>
+    <option value="">-- Choisir un secteur --</option>
+    <?php foreach ($secteurs as $secteur): ?>
+      <option value="<?= $secteur['id_secteur'] ?>"
+        <?= isset($entreprise) && $entreprise['id_secteur'] == $secteur['id_secteur'] ? 'selected' : '' ?>>
+        <?= htmlspecialchars($secteur['nom_secteur']) ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+  </div>
 
         <div class="form-group">
           <label for="is_visible">Visible sur le site</label>

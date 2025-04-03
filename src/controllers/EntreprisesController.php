@@ -51,6 +51,7 @@ class EntreprisesController {
     // Autres méthodes inchangées...
     // Afficher le formulaire de création d'entreprise
     public function create() {
+        $secteurs = $this->model->getSecteursActivite();
         require 'src/views/dashboard/entreprises/ajout-entreprise.php';
     }
 
@@ -77,13 +78,17 @@ class EntreprisesController {
     public function edit($id) {
         // Récupérer l'entreprise à modifier
         $entreprise = $this->model->getById($id);
-
+    
         if (!$entreprise) {
             die("Entreprise non trouvée.");
         }
-
-        require 'src/views/dashboard/entreprises/modif-entreprise.php'; // Passer l'entreprise à la vue
+    
+        // Récupérer aussi la liste des secteurs
+        $secteurs = $this->model->getSecteursActivite();
+    
+        require 'src/views/dashboard/entreprises/modif-entreprise.php'; // Passer à la vue
     }
+    
 
     // Mettre à jour les informations d'une entreprise
     public function update($id) {

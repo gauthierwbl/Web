@@ -119,8 +119,13 @@ class OffresController {
      * Affiche le formulaire de création d'offre
      */
     public function create() {
+        // Récupération des entreprises et mineures pour affichage dans les <select>
+        $entreprises = $this->model->getAllEntreprises(); 
+        $mineures = $this->model->getAllMineures();       
+    
         require 'src/views/dashboard/offres/ajout-offre.php';
     }
+    
 
     /**
      * Enregistre une nouvelle offre
@@ -158,13 +163,17 @@ class OffresController {
         if (isset($_GET['id'])) {
             $id_offre = $_GET['id'];
             $offre = $this->model->getOffreById($id_offre);
-
+    
             if (!$offre) {
                 $_SESSION['error'] = "Offre non trouvée.";
                 header("Location: index.php?module=offres&action=index_dashboard");
                 exit;
             }
-
+    
+            // 🔥 On ajoute ça pour récupérer les options dynamiques
+            $entreprises = $this->model->getAllEntreprises();
+            $mineures = $this->model->getAllMineures();
+    
             require 'src/views/dashboard/offres/modif-offre.php';
         } else {
             $_SESSION['error'] = "ID de l'offre non spécifié.";
@@ -172,6 +181,7 @@ class OffresController {
             exit;
         }
     }
+    
 
     /**
      * Met à jour une offre

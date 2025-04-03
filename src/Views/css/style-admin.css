@@ -369,13 +369,6 @@ label {
   font-weight: bold;
 }
 
-input[type="text"],
-select {
-  width: 100%;
-  padding: 5px;
-  border: 1px solid rgba(52, 152, 219);
-  border-radius: 5px;
-}
 
 textarea{
   width: 100%;
