@@ -46,9 +46,9 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="profil.php">
+                <a href="index.php?module=profil&action=index">
                     <label>
-                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="Photo de profil"/>
                     </label>
                 </a>
             </div>
@@ -64,7 +64,7 @@
 <?php endif; ?>
             <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
             <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
-            
+
             <li>
                 <?php if (isset($_SESSION["user"])): ?>
                     <form action="logout.php" method="post">
