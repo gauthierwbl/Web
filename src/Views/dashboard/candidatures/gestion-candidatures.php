@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,11 +7,9 @@
   <title>Dashboard - Administration - Candidatures</title>
   <link rel="stylesheet" href="../../css/style-admin.css">
   <link rel="icon" type="image/png" href="../../img/icon.png" />
-  <!-- Font Awesome Cdn Link -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
 </head>
 <body class="body-admin" style="background: url(../../img/background.png) no-repeat center center fixed;">
-  <!-- Haut de page -->
   <div class="main-top">
     <div class="menu-toggle">
       <i class="fas fa-bars"></i>
@@ -53,7 +51,7 @@
       </a>
     </li>
     <li>
-      <a class="nom-nav" href="index.php?module=candidatures&action=index_dashboard">
+      <a class="nom-nav" href="index.php?module=candidatures&action=index">
         <i class="fas fa-tasks"></i>
         <span class="nav-item">Candidatures</span>
       </a>
@@ -79,58 +77,68 @@
   </ul>
 </nav>
 
-  <!-- Contenu principal -->
   <section class="container-admin">
     <div class="container-edit-candidatures">
       <h1 class="grand-titre">Gestion des Candidatures</h1>
+
+      <!-- Formulaire de recherche -->
       <form action="" method="get">
         <input class="form-control" type="search" name="terme" placeholder="Rechercher..." aria-label="Entrez votre terme de recherche">
         <input class="btn btn-recherche" type="submit" name="submit" value="Rechercher" aria-label="Rechercher">
       </form>
 
+      <!-- Tableau des candidatures -->
       <table>
         <thead>
           <tr>
-            <th class="titre-tableau-candidatures">#id</th>
-            <th class="titre-tableau-candidatures">Entreprise</th>
-            <th class="titre-tableau-candidatures">Action</th>
+            <th>#id</th>
+            <th>Entreprise</th>
+            <th>Offre</th>
+            <th>Lettre de motivation</th>
+            <th>Action</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>
-              <a class="texte-tableau-candidatures" href="admin-candidature.html?id=1&id_o=101">
-                101 - Entreprise A
-              </a>
-            </td>
-            <td>
-              <a class="texte-tableau-candidatures" href="admin-candidature.html?id=1&id_o=101">
-                Offre Exemple A
-              </a>
-            </td>
-            <td>
-              <a href="admin-candidature-edit.html?id=1&id_o=101" class="btn btn-primary-candidature">
-                <span class="sr-only">Modifier la candidature</span>
-                <i class="fas fa-edit"></i>
-              </a>
-              <form action="admin-candidature-delete.html?id=1&id_o=101" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cette candidature ?')">
-                <button class="btn btn-danger-candidature">
-                  <span class="sr-only">Supprimer la candidature</span>
-                  <i class="fas fa-trash"></i>
-                </button>
-              </form>
-            </td>
-          </tr>
-          <!-- Vous pouvez ajouter d'autres lignes ici -->
+          <?php if (!empty($offresCandidaturees)): ?>
+            <?php foreach ($offresCandidaturees as $offre): ?>
+              <tr>
+                <td><?= htmlspecialchars($offre['id_offre']) ?></td>
+                <td><?= htmlspecialchars($offre['nom_entreprise']) ?></td>
+                <td><?= htmlspecialchars($offre['nom_offre']) ?></td>
+                <td><?= htmlspecialchars($offre['lettre_motivation']) ?></td>
+                <td>
+                  <!-- Bouton pour modifier la candidature -->
+                  <a href="index.php?module=candidatures&action=edit&id=<?= $offre['id_utilisateurs'] ?>&id_o=<?= $offre['id_offre'] ?>" class="btn btn-primary-candidature">
+                    <span class="sr-only">Modifier la candidature</span>
+                    <i class="fas fa-edit"></i>
+                  </a>
+                  <!-- Formulaire pour supprimer la candidature -->
+                  <form action="admin-candidature-delete.html?id=<?= $offre['id_offre'] ?>&id_o=<?= $offre['id_offre'] ?>" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cette candidature ?')">
+                    <button class="btn btn-danger-candidature">
+                      <span class="sr-only">Supprimer la candidature</span>
+                      <i class="fas fa-trash"></i>
+                    </button>
+                  </form>
+                </td>
+              </tr>
+            <?php endforeach; ?>
+          <?php else: ?>
+            <tr><td colspan="5">Aucune candidature trouvée.</td></tr>
+          <?php endif; ?>
         </tbody>
       </table>
 
       <!-- Pagination -->
       <div class="container-pagination">
-        <a href="admin-etudiants.html?page=prev" class="pagination-entreprise-precedente">Page Précédente</a>
-        <span style="display: inline-block; width: 20px;"></span> <!-- Espace de 20px -->
-        <a href="admin-etudiants.html?page=next" class="pagination-entreprise-suivante">Page Suivante</a>
-    </div>    
+        <?php if ($pageActuelle > 1): ?>
+          <a href="index.php?module=candidatures&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente">Page Précédente</a>
+        <?php endif; ?>
+        <span style="display: inline-block; width: 20px;"></span>
+        <?php if ($pageActuelle < $totalPages): ?>
+          <a href="index.php?module=candidatures&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante">Page Suivante</a>
+        <?php endif; ?>
+      </div>
+    </div>
   </section>
 
   <script src="/js/script.js"></script>

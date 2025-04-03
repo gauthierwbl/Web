@@ -49,7 +49,7 @@
       </a>
     </li>
     <li>
-      <a class="nom-nav" href="index.php?module=candidatures&action=index_dashboard">
+      <a class="nom-nav" href="index.php?module=candidatures&action=index">
         <i class="fas fa-tasks"></i>
         <span class="nav-item">Candidatures</span>
       </a>
@@ -102,7 +102,7 @@
 
       <!-- Statistiques par Durée du stage -->
       <div style="flex: 1 1 30%; min-width: 300px;">
-        <h4 class="petit-titre">Nombre de stages par durée</h4>
+        <h4 class="petit-titre">Nombre de stages par durée (semaines)</h4>
         <table class="table table-striped">
           <thead>
             <tr><th>Durée</th><th>Nombre</th></tr>
