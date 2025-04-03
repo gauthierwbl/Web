@@ -92,7 +92,7 @@
             <?php if ($_SESSION['user']['id_role'] != 4): ?>
     <a href="index.php?module=profil&action=index">
         <label>
-            <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profil" />
         </label>
     </a>
 <?php endif; ?>
