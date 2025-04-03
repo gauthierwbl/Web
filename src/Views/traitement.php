@@ -104,7 +104,7 @@
                 <?php echo $message; ?>
             </div>
         <?php endif; ?>
-        
+
         <h2>Uploader un fichier PDF</h2>
         <p>Formats acceptés : <strong>PDF uniquement</strong> (max 2 Mo)</p>
         
@@ -117,6 +117,7 @@
     <p class="file-name" id="file-name">Aucun fichier sélectionné</p>
 
     <h2>Lettre de motivation</h2>
+    <input type="hidden" name="id_offre" value="<?php echo $offre_id; ?>">
     <textarea name="lettre_motivation" placeholder="Écrivez votre lettre de motivation ici..." required></textarea>
 
     <button type="submit" name="submit">Téléverser</button>

@@ -11,14 +11,15 @@ class TraitementModel {
     // Méthode pour enregistrer la lettre de motivation
     public function saveMotivationLetter($lettre, $id_offre) {
         try {
-            // Ajout de l'ID de l'offre dans l'insertion de la lettre de motivation
             $sql = "INSERT INTO candidater (lettre_motivation, id_offre) VALUES (:lettre_motivation, :id_offre)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":lettre_motivation", $lettre, PDO::PARAM_STR);
             $stmt->bindParam(":id_offre", $id_offre, PDO::PARAM_INT);
-            return $stmt->execute();
+            $result = $stmt->execute();
+            return $result; // Retourne true si l'exécution réussit
         } catch (PDOException $e) {
-            die("Erreur lors de l'enregistrement de la lettre de motivation : " . $e->getMessage());
+            echo "Erreur lors de l'enregistrement de la lettre de motivation : " . $e->getMessage();
+            return false; // Retourne false en cas d'erreur
         }
     }
     
@@ -52,7 +53,7 @@ class TraitementModel {
         
             // Vérifier la taille du fichier
             if ($file["size"] > $maxSize) {
-                die("Erreur : Le fichier dépasse la taille maximale autorisée (2 Mo).");
+                return "Erreur : Le fichier dépasse la taille maximale autorisée (2 Mo).";
             }
         
             // Vérifier le type MIME avec fileinfo
@@ -61,7 +62,7 @@ class TraitementModel {
             finfo_close($finfo);
         
             if ($fileMimeType !== $allowedMimeType) {
-                die("Erreur : Seuls les fichiers PDF sont autorisés.");
+                return "Erreur : Seuls les fichiers PDF sont autorisés.";
             }
         
             // Assurer un nom de fichier unique avec la bonne extension
@@ -103,7 +104,6 @@ public function saveCandidature($id_offre, $id_utilisateur, $lettre_motivation) 
         return $stmt->execute();
     } catch (PDOException $e) {
         // Gérer les erreurs
-        die("Erreur lors de l'enregistrement de la candidature : " . $e->getMessage());
-    }
+        return "Erreur lors de l'enregistrement de la candidature : " . $e->getMessage(); }
 }
 }
