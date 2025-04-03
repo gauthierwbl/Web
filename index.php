@@ -37,7 +37,7 @@ switch ($module) {
         $controller = new StagesController();
         break;
 
-    case 'Wishlist':
+    case 'wishlist':
         require_once 'src/controllers/WishlistController.php';
         $controller = new WishlistController();
         break;   
@@ -67,6 +67,11 @@ switch ($module) {
         $controller = new EtudiantsController();
         break;
 
+    case 'pilotes':
+        require_once 'src/controllers/PilotesController.php';
+        $controller = new PilotesController();
+        break;
+
     case 'profil':
         // Inclure le contrôleur Profil
         require_once 'src/controllers/ProfilController.php';
@@ -85,6 +90,11 @@ switch ($module) {
             echo "ID de l'utilisateur manquant.";
         }
         break;
+
+    case 'Traitement':
+         require_once 'src/controllers/TraitementController.php';
+         $controller = new TraitementController();
+         break;
 
 
     default:

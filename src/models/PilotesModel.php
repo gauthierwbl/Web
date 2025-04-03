@@ -1,34 +1,32 @@
 <?php
 
-class EtudiantsModel {
+class PilotesModel {
     private $pdo;
 
     public function __construct($pdo) {
         $this->pdo = $pdo;
     }
 
-    public function countEtudiants() {
-        $stmt = $this->pdo->query("SELECT COUNT(*) FROM utilisateurs WHERE id_role = 2");
+    public function countPilotes() {
+        $stmt = $this->pdo->query("SELECT COUNT(*) FROM utilisateurs WHERE id_role = 3");
         return (int) $stmt->fetchColumn();
     }
 
-    public function getEtudiantsPaginated($page, $limit) {
+    public function getPilotesPaginated($page, $limit) {
         $offset = ($page - 1) * $limit;
 
-        $query = "
+        $stmt = $this->pdo->prepare("
             SELECT u.id_utilisateurs, u.login, u.date_inscription,
                    i.nom, i.prenom, a.adresse, v.nom_ville, v.zipcode
             FROM utilisateurs u
             JOIN identites i ON u.id_identite = i.id_identite
+            JOIN affilier af ON af.id_adresse = u.id_adresse
             JOIN adresses a ON u.id_adresse = a.id_adresse
-            JOIN affilier af ON a.id_adresse = af.id_adresse
             JOIN villes v ON af.id_ville = v.id_ville
-            WHERE u.id_role = 2
+            WHERE u.id_role = 3
             ORDER BY u.id_utilisateurs ASC
             LIMIT :limit OFFSET :offset
-        ";
-
-        $stmt = $this->pdo->prepare($query);
+        ");
         $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
         $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
         $stmt->execute();
@@ -41,10 +39,10 @@ class EtudiantsModel {
                    v.id_ville, v.nom_ville, v.zipcode
             FROM utilisateurs u
             JOIN identites i ON u.id_identite = i.id_identite
+            JOIN affilier af ON af.id_adresse = u.id_adresse
             JOIN adresses a ON u.id_adresse = a.id_adresse
-            JOIN affilier af ON a.id_adresse = af.id_adresse
             JOIN villes v ON af.id_ville = v.id_ville
-            WHERE u.id_utilisateurs = :id
+            WHERE u.id_utilisateurs = :id AND u.id_role = 3
         ");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
@@ -69,7 +67,7 @@ class EtudiantsModel {
         $stmt->execute([':id_adresse' => $id_adresse, ':id_ville' => $id_ville]);
 
         $stmt = $this->pdo->prepare("INSERT INTO utilisateurs (login, mot_de_passe, date_inscription, id_adresse, id_identite, id_role)
-                                     VALUES (:login, :mot_de_passe, NOW(), :id_adresse, :id_identite, 2)");
+                                     VALUES (:login, :mot_de_passe, NOW(), :id_adresse, :id_identite, 3)");
         return $stmt->execute([
             ':login' => $login,
             ':mot_de_passe' => $mot_de_passe,
@@ -104,7 +102,7 @@ class EtudiantsModel {
     }
 
     public function delete($id) {
-        $stmt = $this->pdo->prepare("DELETE FROM utilisateurs WHERE id_utilisateurs = :id");
+        $stmt = $this->pdo->prepare("DELETE FROM utilisateurs WHERE id_utilisateurs = :id AND id_role = 3");
         return $stmt->execute([':id' => $id]);
     }
 }

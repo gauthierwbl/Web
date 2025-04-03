@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,13 +6,32 @@
     <title>Profil</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script>
+        function toggleEditMode() {
+            const viewMode = document.getElementById('view-mode');
+            const editMode = document.getElementById('edit-mode');
+            const editButton = document.getElementById('edit-button');
+            const saveButton = document.getElementById('save-button');
 
+            if (viewMode.style.display !== 'none') {
+                viewMode.style.display = 'none';
+                editMode.style.display = 'block';
+                editButton.style.display = 'none';
+                saveButton.style.display = 'inline-block';
+            } else {
+                viewMode.style.display = 'block';
+                editMode.style.display = 'none';
+                editButton.style.display = 'inline-block';
+                saveButton.style.display = 'none';
+            }
+        }
+    </script>
 </head>
-
+<body>
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
-            <a href="/">
+            <a href="home.php">
                 <label>
                     <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                 </label>
@@ -28,7 +46,7 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="/profile">
+                <a href="profil.php">
                     <label>
                         <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profile"/>
                     </label>
@@ -38,8 +56,21 @@
     </section>
 </header>
 
+<!-- Affichage des messages de succès ou d'erreur -->
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert success">
+        <?php echo htmlspecialchars($_SESSION['success']); unset($_SESSION['success']); ?>
+    </div>
+<?php endif; ?>
+
+<?php if (isset($_SESSION['error'])): ?>
+    <div class="alert error">
+        <?php echo htmlspecialchars($_SESSION['error']); unset($_SESSION['error']); ?>
+    </div>
+<?php endif; ?>
+
 <div class="profil-detail">
-    <img class="image-profil" src="img/profil.png" alt="Photo de profil">
+    <img class="image-profil" src="<?php echo htmlspecialchars($profilePhoto); ?>" alt="Photo de profil">
     <div class="texte-box-profil">
         <br>
         <h4>Mon Profil : <?php echo htmlspecialchars($login); ?></h4>
@@ -49,49 +80,104 @@
 <div class="statistiques-profil">
     <h4 class="texte-profil">Statistiques du compte</h4>
     <br>
-    <p class="informations-profil">Nombre d'offres dans la wishlist : </p>
+    <p class="informations-profil">Nombre d'offres dans la wishlist : <?php echo htmlspecialchars($wishlistCount); ?></p>
     <br>
-    <p class="informations-profil">Nombre de stages complétés :</p>
+    <p class="informations-profil">Nombre de stages complétés : <?php echo htmlspecialchars($completedInternshipsCount); ?></p>
     <br>
-    <p class="informations-profil">Nombre de candidatures envoyées :</p>
+    <p class="informations-profil">Nombre de candidatures envoyées : <?php echo htmlspecialchars($applicationsCount); ?></p>
     <br>
 </div>
+
 <div class="offer">
     <h2 class="titre-offre">Mes informations</h2>
-    <div class="info-details">
+
+    <!-- Mode visualisation -->
+    <div id="view-mode" class="info-details">
         <div class="info">
             <h3>Identité : </h3>
             <h4>Prénom : <?php echo htmlspecialchars($identiteData['prenom']); ?></h4>
-            <h4>Nom :<?php echo htmlspecialchars($identiteData['nom']); ?> </h4>
+            <h4>Nom : <?php echo htmlspecialchars($identiteData['nom']); ?> </h4>
         </div>
         <div class="info">
-            <h3>Adresse :  </h3>
+            <h3>Adresse : </h3>
             <h4>Voie postal : <?= htmlspecialchars($adresseData['adresse']) ?></h4>
-            <h4>Code Postal : Code Postal: <?= htmlspecialchars($adresseData['zipcode']) ?></h4>
+            <h4>Code Postal : <?= htmlspecialchars($adresseData['zipcode']) ?></h4>
             <h4>Ville : <?= htmlspecialchars($adresseData['nom_ville']) ?> </h4>
         </div>
         <div class="info">
             <h3>Campus : </h3>
             <h4>Nom : <?= htmlspecialchars($campusData['nom_campus']) ?></h4>
-            <h4>Promotion :<?= htmlspecialchars($campusData['promotions']) ?> </h4>
-            <h4>Mineure :<?= htmlspecialchars($campusData['nom_mineure']) ?></h4>
+            <h4>Promotion : <?= htmlspecialchars($campusData['promotions']) ?> </h4>
+            <h4>Mineure : <?= htmlspecialchars($campusData['nom_mineure']) ?></h4>
         </div>
         <div class="info">
             <h3>Photo de profil :</h3>
-            <form action="" method="POST" enctype="multipart/form-data">
+            <form action="" method="POST" enctype="multipart/form-data" id="photoForm">
                 <div class="info-upload">
-                    <label for="formFile" class="form-label">Photo à upload:</label>
-                    <br><br>
-                    <input class="input-file" type="file" name="fileToUpload" id="fileToUpload">
+                    <input class="input-file" type="file" name="fileToUpload" id="fileToUpload" onchange="document.getElementById('photoForm').submit();">
                     <label for="fileToUpload" class="label-file">Choisir un fichier</label>
-
-                    <button class="recherche-bouton">Modifier</button>
                 </div>
             </form>
+            <button id="edit-button" class="recherche-bouton" onclick="toggleEditMode()">Modifier mes informations</button>
         </div>
     </div>
-</div>
 
+    <!-- Mode édition -->
+    <div id="edit-mode" class="info-details" style="display: none;">
+        <form action="" method="POST">
+            <input type="hidden" name="update_profile" value="1">
+
+            <div class="info">
+                <h3>Identité : </h3>
+                <div class="form-group">
+                    <label for="prenom">Prénom :</label>
+                    <input type="text" id="prenom" name="prenom" value="<?php echo htmlspecialchars($identiteData['prenom']); ?>">
+                </div>
+                <div class="form-group">
+                    <label for="nom">Nom :</label>
+                    <input type="text" id="nom" name="nom" value="<?php echo htmlspecialchars($identiteData['nom']); ?>">
+                </div>
+            </div>
+
+            <div class="info">
+                <h3>Adresse : </h3>
+                <div class="form-group">
+                    <label for="adresse">Voie postal :</label>
+                    <input type="text" id="adresse" name="adresse" value="<?= htmlspecialchars($adresseData['adresse']) ?>">
+                </div>
+                <div class="form-group">
+                    <label for="zipcode">Code Postal :</label>
+                    <input type="text" id="zipcode" name="zipcode" value="<?= htmlspecialchars($adresseData['zipcode']) ?>">
+                </div>
+                <div class="form-group">
+                    <label for="ville">Ville :</label>
+                    <input type="text" id="ville" name="ville" value="<?= htmlspecialchars($adresseData['nom_ville']) ?>">
+                </div>
+            </div>
+
+            <div class="info">
+                <h3>Campus : </h3>
+                <div class="form-group">
+                    <label for="campus">Nom :</label>
+                    <input type="text" id="campus" name="campus" value="<?= htmlspecialchars($campusData['nom_campus']) ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="promotion">Promotion :</label>
+                    <input type="text" id="promotion" name="promotion" value="<?= htmlspecialchars($campusData['promotions']) ?>" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="mineure">Mineure :</label>
+                    <input type="text" id="mineure" name="mineure" value="<?= htmlspecialchars($campusData['nom_mineure']) ?>" readonly>
+                </div>
+            </div>
+
+            <div class="info">
+                <button id="save-button" type="submit" class="recherche-bouton">Enregistrer</button>
+                <button type="button" class="recherche-bouton recherche-bouton-cancel" onclick="toggleEditMode()">Annuler</button>
+            </div>
+        </form>
+    </div>
+</div>
 
 <footer class="text-center" id="footer">
     <div class="container">
@@ -121,5 +207,6 @@
     </div>
     <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
 </footer>
+
 </body>
 </html>
