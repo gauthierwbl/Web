@@ -80,16 +80,6 @@ class EntreprisesModel {
         ]);
     }
 
-    // Validation et nettoyage des entrées
-    public function validateInput($input) {
-        $pattern = "/^[a-zA-Z0-9\s\p{L}-]+$/u"; // Permet les lettres, chiffres et espaces, y compris les caractères spéciaux comme accents
-        $input = trim($input); // Nettoyer les espaces superflus
-        if (!preg_match($pattern, $input)) {
-            die("Erreur : Données invalides détectées.");
-        }
-        return htmlspecialchars($input, ENT_QUOTES, 'UTF-8'); // Protection contre les injections XSS
-    }
-
     public function getEntreprisesAvecNotes($page = 1, $limit = 10) {
         // Calcul de l'offset pour la pagination
         $offset = ($page - 1) * $limit;
@@ -114,4 +104,16 @@ class EntreprisesModel {
         // Retourner les résultats sous forme de tableau associatif
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
+
+    // Récupérer tous les secteurs d'activité
+    public function getSecteursActivite() {
+    try {
+        $stmt = $this->pdo->query("SELECT id_secteur, nom_secteur FROM secteur_activites");
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        error_log("Erreur dans getSecteursActivite : " . $e->getMessage());
+        return [];
+    }
+}
+
 }
