@@ -8,46 +8,37 @@ require_once 'src/models/UserModel.php';
 
 // Connexion à la BDD
 $pdo = (new Database())->getConnection();
-$userModel = new UserModel($pdo);
-
-// Vérification de l'authentification avant de continuer
-if (!isset($_SESSION['user'])) {
-    // Si une tentative de connexion est en cours
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_POST['login'] ?? '';
-        $password = $_POST['password'] ?? '';
-
-        // Recherche de l'utilisateur dans la BDD
-        $user = $userModel->findUserByUsername($username);
-
-        // Si utilisateur trouvé et mot de passe correct
-        if ($user && password_verify($password, $user['mot_de_passe'])) {
-            $_SESSION['user'] = $user;
-            header('Location: index.php'); // Redirection après connexion réussie
-            exit;
-        } else {
-            // Sinon, on affiche un message d'erreur et le formulaire de connexion
-            $error = "Identifiants incorrects.";
-        }
-    }
-    include 'src/views/connexion.php';
-}
-
-// Si l'utilisateur est connecté, continuer le reste du code
-echo '<head>';
-echo '<link rel="stylesheet" href="src/Views/css/styles.css">';
-echo '<link rel="stylesheet" href="src/Views/css/animate.min.css">';
-echo '<link rel="stylesheet" href="src/Views/css/style-admin.css">';
-echo '<link rel="stylesheet" href="src/Views/css/Footer-Basic-icons.css">';
-echo '</head>';
 
 // Détermination du module et de l'action
-$module = $_GET['module'] ?? 'login';
-$action = $_GET['action'] ?? 'index';
+$module = $_GET['module'] ?? 'auth';
+$action = $_GET['action'] ?? 'showLoginForm';
+
+// Si l'utilisateur n'est pas connecté et tente d'accéder à autre chose que le module auth
+if (!isset($_SESSION['user']) && $module !== 'auth') {
+    // Rediriger vers la page de connexion
+    header('Location: index.php?module=auth&action=showLoginForm');
+    exit;
+}
+
+// Si l'utilisateur est connecté, chargement des styles
+if (isset($_SESSION['user'])) {
+    echo '<head>';
+    echo '<link rel="stylesheet" href="src/Views/css/styles.css">';
+    echo '<link rel="stylesheet" href="src/Views/css/animate.min.css">';
+    echo '<link rel="stylesheet" href="src/Views/css/style-admin.css">';
+    echo '<link rel="stylesheet" href="src/Views/css/Footer-Basic-icons.css">';
+    echo '</head>';
+}
+
 $controller = null; // Par défaut, il n'y a pas de contrôleur
 
 // Instanciation du bon contrôleur et exécution de l'action
 switch ($module) {
+    case 'auth':
+        require_once 'src/controllers/AuthController.php';
+        $controller = new AuthController($pdo);
+        break;
+
     case 'entreprises':
         require_once 'src/controllers/EntreprisesController.php';
         $controller = new EntreprisesController();
@@ -122,15 +113,9 @@ switch ($module) {
         $controller = new TraitementController();
         break;
 
-    case 'login':
-        // Aucun contrôleur spécifique pour le login
-        require_once 'src/controllers/LoginControlleur.php';
-        // Redirection ou formulaire géré directement plus haut
-        $controller = new LoginControlleur();
-        break;
-
     default:
-        die();
+        header('Location: index.php?module=auth&action=showLoginForm');
+        exit;
 }
 
 // Après le switch, vérifiez que $controller est défini avant de l'utiliser
@@ -140,11 +125,11 @@ if (is_null($controller)) {
 
 // Exécution de l'action
 if (method_exists($controller, $action)) {
-    if (in_array($action, ['edit', 'update', 'delete']) && isset($_GET['id'])) {
+    if (in_array($action, ['edit', 'update', 'delete', 'toggleVisibility']) && isset($_GET['id'])) {
         $controller->$action($_GET['id']);
     } else {
         $controller->$action();
     }
 } else {
-    die();
+    die("Action introuvable : $action");
 }

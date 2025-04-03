@@ -179,7 +179,6 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
 </footer>
 <script src="src/Views/js/script.js"></script>
 </body>
-<script src="src/Views/js/script.js"></script>
 </html>
 
 

@@ -4,15 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion</title>
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="src/Views/css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 </head>
-
+<body>
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
-            <a href="index.php?module=entreprises&action=index">
+            <a href="index.php?module=entreprises&action=index&guest=true">
                 <label>
                     <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                 </label>
@@ -20,42 +19,12 @@
         </div>
         <div class="milieu">
             <ul>
-                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-                <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
-                <li><button id="bouton-projets">Menu</button></li>
+                <li><a href="index.php?module=entreprises&action=index&guest=true">Entreprises</a></li>
+                <li><a href="index.php?module=offres&action=index&guest=true">Offres</a></li>
+                <li><a href="index.php?module=Contact&action=index&guest=true">Contact</a></li>
             </ul>
-            <div id="icons"></div>
-            <div class="droite">
-                <a href="profil.php">
-                    <label>
-                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
-                    </label>
-                </a>
-            </div>
         </div>
     </section>
-    <section class="navplus">
-    <div class="contenu-navplus">
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
-            
-            <li>
-                <?php if (isset($_SESSION["user"])): ?>
-                    <form action="logout.php" method="post">
-                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
-                </form>
-
-                <?php else: ?>
-                    <a href="index.php?module=login&action=index">Se connecter</a>
-                <?php endif; ?>
-            </li>
-        </ul>
-    </div>
-</section>
 </header>
     
     <div class="titres-login">
@@ -64,15 +33,24 @@
     </div>
     
     <div class="formulaire-login">
-        <form class="text-center" method="post" action="index.php?module=entreprises&action=index">
-            <div><input class="formulaire-contact" type="text" name="login" placeholder="Login"></div>
-            <div><input class="formulaire-contact" type="password" name="password" placeholder="Password"></div>
+        <?php if (isset($error)): ?>
+            <div class="error-message" style="color: red; text-align: center; margin-bottom: 15px;">
+                <?php echo htmlspecialchars($error); ?>
+            </div>
+        <?php endif; ?>
+        
+        <form class="text-center" method="post" action="index.php?module=auth&action=login">
+            <div><input class="formulaire-contact" type="text" name="login" placeholder="Login" required></div>
+            <div><input class="formulaire-contact" type="password" name="password" placeholder="Password" required></div>
             <div><button class="recherche-bouton" type="submit" style="background: rgba(52, 152, 219);">Login</button></div>          
-            <div><button class="recherche-bouton" type="submit" style="background: rgba(52, 152, 219);">Continuer en tant qu'invité</button></div>                    
         </form>
+        
+        <div style="text-align: center; margin-top: 15px;">
+            <a href="index.php?module=auth&action=guestAccess" class="recherche-bouton" style="background: rgba(52, 152, 219); text-decoration: none; padding: 10px 20px; color: white; border-radius: 4px; display: inline-block;">Continuer en tant qu'invité</a>
+        </div>
+        
         <p class="texte-login">Merci de vous adresser à votre pilote pour toute perte ou oubli de votre mot de passe.</p>
     </div>
-    
     
     <footer class="text-center" id="footer">
         <div class="container">

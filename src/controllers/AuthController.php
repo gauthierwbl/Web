@@ -9,97 +9,111 @@ class AuthController {
     // Constructeur qui initialise le modèle utilisateur avec une connexion PDO
     public function __construct($pdo) {
         $this->userModel = new UserModel($pdo);
-        
     }
 
     // Affiche le formulaire de connexion, avec un message d'erreur éventuel
     public function showLoginForm() {
-        $error = isset($_GET['error']) ? $_GET['error'] : null;
-        include 'src/views/connexion.php'; // Affiche la vue login.php
+        if (isset($_SESSION['user'])) {
+            // Si l'utilisateur est déjà connecté, redirige vers la page principale
+            header('Location: index.php?module=entreprises&action=index');
+            exit;
+        }
+    
+        $error = isset($_SESSION['auth_error']) ? $_SESSION['auth_error'] : null;
+        // Nettoyer le message d'erreur après l'avoir récupéré
+        unset($_SESSION['auth_error']);
+        
+        include 'src/views/connexion.php'; // Affiche la vue de connexion
     }
-
+    
     // Gère la logique de connexion de l'utilisateur
     public function login() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = $_POST['login'] ?? '';
             $password = $_POST['password'] ?? '';
     
-            // Récupère l'utilisateur via son username
+            // Recherche de l'utilisateur dans la BDD
             $user = $this->userModel->findUserByUsername($login);
-            var_dump($user);
-            var_dump(password_verify($password, $user['password']));
-
-            if ($user) {
-                // Vérification sécurisée du mot de passe haché
-                if (password_verify($password, $user['mot_de_passe'])) {
-                    $_SESSION['user'] = $user;
-                    header('Location: index.php?module=entreprises&action=index');
-                    exit;
-                } else {
-                    // Mot de passe incorrect
-                    header('Location: index.php?action=login&error=1');
-                    exit;
-                }
+    
+            if ($user && password_verify($password, $user['mot_de_passe'])) {
+                // Utilisateur authentifié, on le met dans la session
+                $_SESSION['user'] = $user;
+                
+                // Redirection vers la page principale
+                header('Location: index.php?module=entreprises&action=index');
+                exit;
             } else {
-                // Utilisateur non trouvé
-                header('Location: index.php?action=login&error=1');
+                // Si utilisateur ou mot de passe incorrect
+                $_SESSION['auth_error'] = "Identifiants incorrects.";
+                header('Location: index.php?module=auth&action=showLoginForm');
                 exit;
             }
         } else {
-            header('Location: index.php?action=login');
+            // Si ce n'est pas une requête POST, rediriger vers le formulaire
+            header('Location: index.php?module=auth&action=showLoginForm');
             exit;
         }
-        
     }
     
-
-    // Connexion automatique en tant qu'invité (id_role = 4)
-    public function loginAsGuest() {
-        // Cherche un utilisateur avec le rôle invité
-        $guestUser = $this->userModel->findGuestUser(); // méthode à créer dans le modèle
-
-        if ($guestUser) {
-            $_SESSION['user'] = $guestUser;
-            header('Location: index.php?action=index'); // Redirige vers la page principale
-            exit;
-        } else {
-            header('Location: index.php?action=login&error=guest');
-            exit;
-        }
-    }
-    // Affiche le formulaire d'inscription
-public function showRegistrationForm() {
-    $error = isset($_GET['error']) ? $_GET['error'] : null;
-    include 'views/register.php';
-}
-
-// Gère l'inscription d'un nouvel utilisateur
-public function register() {
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        $username = $_POST['username'] ?? '';
-        $password = $_POST['password'] ?? '';
-
-        // Vérifie si l'utilisateur existe déjà
-        if ($this->userModel->findUserByUsername($username)) {
-            header('Location: index.php?action=register&error=user_exists');
-            exit;
-        }
-
-        // Hachage sécurisé du mot de passe
-        $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-        // Création de l'utilisateur
-        if ($this->userModel->createUser($username, $hashedPassword)) {
-            header('Location: index.php?action=login');
-            exit;
-        } else {
-            header('Location: index.php?action=register&error=registration_failed');
-            exit;
-        }
-    } else {
-        header('Location: index.php?action=register');
+    // Gère la déconnexion de l'utilisateur
+    public function logout() {
+        // Destruction des données de session
+        session_unset();
+        session_destroy();
+        
+        // Démarrer une nouvelle session pour pouvoir y stocker des messages flash
+        session_start();
+        
+        // Redirection vers la page de connexion
+        header('Location: index.php?module=auth&action=showLoginForm');
         exit;
     }
-}
-
+    
+    // Permet à un utilisateur de continuer en tant qu'invité
+    public function guestAccess() {
+        // Redirection vers la page des entreprises sans authentification
+        header('Location: index.php?module=entreprises&action=index&guest=true');
+        exit;
+    }
+    
+    // Affiche le formulaire d'inscription (si nécessaire)
+    public function showRegistrationForm() {
+        $error = isset($_SESSION['reg_error']) ? $_SESSION['reg_error'] : null;
+        // Nettoyer le message d'erreur après l'avoir récupéré
+        unset($_SESSION['reg_error']);
+        
+        include 'src/views/register.php';
+    }
+    
+    // Gère l'inscription d'un nouvel utilisateur (si nécessaire)
+    public function register() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $username = $_POST['username'] ?? '';
+            $password = $_POST['password'] ?? '';
+    
+            // Vérifie si l'utilisateur existe déjà
+            if ($this->userModel->findUserByUsername($username)) {
+                $_SESSION['reg_error'] = "Cet utilisateur existe déjà.";
+                header('Location: index.php?module=auth&action=showRegistrationForm');
+                exit;
+            }
+    
+            // Hachage sécurisé du mot de passe
+            $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+    
+            // Création de l'utilisateur
+            if ($this->userModel->createUser($username, $hashedPassword)) {
+                $_SESSION['auth_success'] = "Compte créé avec succès. Veuillez vous connecter.";
+                header('Location: index.php?module=auth&action=showLoginForm');
+                exit;
+            } else {
+                $_SESSION['reg_error'] = "Erreur lors de la création du compte.";
+                header('Location: index.php?module=auth&action=showRegistrationForm');
+                exit;
+            }
+        } else {
+            header('Location: index.php?module=auth&action=showRegistrationForm');
+            exit;
+        }
+    }
 }
