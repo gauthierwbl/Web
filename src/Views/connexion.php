@@ -11,7 +11,7 @@
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
-            <a href="index.php?module=entreprises&action=index&guest=true">
+            <a href="index.php?module=entreprises&action=index">
                 <label>
                     <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                 </label>
@@ -40,9 +40,10 @@
         </form>
         
         <div style="text-align: center; margin-top: 15px;">
-    <a href="src/Views/entreprises.php" class="recherche-bouton" style="background: rgba(52, 152, 219); text-decoration: none; padding: 10px 20px; color: white; border-radius: 4px; display: inline-block;">
-        Continuer en tant qu'invité
-    </a>
+        <a href="index.php?module=auth&action=guestAccess" class="recherche-bouton" style="background: rgba(52, 152, 219); text-decoration: none; padding: 10px 20px; color: white; border-radius: 4px; display: inline-block;">
+    Continuer en tant qu'invité
+</a>
+
 </div>
 
         

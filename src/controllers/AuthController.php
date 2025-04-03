@@ -8,7 +8,7 @@ class AuthController {
 
     // Constructeur qui initialise le modèle utilisateur avec une connexion PDO
     public function __construct($pdo) {
-        $this->userModel = new UserModel($pdo);
+        $this->userModel = new UserModel(pdo: $pdo);
     }
 
     // Affiche le formulaire de connexion, avec un message d'erreur éventuel
@@ -70,11 +70,31 @@ class AuthController {
     }
     
     // Permet à un utilisateur de continuer en tant qu'invité
-    public function guestAccess() {
-        // Redirection vers la page des entreprises sans authentification
+   // Permet à un utilisateur de continuer en tant qu'invité
+public function guestAccess() {
+    // Connexion automatique avec les identifiants d'un utilisateur invité
+    $login = 'invite'; // Identifiant de l'invité
+    $password = 'password'; // Remplacer par le mot de passe en dur de l'invité, si nécessaire
+
+    // Recherche de l'utilisateur dans la BDD
+    $user = $this->userModel->findUserByUsername($login);
+    
+    // Vérifier si l'utilisateur existe et si le mot de passe correspond
+    if ($user && password_verify($password, $user['mot_de_passe'])) {
+        // Utilisateur authentifié, on le met dans la session
+        $_SESSION['user'] = $user;
+        $_SESSION['user']['id_role'] = $user['id_role'];
+        // Redirection vers la page principale
         header('Location: index.php?module=entreprises&action=index&guest=true');
         exit;
+    } else {
+        // Si l'utilisateur invité n'est pas trouvé ou mot de passe incorrect
+        $_SESSION['auth_error'] = "Erreur lors de la connexion en tant qu'invité.";
+        header('Location: index.php?module=auth&action=showLoginForm');
+        exit;
     }
+}
+
     
     // Affiche le formulaire d'inscription (si nécessaire)
     public function showRegistrationForm() {

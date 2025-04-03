@@ -1,10 +1,11 @@
 <?php
 
-if ($_SESSION['user'] === 'CesiLouisonMasson') {
-  // Rediriger l'étudiant vers la page d'erreur
+if ($_SESSION['user']['id_role'] == 2 || $_SESSION['user']['id_role'] == 4) {
+  // Rediriger l'utilisateur vers la page d'erreur
   header('Location: src/views/erreur.php');
   exit;
 }
+
 ?>
 <!DOCTYPE html>
 <html lang="fr">

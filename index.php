@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 // Inclure le modèle UserModel et la connexion à la base de données
@@ -31,6 +30,14 @@ if (isset($_SESSION['user'])) {
 }
 
 $controller = null; // Par défaut, il n'y a pas de contrôleur
+
+// Ajout du cas pour guestAccess avant le switch pour ne pas perturber les autres actions
+if ($module === 'auth' && $action === 'guestAccess') {
+    require_once 'src/controllers/AuthController.php';
+    $authController = new AuthController($pdo);
+    $authController->guestAccess(); // Appeler directement la méthode guestAccess
+    exit; // Terminer le script ici après avoir appelé la fonction guestAccess
+}
 
 // Instanciation du bon contrôleur et exécution de l'action
 switch ($module) {
@@ -133,3 +140,4 @@ if (method_exists($controller, $action)) {
 } else {
     die("Action introuvable : $action");
 }
+?>
