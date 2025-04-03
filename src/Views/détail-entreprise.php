@@ -129,7 +129,7 @@ if ($_SESSION['user']['id_role'] != 4): ?>
 <footer class="text-center" id="footer">
     <div class="container">
         <ul class="list-inline">
-            <li class="list-inline-item me-4"><a class="link-secondary" href="/condition">Conditions générales</a></li>
+        <li class="list-inline-item me-4"><a class="link-secondary" href="index.php?module=conditions&action=index">Conditions générales</a></li>
         </ul><br>
     </div>
     <div class="wrapper">
