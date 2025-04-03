@@ -13,11 +13,7 @@ class UserModel {
     // Méthode pour rechercher un utilisateur en fonction de son nom d'utilisateur
     public function findUserByUsername($login) {
         // Prépare une requête SQL pour sélectionner un utilisateur par son username
-        $stmt = $this->pdo->prepare('SELECT id_utilisateurs, mot_de_passe, date_inscription, login, id_adresse, id_promo, id_identite, id_role, id_fichier, token
-        FROM utilisateurs
-        WHERE login = login;');
-
-        // Exécute la requête en liant la valeur du paramètre :username
+        $stmt = $this->pdo->prepare('SELECT mot_de_passe, login FROM utilisateurs WHERE login = :login');
         $stmt->execute(['login' => $login]);
 
         // Retourne la première ligne trouvée sous forme de tableau associatif

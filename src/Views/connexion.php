@@ -67,7 +67,7 @@
     </div>
     
     <div class="formulaire-login">
-        <form class="text-center" method="post" action="/do-login">
+        <form class="text-center" method="post" action="index.php?module=entreprises&action=index">
             <div><input class="formulaire-contact" type="text" name="login" placeholder="Login"></div>
             <div><input class="formulaire-contact" type="password" name="password" placeholder="Password"></div>
             <div><button class="recherche-bouton" type="submit" style="background: rgba(52, 152, 219);">Login</button></div>          
