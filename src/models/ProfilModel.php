@@ -122,8 +122,10 @@ class ProfilModel {
             ");
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->execute();
+
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result['wishlist_count'] : 0;
+
+            return $result ? (int)$result['wishlist_count'] : 0;
         } catch (PDOException $e) {
             error_log("Erreur dans getWishlistCount: " . $e->getMessage());
             return 0;
@@ -142,7 +144,7 @@ class ProfilModel {
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result['completed_count'] : 0;
+            return $result ? (int)$result['completed_count'] : 0;
         } catch (PDOException $e) {
             error_log("Erreur dans getCompletedInternshipsCount: " . $e->getMessage());
             return 0;
@@ -160,7 +162,7 @@ class ProfilModel {
             $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result['applications_count'] : 0;
+            return $result ? (int)$result['applications_count'] : 0;
         } catch (PDOException $e) {
             error_log("Erreur dans getApplicationsCount: " . $e->getMessage());
             return 0;

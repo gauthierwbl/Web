@@ -16,23 +16,42 @@ class ProfilController {
     // Méthode index sans paramètre qui récupère l'ID de la session
     public function index() {
         // Vérifier que l'utilisateur est connecté
-        if (!isset($_SESSION['user']) || !isset($_SESSION['user']['login'])) {
+        if (!isset($_SESSION['user'])) {
             $_SESSION['error'] = "Veuillez vous connecter pour accéder à votre profil.";
             header('Location: index.php?module=auth&action=showLoginForm');
             exit;
         }
 
-        // Récupérer le login depuis la session
-        $userLogin = $_SESSION['user']['login'];
+        // Récupérer l'ID utilisateur depuis la session comme dans WishlistController
+        $userId = $_SESSION['id_utilisateur'] ?? null;
 
-        // Récupérer l'ID à partir du login
-        $userId = $this->getUserIdFromLogin($userLogin);
+        // Si l'ID n'est pas disponible dans la session, utiliser les données de l'utilisateur
+        if (!$userId && isset($_SESSION['user']['id_utilisateurs'])) {
+            $userId = $_SESSION['user']['id_utilisateurs'];
+
+            // Stocker l'ID dans la session pour la cohérence
+            $_SESSION['id_utilisateur'] = $userId;
+        }
+
+        // Si toujours pas d'ID, essayer avec le login
+        if (!$userId && isset($_SESSION['user']['login'])) {
+            $userLogin = $_SESSION['user']['login'];
+            $userId = $this->getUserIdFromLogin($userLogin);
+
+            // Stocker l'ID pour les futures requêtes
+            if ($userId) {
+                $_SESSION['id_utilisateur'] = $userId;
+            }
+        }
 
         if (!$userId) {
             $_SESSION['error'] = "Utilisateur non trouvé.";
             header('Location: index.php?module=auth&action=showLoginForm');
             exit;
         }
+
+        // Debug - Afficher l'ID utilisateur
+        error_log("index - userId: $userId");
 
         // Maintenant que nous avons l'ID utilisateur, continuer avec le reste du code...
         // Vérifier si le formulaire a été soumis
@@ -62,9 +81,15 @@ class ProfilController {
         $identiteData = $this->model->getIdentiteByUserId($userId);
         $adresseData = $this->model->getAdresseByUserId($userId);
         $campusData = $this->model->getCampusInfoByUserId($userId);
+
+        // S'assurer que les méthodes de statistiques reçoivent bien l'ID utilisateur
         $wishlistCount = $this->model->getWishlistCount($userId);
         $completedInternshipsCount = $this->model->getCompletedInternshipsCount($userId);
         $applicationsCount = $this->model->getApplicationsCount($userId);
+
+        // Debug - Afficher les compteurs
+        error_log("Compteurs - wishlist: $wishlistCount, completed: $completedInternshipsCount, applications: $applicationsCount");
+
         $profilePhoto = $this->model->getProfilePhoto($userId);
         $login = $profil['login'];
 
@@ -81,6 +106,9 @@ class ProfilController {
             $stmt->bindParam(':login', $login, PDO::PARAM_STR);
             $stmt->execute();
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            // Debug
+            error_log("getUserIdFromLogin - login: $login, result: " . print_r($result, true));
 
             return $result ? $result['id_utilisateurs'] : null;
         } catch (PDOException $e) {
