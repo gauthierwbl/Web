@@ -190,5 +190,26 @@ class OffresModel {
             return null;
         }
     }
+
+    public function getAllEntreprises() {
+        try {
+            $stmt = $this->pdo->query("SELECT id_entreprise, nom_entreprise FROM entreprises");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erreur dans getAllEntreprises : " . $e->getMessage());
+            return [];
+        }
+    }
+    
+    public function getAllMineures() {
+        try {
+            $stmt = $this->pdo->query("SELECT id_mineure, nom_mineure FROM mineures");
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erreur dans getAllMineures : " . $e->getMessage());
+            return [];
+        }
+    }
+    
 }
 ?>

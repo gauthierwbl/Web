@@ -81,18 +81,21 @@
         </div>
 
         <div class="form-group">
-          <label for="id_entreprise">Entreprise *</label>
+          <label for="idEnt">Entreprise *</label>
           <select name="id_entreprise" id="id_entreprise" class="form-control" required>
-            <option value="<?= $offre['id_entreprise'] ?>" selected><?= $offre['id_entreprise'] ?></option>
-            <!-- Optionnel : ajouter dynamiquement d'autres entreprises ici -->
+          <option value="">-- Choisir une entreprise --</option>
+          <?php foreach ($entreprises as $ent): ?>
+          <option value="<?= $ent['id_entreprise'] ?>"><?= htmlspecialchars($ent['nom_entreprise']) ?></option>
+          <?php endforeach; ?>
           </select>
         </div>
-
         <div class="form-group">
-          <label for="id_mineure">Mineure *</label>
+          <label for="idMineure">Mineure *</label>
           <select name="id_mineure" id="id_mineure" class="form-control" required>
-            <option value="<?= $offre['id_mineure'] ?>" selected><?= $offre['id_mineure'] ?></option>
-            <!-- Optionnel : ajouter dynamiquement d'autres mineures ici -->
+          <option value="">-- Choisir une mineure --</option>
+          <?php foreach ($mineures as $min): ?>
+          <option value="<?= $min['id_mineure'] ?>"><?= htmlspecialchars($min['nom_mineure']) ?></option>
+          <?php endforeach; ?>
           </select>
         </div>
 

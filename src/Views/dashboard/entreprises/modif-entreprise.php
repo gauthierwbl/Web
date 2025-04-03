@@ -40,18 +40,17 @@
         </div>
 
         <div class="form-group">
-          <label for="id_secteur">Secteur d'activité *</label>
-          <select name="id_secteur" class="form-control" id="id_secteur" required>
-            <option value="1" <?= $entreprise['id_secteur'] == 1 ? 'selected' : '' ?>>Secteur 1</option>
-            <option value="2" <?= $entreprise['id_secteur'] == 2 ? 'selected' : '' ?>>Secteur 2</option>
-            <option value="3" <?= $entreprise['id_secteur'] == 3 ? 'selected' : '' ?>>Secteur 3</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label for="id_fichier">ID Fichier (Logo)</label>
-          <input type="text" name="id_fichier" id="id_fichier" class="form-control" value="<?= htmlspecialchars($entreprise['id_fichier']) ?>">
-        </div>
+  <label for="id_secteur">Secteur d'activité *</label>
+  <select name="id_secteur" id="id_secteur" class="form-control" required>
+    <option value="">-- Choisir un secteur --</option>
+    <?php foreach ($secteurs as $secteur): ?>
+      <option value="<?= $secteur['id_secteur'] ?>"
+        <?= isset($entreprise) && $entreprise['id_secteur'] == $secteur['id_secteur'] ? 'selected' : '' ?>>
+        <?= htmlspecialchars($secteur['nom_secteur']) ?>
+      </option>
+    <?php endforeach; ?>
+  </select>
+  </div>
 
         <div class="form-group">
           <label for="is_visible">Visible sur le site</label>
