@@ -88,11 +88,11 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-<<<<<<< HEAD
+
                 <a href="profil.php">
-=======
+
                 <a href="index.php?module=profil&action=index">
->>>>>>> 5a7859d366eca50fd124513d2726612b070933a7
+
                     <label>
                         <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
                     </label>
@@ -210,7 +210,7 @@
                         </a>
 
                         <!-- Lien pour voir les détails de l'offre -->
-                        <a class="voir-plus-offre" href="index.php?module=offres&action=details&id=<?= $offre['id_offre'] ?>">Voir Plus</a>
+                        <a href="index.php?module=offres&action=details&id=<?= $offre['id_offre'] ?>" class="btn btn-primary">Voir Plus</a>
                     </div>
                 </div>
             <?php endforeach; ?>

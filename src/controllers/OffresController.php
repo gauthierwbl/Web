@@ -112,7 +112,7 @@ class OffresController {
         }
 
         // Charger la vue des détails de l'offre
-        require 'src/views/offre-details.php';
+        require 'src/views/détail-offre.php';
     }
 
     /**

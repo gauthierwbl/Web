@@ -98,5 +98,7 @@ class CandidatureController {
         header("Location: index.php?module=candidatures&action=index");
         exit;
     }
+  
+    
 }
 ?>

@@ -25,34 +25,42 @@ class TraitementController {
         if ($_SERVER["REQUEST_METHOD"] === "POST") {
             // Tableau pour stocker les erreurs
             $errors = [];
-
-            // Appel de la méthode pour uploader le CV et récupérer un message d'erreur éventuel
+    
+            // Récupérer l'ID de l'offre
+            $id_offre = $_POST['id_offre']; // ID de l'offre pour laquelle l'utilisateur postule
+    
+            // Vérifie si un fichier a été téléversé et gère l'upload du CV
             $cvMessage = $this->model->uploadCV($_FILES['cv'] ?? null);
             if ($cvMessage) {
                 $errors[] = $cvMessage; // Ajout du message d'erreur au tableau
             }
-
+    
             // Sauvegarde de la lettre de motivation
-        if (!empty($_POST['lettre_motivation'])) {
-            $lettreMotivation = htmlspecialchars($_POST['lettre_motivation']);
-            if ($this->model->saveMotivationLetter($lettreMotivation)) {
-                $message = "La lettre de motivation a été enregistrée avec succès.";
+            if (!empty($_POST['lettre_motivation'])) {
+                $lettreMotivation = htmlspecialchars($_POST['lettre_motivation']);
+                if ($this->model->saveMotivationLetter($lettreMotivation, $id_offre)) {
+                    $message = "La lettre de motivation a été enregistrée avec succès.";
+                } else {
+                    $errors[] = "Erreur lors de l'enregistrement de la lettre de motivation.";
+                }
             } else {
-                $errors[] = "";
+                $errors[] = "La lettre de motivation ne peut pas être vide.";
             }
-        } else {
-            $errors[] = "La lettre de motivation ne peut pas être vide.";
-        }
-
+    
             // Affichage des erreurs, s'il y en a
             if (!empty($errors)) {
                 foreach ($errors as $error) {
                     echo "<p style='color: red;'>$error</p>"; // Affichage de chaque erreur en rouge
                 }
             }
+    
+            // Appel au modèle pour enregistrer les candidatures avec l'id_offre correct
+            if (empty($errors)) {
+                $this->model->saveCandidature($id_offre, $_SESSION['id_utilisateur'], $_POST['lettre_motivation']);
+            }
         }
-         // Inclusion de la vue pour afficher le traitement du formulaire
-         include 'src/views/traitement.php';
+        include 'src/views/traitement.php'; // Charge la vue
     }
+    
     
 }

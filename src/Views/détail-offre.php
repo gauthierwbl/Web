@@ -54,6 +54,7 @@
 </head>
 <body>
 <header class="navbar">
+    <!-- Navigation -->
     <section class="contenu-nav">
         <div class="gauche">
             <a href="index.php?module=entreprises&action=index">
@@ -80,26 +81,24 @@
         </div>
     </section>
     <section class="navplus">
-    <div class="contenu-navplus">
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
-            
-            <li>
-                <?php if (isset($_SESSION["user"])): ?>
-                    <form action="logout.php" method="post">
-                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
-                </form>
-
-                <?php else: ?>
-                    <a href="index.php?module=login&action=index">Se connecter</a>
-                <?php endif; ?>
-            </li>
-        </ul>
-    </div>
-</section>
+        <div class="contenu-navplus">
+            <ul>
+                <li><a href="/">Accueil</a></li>
+                <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+                <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+                <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+                <li>
+                    <?php if (isset($_SESSION["user"])): ?>
+                        <form action="logout.php" method="post">
+                            <button type="submit" class="bouton-deconnexion">Déconnexion</button>
+                        </form>
+                    <?php else: ?>
+                        <a href="index.php?module=login&action=index">Se connecter</a>
+                    <?php endif; ?>
+                </li>
+            </ul>
+        </div>
+    </section>
 </header>
 
 <!-- Affichage des messages de succès ou d'erreur -->
@@ -123,7 +122,6 @@
 
             <div class="coeur-detail">
                 <?php
-                // Déterminer si on utilise la classe active
                 $activeClass = $isInWishlist ? 'like-active' : '';
                 ?>
 
@@ -136,28 +134,20 @@
 
             <div class="start-offre-detail">
                 <?php
-                // Récupérer la note moyenne de la base de données (note sur 20)
                 $noteSur20 = isset($offre['moyenne_note']) ? (float)$offre['moyenne_note'] : 0;
-
-                // Calculer la note sur 5
                 $noteSur5 = $noteSur20 / 4;
+                $notePleine = floor($noteSur5);
+                $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0;
+                $noteVide = 5 - ($notePleine + $noteDemi);
 
-                // Calculer le nombre d'étoiles pleines, demi et vides
-                $notePleine = floor($noteSur5); // Nombre d'étoiles pleines
-                $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0; // Vérifie s'il faut une demi-étoile
-                $noteVide = 5 - ($notePleine + $noteDemi); // Complète à 5 étoiles
-
-                // Afficher les étoiles pleines
                 for ($i = 0; $i < $notePleine; $i++): ?>
                     <img class="etoile active" src="src/Views/img/etoile-pleine.png" alt="Étoile pleine">
                 <?php endfor;
 
-                // Afficher une demi-étoile si nécessaire
                 if ($noteDemi): ?>
                     <img class="etoile active" src="src/Views/img/etoile-demi.png" alt="Étoile demi-remplie">
                 <?php endif;
 
-                // Afficher les étoiles vides pour compléter à 5
                 for ($i = 0; $i < $noteVide; $i++): ?>
                     <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                 <?php endfor; ?>
@@ -165,25 +155,21 @@
         </div>
 
         <div class="statistiques-offre-detail">
-            <div>
-                <p class="description-offre-detail">
-                    <strong>Entreprise :</strong> <?= htmlspecialchars($entreprise['nom_entreprise']) ?><br><br>
-                    <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br><br>
-                    <strong>Description :</strong><br>
-                    <?= nl2br(htmlspecialchars($offre['description_offre'])) ?><br><br>
-                    <strong>Compétences requises :</strong><br>
-                    <?= nl2br(htmlspecialchars($offre['competences'])) ?><br><br>
-                    <strong>Mineure :</strong> <?= htmlspecialchars($mineure['nom_mineure'] ?? $offre['id_mineure']) ?><br><br>
-                    <strong>Durée du stage :</strong> <?= htmlspecialchars($offre['duree_stage']) ?> semaines<br><br>
-                    <strong>Rémunération :</strong> <?= htmlspecialchars($offre['base_remuneration']) ?> €<br><br>
-                    <strong>Places disponibles :</strong> <?= htmlspecialchars($offre['nombre_place']) ?><br><br>
-                    <strong>Nombre de candidatures :</strong> <?= htmlspecialchars($offre['nombre_candidature']) ?>
-                </p>
-            </div>
+            <p class="description-offre-detail">
+                <strong>Entreprise :</strong> <?= htmlspecialchars($entreprise['nom_entreprise']) ?><br>
+                <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br>
+                <strong>Description :</strong><br><?= nl2br(htmlspecialchars($offre['description_offre'])) ?><br>
+                <strong>Compétences requises :</strong><br><?= nl2br(htmlspecialchars($offre['competences'])) ?><br>
+                <strong>Mineure :</strong> <?= htmlspecialchars($mineure['nom_mineure'] ?? $offre['id_mineure']) ?><br>
+                <strong>Durée du stage :</strong> <?= htmlspecialchars($offre['duree_stage']) ?> semaines<br>
+                <strong>Rémunération :</strong> <?= htmlspecialchars($offre['base_remuneration']) ?> €<br>
+                <strong>Places disponibles :</strong> <?= htmlspecialchars($offre['nombre_place']) ?><br>
+                <strong>Nombre de candidatures :</strong> <?= htmlspecialchars($offre['nombre_candidature']) ?>
+            </p>
         </div>
 
         <div class="bottom-box-offre-detail">
-            <a href="index.php?module=candidatures&action=postuler&id=<?= $offre['id_offre'] ?>">
+            <a href="index.php?module=Traitement&action=index&id=<?= $offre['id_offre'] ?>">
                 <button class="bouton-postuler-offre-detail">Postuler</button>
             </a>
             <a href="index.php?module=offres&action=index">
@@ -221,6 +207,7 @@
     </div>
     <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
 </footer>
+
 </body>
 <script src="src/Views/js/script.js"></script>
 </html>

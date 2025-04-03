@@ -9,16 +9,19 @@ class TraitementModel {
     }
     
     // Méthode pour enregistrer la lettre de motivation
-    public function saveMotivationLetter($lettre) {
+    public function saveMotivationLetter($lettre, $id_offre) {
         try {
-            $sql = "INSERT INTO candidater (lettre_motivation) VALUES (:lettre_motivation)";
+            // Ajout de l'ID de l'offre dans l'insertion de la lettre de motivation
+            $sql = "INSERT INTO candidater (lettre_motivation, id_offre) VALUES (:lettre_motivation, :id_offre)";
             $stmt = $this->pdo->prepare($sql);
             $stmt->bindParam(":lettre_motivation", $lettre, PDO::PARAM_STR);
-            $stmt->execute();
+            $stmt->bindParam(":id_offre", $id_offre, PDO::PARAM_INT);
+            return $stmt->execute();
         } catch (PDOException $e) {
             die("Erreur lors de l'enregistrement de la lettre de motivation : " . $e->getMessage());
         }
     }
+    
 
     // Méthode pour gérer le téléchargement du CV
     public function uploadCV($file) {
@@ -77,5 +80,30 @@ class TraitementModel {
         } else {
             die("Accès interdit.");
         }
+}
+
+public function saveCandidature($id_offre, $id_utilisateur, $lettre_motivation) {
+    try {
+        // Prépare la requête SQL pour insérer la candidature
+        $query = "INSERT INTO candidater (id_offre, id_utilisateurs, lettre_motivation, id_status) 
+          VALUES (:id_offre, :id_utilisateurs, :lettre_motivation, :id_status)";
+        
+        $stmt = $this->pdo->prepare($query);
+        
+        // Bind les paramètres
+        $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT);
+        $stmt->bindParam(':id_utilisateurs', $id_utilisateur, PDO::PARAM_INT);
+        $stmt->bindParam(':lettre_motivation', $lettre_motivation, PDO::PARAM_STR);
+        
+        // Définit le statut par défaut à 1 (en attente)
+        $id_status = 1;
+        $stmt->bindParam(':id_status', $id_status, PDO::PARAM_INT);
+        
+        // Exécute la requête
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        // Gérer les erreurs
+        die("Erreur lors de l'enregistrement de la candidature : " . $e->getMessage());
+    }
 }
 }

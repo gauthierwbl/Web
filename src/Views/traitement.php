@@ -108,16 +108,20 @@
         <h2>Uploader un fichier PDF</h2>
         <p>Formats acceptés : <strong>PDF uniquement</strong> (max 2 Mo)</p>
         
-        <form action="index.php?module=Traitement&action=index" method="post" enctype="multipart/form-data">
-            <input type="file" name="file" id="file" accept=".pdf" required>
-            <label for="file">Choisir un fichier</label>
-            <p class="file-name" id="file-name">Aucun fichier sélectionné</p>
+    <form action="index.php?module=Traitement&action=index" method="post" enctype="multipart/form-data">
+    <!-- Champ caché pour l'ID de l'offre -->
+    <input type="hidden" name="id_offre" value="<?= htmlspecialchars($offre['id_offre']) ?>">
 
-            <h2>Lettre de motivation</h2>
-            <textarea name="lettre_motivation" placeholder="Écrivez votre lettre de motivation ici..." required></textarea>
+    <input type="file" name="file" id="file" accept=".pdf" required>
+    <label for="file">Choisir un fichier</label>
+    <p class="file-name" id="file-name">Aucun fichier sélectionné</p>
 
-            <button type="submit" name="submit">Téléverser</button>
-        </form>
+    <h2>Lettre de motivation</h2>
+    <textarea name="lettre_motivation" placeholder="Écrivez votre lettre de motivation ici..." required></textarea>
+
+    <button type="submit" name="submit">Téléverser</button>
+    </form>
+
     </div>
 
     <script>
