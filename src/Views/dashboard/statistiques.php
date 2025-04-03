@@ -1,6 +1,6 @@
 <?php
 
-if ($_SESSION['user'] !== 'CesiLouisonMasson') {
+if ($_SESSION['user'] === 'CesiLouisonMasson') {
   // Rediriger l'étudiant vers la page d'erreur
   header('Location: src/views/erreur.php');
   exit;

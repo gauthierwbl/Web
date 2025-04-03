@@ -1,3 +1,11 @@
+<?php
+
+if ($_SESSION['user'] === 'CesiLouisonMasson') {
+  // Rediriger l'étudiant vers la page d'erreur
+  header('Location: src/views/erreur.php');
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
