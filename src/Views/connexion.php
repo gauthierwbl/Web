@@ -17,48 +17,13 @@
                 </label>
             </a>
         </div>
-        <div class="milieu">
-            <ul>
-                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-                <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
-                <li><button id="bouton-projets">Menu</button></li>
-            </ul>
-            <div id="icons"></div>
-            <div class="droite">
-                <a href="profil.php">
-                    <label>
-                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
-                    </label>
-                </a>
-            </div>
-        </div>
-    </section>
-    <section class="navplus">
-    <div class="contenu-navplus">
-        <ul>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
-            
-            <li>
-                <?php if (isset($_SESSION["user"])): ?>
-                    <form action="logout.php" method="post">
-                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
-                </form>
-
-                <?php else: ?>
-                    <a href="index.php?module=login&action=index">Se connecter</a>
-                <?php endif; ?>
-            </li>
-        </ul>
-    </div>
+        
 </section>
 </header>
     
     <div class="titres-login">
         <h1>Connectez vous !</h1>
-        <p class="texte-login">Pour pouvoir accéder aux fonctionnalités de la plateforme CESI TON STAGE, il est nécessaire de se connecter à son compte</p>
+        <p class="texte-login">Pour pouvoir accéder à l'intégralité des fonctionnalités de la plateforme CESI TON STAGE, il est nécessaire de se connecter à son compte</p>
     </div>
     
     <div class="formulaire-login">
@@ -75,8 +40,11 @@
         </form>
         
         <div style="text-align: center; margin-top: 15px;">
-            <a href="index.php?module=auth&action=guestAccess" class="recherche-bouton" style="background: rgba(52, 152, 219); text-decoration: none; padding: 10px 20px; color: white; border-radius: 4px; display: inline-block;">Continuer en tant qu'invité</a>
-        </div>
+    <a href="src/Views/entreprises.php" class="recherche-bouton" style="background: rgba(52, 152, 219); text-decoration: none; padding: 10px 20px; color: white; border-radius: 4px; display: inline-block;">
+        Continuer en tant qu'invité
+    </a>
+</div>
+
         
         <p class="texte-login">Merci de vous adresser à votre pilote pour toute perte ou oubli de votre mot de passe.</p>
     </div>

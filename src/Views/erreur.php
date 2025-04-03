@@ -40,7 +40,11 @@
     <section class="navplus">
     <div class="contenu-navplus">
         <ul>
-            <li><a href="/CESI_TON_STAGE/index.php?module=Statistiques&action=index">Dashboard</a></li>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
             <li><a href="/CESI_TON_STAGE/index.php?module=wishlist&action=index">Wishlist</a></li>
             <li><a href="/CESI_TON_STAGE/index.php?module=Stages&action=index">Mes stages</a></li>
             

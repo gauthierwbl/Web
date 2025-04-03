@@ -32,7 +32,11 @@
     </section>
     <nav class="navplus">
         <ul>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
             <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
             <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
             <li>

@@ -38,7 +38,7 @@ class AuthController {
             if ($user && password_verify($password, $user['mot_de_passe'])) {
                 // Utilisateur authentifié, on le met dans la session
                 $_SESSION['user'] = $user;
-                
+                $_SESSION['user']['id_role'] = $user['id_role'];
                 // Redirection vers la page principale
                 header('Location: index.php?module=entreprises&action=index');
                 exit;
