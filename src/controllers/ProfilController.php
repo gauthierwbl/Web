@@ -1,6 +1,7 @@
 <?php
 
 require_once 'src/models/ProfilModel.php';
+require_once 'src/models/Database.php';
 
 class ProfilController {
     private $model;
@@ -8,11 +9,32 @@ class ProfilController {
 
     public function __construct() {
         // Connexion à la base de données
-        $this->pdo = Database::getConnection();
+        $this->pdo = (new Database())->getConnection();
         $this->model = new ProfilModel($this->pdo);
     }
 
-    public function index($userId) {
+    // Méthode index sans paramètre qui récupère l'ID de la session
+    public function index() {
+        // Vérifier que l'utilisateur est connecté
+        if (!isset($_SESSION['user']) || !isset($_SESSION['user']['login'])) {
+            $_SESSION['error'] = "Veuillez vous connecter pour accéder à votre profil.";
+            header('Location: index.php?module=auth&action=showLoginForm');
+            exit;
+        }
+
+        // Récupérer le login depuis la session
+        $userLogin = $_SESSION['user']['login'];
+
+        // Récupérer l'ID à partir du login
+        $userId = $this->getUserIdFromLogin($userLogin);
+
+        if (!$userId) {
+            $_SESSION['error'] = "Utilisateur non trouvé.";
+            header('Location: index.php?module=auth&action=showLoginForm');
+            exit;
+        }
+
+        // Maintenant que nous avons l'ID utilisateur, continuer avec le reste du code...
         // Vérifier si le formulaire a été soumis
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Si une photo a été téléchargée
@@ -30,25 +52,41 @@ class ProfilController {
 
         // Récupérer les informations du profil utilisateur
         $profil = $this->model->getProfilById($userId);
+        if (!$profil) {
+            $_SESSION['error'] = "Profil non trouvé.";
+            header('Location: index.php');
+            exit;
+        }
 
-        // Récupérer les informations supplémentaires de l'utilisateur
+        // Le reste de la fonction reste inchangé...
         $identiteData = $this->model->getIdentiteByUserId($userId);
         $adresseData = $this->model->getAdresseByUserId($userId);
         $campusData = $this->model->getCampusInfoByUserId($userId);
-
-        // Récupérer les statistiques de l'utilisateur
         $wishlistCount = $this->model->getWishlistCount($userId);
         $completedInternshipsCount = $this->model->getCompletedInternshipsCount($userId);
         $applicationsCount = $this->model->getApplicationsCount($userId);
-
-        // Récupérer le chemin de la photo de profil
         $profilePhoto = $this->model->getProfilePhoto($userId);
-
-        // Récupérer le login de l'utilisateur
         $login = $profil['login'];
 
         // Inclure la vue et passer les données
         require_once 'src/views/profil.php';
+    }
+
+    /**
+     * Récupère l'ID utilisateur à partir du login
+     */
+    private function getUserIdFromLogin($login) {
+        try {
+            $stmt = $this->pdo->prepare("SELECT id_utilisateurs FROM utilisateurs WHERE login = :login LIMIT 1");
+            $stmt->bindParam(':login', $login, PDO::PARAM_STR);
+            $stmt->execute();
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            return $result ? $result['id_utilisateurs'] : null;
+        } catch (PDOException $e) {
+            error_log("Erreur dans getUserIdFromLogin: " . $e->getMessage());
+            return null;
+        }
     }
 
     /**
@@ -60,12 +98,19 @@ class ProfilController {
         if ($check !== false) {
             // C'est une image, on peut procéder
             $targetDirectory = 'src/Views/img/';
+
+            // Créer le répertoire s'il n'existe pas
+            if (!file_exists($targetDirectory)) {
+                mkdir($targetDirectory, 0777, true);
+            }
+
             $targetFile = $targetDirectory . 'id' . $userId . 'profil.png';
 
             // Tenter de déplacer le fichier
             if (move_uploaded_file($_FILES['fileToUpload']['tmp_name'], $targetFile)) {
                 // Succès, rediriger pour éviter la résoumission
-                header('Location: index.php?module=profil&action=index&id=' . $userId);
+                $_SESSION['success'] = "Photo de profil mise à jour avec succès.";
+                header('Location: index.php?module=profil&action=index');
                 exit;
             } else {
                 // Échec de l'upload
@@ -104,6 +149,11 @@ class ProfilController {
         // Si nous avons des données à mettre à jour
         if (!empty($updateData)) {
             if ($this->model->updateProfil($userId, $updateData)) {
+                // Si le login a été modifié, mettre à jour la session
+                if (isset($updateData['login'])) {
+                    $_SESSION['user']['login'] = $updateData['login'];
+                }
+
                 $_SESSION['success'] = "Profil mis à jour avec succès.";
             } else {
                 $_SESSION['error'] = "Erreur lors de la mise à jour du profil.";
@@ -111,7 +161,7 @@ class ProfilController {
         }
 
         // Rediriger pour éviter la résoumission
-        header('Location: index.php?module=profil&action=index&id=' . $userId);
+        header('Location: index.php?module=profil&action=index');
         exit;
     }
 }

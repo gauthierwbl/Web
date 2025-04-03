@@ -19,6 +19,27 @@ class OffresModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+
+    public function rechercherOffres($terme) {
+        try {
+            // Préparer la requête SQL
+            $sql = "SELECT * FROM offres WHERE nom_offre LIKE :terme";
+            $stmt = $this->pdo->prepare($sql);
+            
+            // Définir les paramètres
+            $termeRecherche = "%" . $terme . "%";
+            $stmt->bindParam(':terme', $termeRecherche, PDO::PARAM_STR);
+            
+            // Exécuter la requête
+            $stmt->execute();
+            
+            // Retourner les résultats
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            echo "Erreur lors de la recherche d'offres : " . $e->getMessage();
+            return [];
+        }
+    }
     /**
      * Récupère toutes les offres avec notes et pagination
      */
