@@ -1,6 +1,25 @@
 <?php
 // Définition de la classe TraitementModel
 class TraitementModel {
+    private $pdo;
+
+    // Constructeur pour établir la connexion à la base de données
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+    
+    // Méthode pour enregistrer la lettre de motivation
+    public function saveMotivationLetter($lettre) {
+        try {
+            $sql = "INSERT INTO candidater (lettre_motivation) VALUES (:lettre_motivation)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(":lettre_motivation", $lettre, PDO::PARAM_STR);
+            $stmt->execute();
+        } catch (PDOException $e) {
+            die("Erreur lors de l'enregistrement de la lettre de motivation : " . $e->getMessage());
+        }
+    }
+
     // Méthode pour gérer le téléchargement du CV
     public function uploadCV($file) {
         // Taille maximale du fichier (2 Mo)

@@ -1,22 +1,23 @@
 <?php
 require_once 'src/models/Database.php';
-// Inclusion du modèle qui gère les opérations liées au traitement des formulaires
 require_once 'src/models/TraitementModel.php';
 
 // Définition de la classe TraitementController
 class TraitementController {
     // Propriété pour stocker une instance du modèle
     private $model;
+    private $pdo;
 
-    // Constructeur de la classe
     public function __construct() {
-        // Initialisation de l'objet modèle
-        $this->model = new TraitementModel();
+        $this->pdo = Database::getConnection();
+        $this->model = new TraitementModel($this->pdo);
     }
 
+    // Méthode index pour afficher le formulaire
     public function index() {
-        require 'src/views/postuler.php';
+        $this->handleForm(); // Appelle handleForm pour traiter l'affichage et la soumission du formulaire
     }
+
 
     // Méthode pour gérer le traitement du formulaire
     public function handleForm() {
@@ -31,6 +32,18 @@ class TraitementController {
                 $errors[] = $cvMessage; // Ajout du message d'erreur au tableau
             }
 
+            // Sauvegarde de la lettre de motivation
+        if (!empty($_POST['lettre_motivation'])) {
+            $lettreMotivation = htmlspecialchars($_POST['lettre_motivation']);
+            if ($this->model->saveMotivationLetter($lettreMotivation)) {
+                $message = "La lettre de motivation a été enregistrée avec succès.";
+            } else {
+                $errors[] = "";
+            }
+        } else {
+            $errors[] = "La lettre de motivation ne peut pas être vide.";
+        }
+
             // Affichage des erreurs, s'il y en a
             if (!empty($errors)) {
                 foreach ($errors as $error) {
@@ -39,8 +52,7 @@ class TraitementController {
             }
         }
          // Inclusion de la vue pour afficher le traitement du formulaire
-         include 'src/views/postuler.php';
+         include 'src/views/traitement.php';
     }
-    
     
 }
