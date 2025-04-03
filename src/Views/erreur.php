@@ -12,7 +12,9 @@
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
-            <a href="index.php?module=entreprises&action=index">
+        <a href="/CESI_TON_STAGE/index.php?module=entreprises&action=index">
+
+
                 <label>
                     <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
                 </label>
@@ -20,16 +22,16 @@
         </div>
         <div class="milieu">
             <ul>
-                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
-                <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
+                <li><a href="/CESI_TON_STAGE/index.php?module=entreprises&action=index">Entreprises</a></li>
+                <li><a href="/CESI_TON_STAGE/index.php?module=offres&action=index">Offres</a></li>
+                <li><a href="contact.php">Contact</a></li>
                 <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
             <div class="droite">
                 <a href="profil.php">
                     <label>
-                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+                        <img class="profil profil-img" src="/CESI_TON_STAGE/index.php?module=profil&action=index" alt="photo_de_profil"/>
                     </label>
                 </a>
             </div>
@@ -38,10 +40,9 @@
     <section class="navplus">
     <div class="contenu-navplus">
         <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+            <li><a href="/CESI_TON_STAGE/index.php?module=Statistiques&action=index">Dashboard</a></li>
+            <li><a href="/CESI_TON_STAGE/index.php?module=wishlist&action=index">Wishlist</a></li>
+            <li><a href="/CESI_TON_STAGE/index.php?module=Stages&action=index">Mes stages</a></li>
             
             <li>
                 <?php if (isset($_SESSION["user"])): ?>
@@ -95,5 +96,5 @@
         <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
     </footer>
 </body>
-<script src="src/Views/js/script.js"></script>
+<script src="js/script.js"></script>
 </html>
