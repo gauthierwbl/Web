@@ -23,24 +23,30 @@
             <ul>
                 <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
                 <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
+                <li><a href="index.php?module=Contact&action=index">Contact</a></li>
                 <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="index.php?module=profil&action=index">
-                    <label>
-                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="Photo de profil"/>
-                    </label>
-                </a>
+            <?php if ($_SESSION['user']['id_role'] != 4): ?>
+    <a href="profil.php">
+        <label>
+            <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+        </label>
+    </a>
+<?php endif; ?>
+
             </div>
         </div>
     </section>
     <section class="navplus">
     <div class="contenu-navplus">
         <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
             <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
             <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
             

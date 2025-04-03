@@ -54,6 +54,7 @@
 </head>
 <body>
 <header class="navbar">
+    <!-- Navigation -->
     <section class="contenu-nav">
         <div class="gauche">
             <a href="index.php?module=entreprises&action=index">
@@ -66,40 +67,49 @@
             <ul>
                 <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
                 <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
+                <li><a href="index.php?module=Contact&action=index">Contact</a></li>
                 <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="index.php?module=profil&action=index">
-                    <label>
-                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="Photo de profil"/>
-                    </label>
-                </a>
+            <?php if ($_SESSION['user']['id_role'] != 4): ?>
+    <a href="index.php?module=profil&action=index">
+        <label>
+            <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+        </label>
+    </a>
+<?php endif; ?>
+
             </div>
         </div>
     </section>
     <section class="navplus">
-    <div class="contenu-navplus">
-        <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
-            
-            <li>
-                <?php if (isset($_SESSION["user"])): ?>
-                    <form action="logout.php" method="post">
-                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
-                </form>
+        <div class="contenu-navplus">
+            <ul>
+            <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
 
-                <?php else: ?>
-                    <a href="index.php?module=login&action=index">Se connecter</a>
-                <?php endif; ?>
-            </li>
-        </ul>
-    </div>
-</section>
+<?php 
+// Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
+if ($_SESSION['user']['id_role'] != 4): ?>
+    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+<?php endif; ?>
+                <li>
+                    <?php if (isset($_SESSION["user"])): ?>
+                        <form action="logout.php" method="post">
+                            <button type="submit" class="bouton-deconnexion">Déconnexion</button>
+                        </form>
+                    <?php else: ?>
+                        <a href="index.php?module=login&action=index">Se connecter</a>
+                    <?php endif; ?>
+                </li>
+            </ul>
+        </div>
+    </section>
 </header>
 
 <!-- Affichage des messages de succès ou d'erreur -->
@@ -122,42 +132,32 @@
             <h4 class="titre-top-box-offre-detail"><?= htmlspecialchars($offre['nom_offre']) ?></h4>
 
             <div class="coeur-detail">
-                <?php
-                // Déterminer si on utilise la classe active
-                $activeClass = $isInWishlist ? 'like-active' : '';
-                ?>
+    <?php if ($_SESSION['user']['id_role'] != 4): ?>
+        <a href="index.php?module=wishlist&action=<?= $isInWishlist ? 'delete' : 'add' ?>&id=<?= $offre['id_offre'] ?>&redirect=details"
+           class="wishlist like <?= $activeClass ?>"
+           title="<?= $isInWishlist ? 'Retirer de la wishlist' : 'Ajouter à la wishlist' ?>">
+            <i class="fas fa-heart"></i>
+        </a>
+    <?php endif; ?>
+</div>
 
-                <a href="index.php?module=wishlist&action=<?= $isInWishlist ? 'delete' : 'add' ?>&id=<?= $offre['id_offre'] ?>&redirect=details"
-                   class="wishlist like <?= $activeClass ?>"
-                   title="<?= $isInWishlist ? 'Retirer de la wishlist' : 'Ajouter à la wishlist' ?>">
-                    <i class="fas fa-heart"></i>
-                </a>
-            </div>
 
             <div class="start-offre-detail">
                 <?php
-                // Récupérer la note moyenne de la base de données (note sur 20)
                 $noteSur20 = isset($offre['moyenne_note']) ? (float)$offre['moyenne_note'] : 0;
-
-                // Calculer la note sur 5
                 $noteSur5 = $noteSur20 / 4;
+                $notePleine = floor($noteSur5);
+                $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0;
+                $noteVide = 5 - ($notePleine + $noteDemi);
 
-                // Calculer le nombre d'étoiles pleines, demi et vides
-                $notePleine = floor($noteSur5); // Nombre d'étoiles pleines
-                $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0; // Vérifie s'il faut une demi-étoile
-                $noteVide = 5 - ($notePleine + $noteDemi); // Complète à 5 étoiles
-
-                // Afficher les étoiles pleines
                 for ($i = 0; $i < $notePleine; $i++): ?>
                     <img class="etoile active" src="src/Views/img/etoile-pleine.png" alt="Étoile pleine">
                 <?php endfor;
 
-                // Afficher une demi-étoile si nécessaire
                 if ($noteDemi): ?>
                     <img class="etoile active" src="src/Views/img/etoile-demi.png" alt="Étoile demi-remplie">
                 <?php endif;
 
-                // Afficher les étoiles vides pour compléter à 5
                 for ($i = 0; $i < $noteVide; $i++): ?>
                     <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                 <?php endfor; ?>
@@ -165,31 +165,30 @@
         </div>
 
         <div class="statistiques-offre-detail">
-            <div>
-                <p class="description-offre-detail">
-                    <strong>Entreprise :</strong> <?= htmlspecialchars($entreprise['nom_entreprise']) ?><br><br>
-                    <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br><br>
-                    <strong>Description :</strong><br>
-                    <?= nl2br(htmlspecialchars($offre['description_offre'])) ?><br><br>
-                    <strong>Compétences requises :</strong><br>
-                    <?= nl2br(htmlspecialchars($offre['competences'])) ?><br><br>
-                    <strong>Mineure :</strong> <?= htmlspecialchars($mineure['nom_mineure'] ?? $offre['id_mineure']) ?><br><br>
-                    <strong>Durée du stage :</strong> <?= htmlspecialchars($offre['duree_stage']) ?> semaines<br><br>
-                    <strong>Rémunération :</strong> <?= htmlspecialchars($offre['base_remuneration']) ?> €<br><br>
-                    <strong>Places disponibles :</strong> <?= htmlspecialchars($offre['nombre_place']) ?><br><br>
-                    <strong>Nombre de candidatures :</strong> <?= htmlspecialchars($offre['nombre_candidature']) ?>
-                </p>
-            </div>
+            <p class="description-offre-detail">
+                <strong>Entreprise :</strong> <?= htmlspecialchars($entreprise['nom_entreprise']) ?><br>
+                <strong>Titre du poste :</strong> <?= htmlspecialchars($offre['nom_offre']) ?><br>
+                <strong>Description :</strong><br><?= nl2br(htmlspecialchars($offre['description_offre'])) ?><br>
+                <strong>Compétences requises :</strong><br><?= nl2br(htmlspecialchars($offre['competences'])) ?><br>
+                <strong>Mineure :</strong> <?= htmlspecialchars($mineure['nom_mineure'] ?? $offre['id_mineure']) ?><br>
+                <strong>Durée du stage :</strong> <?= htmlspecialchars($offre['duree_stage']) ?> semaines<br>
+                <strong>Rémunération :</strong> <?= htmlspecialchars($offre['base_remuneration']) ?> €<br>
+                <strong>Places disponibles :</strong> <?= htmlspecialchars($offre['nombre_place']) ?><br>
+                <strong>Nombre de candidatures :</strong> <?= htmlspecialchars($offre['nombre_candidature']) ?>
+            </p>
         </div>
 
         <div class="bottom-box-offre-detail">
-            <a href="index.php?module=candidatures&action=postuler&id=<?= $offre['id_offre'] ?>">
-                <button class="bouton-postuler-offre-detail">Postuler</button>
-            </a>
-            <a href="index.php?module=offres&action=index">
-                <button class="bouton-retour-offre-detail">Retour aux offres</button>
-            </a>
-        </div>
+    <?php if ($_SESSION['user']['id_role'] != 4): ?>
+        <a href="index.php?module=Traitement&action=index&id=<?= $offre['id_offre'] ?>">
+            <button class="bouton-postuler-offre-detail">Postuler</button>
+        </a>
+    <?php endif; ?>
+    <a href="index.php?module=offres&action=index">
+        <button class="bouton-retour-offre-detail">Retour aux offres</button>
+    </a>
+</div>
+
     </div>
 </div>
 
@@ -221,6 +220,7 @@
     </div>
     <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
 </footer>
+
 </body>
 <script src="src/Views/js/script.js"></script>
 </html>

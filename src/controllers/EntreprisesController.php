@@ -48,6 +48,55 @@ class EntreprisesController {
         require 'src/views/entreprises.php'; // Passer les données à la vue
     }
 
+    
+public function show($id) {
+    if (!isset($id)) {
+        header("Location: index.php?module=entreprises&action=index");
+        exit;
+    }
+    
+    // Récupérer les détails de l'entreprise à partir de l'ID
+    $entreprise = $this->model->getById($id);
+    
+    if (!$entreprise) {
+        $_SESSION['error'] = "Entreprise non trouvée.";
+        header("Location: index.php?module=entreprises&action=index");
+        exit;
+    }
+    
+    // Récupérer le secteur de l'entreprise
+    $secteur = $this->model->getSecteurById($entreprise['id_secteur']);
+    
+    // Récupérer les adresses de l'entreprise
+    $adresses = $this->model->getAdressesByEntreprise($id);
+    
+    // Récupérer les offres de l'entreprise - AJOUT NÉCESSAIRE
+    $offres = $this->model->getOffresByEntreprise($id);
+    
+    // Définir la fonction getLogoUrl ou l'inclure depuis un fichier de fonctions
+    function getLogoUrl($companyName) {
+        // Transformer le nom en format compatible Clearbit
+        $formattedName = strtolower(str_replace(' ', '', $companyName));
+        $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
+
+        // Vérifier si l'image existe
+        $headers = @get_headers($clearbitUrl);
+        if ($headers && strpos($headers[0], '200')) {
+            return $clearbitUrl;
+        }
+
+        // Si aucun logo n'est trouvé, utiliser une image par défaut
+        return "img/uploads/default.png";
+    }
+    
+    // Passer les données à la vue
+    require 'src/views/détail-entreprise.php';
+}
+
+
+    
+    
+
     // Autres méthodes inchangées...
     // Afficher le formulaire de création d'entreprise
     public function create() {

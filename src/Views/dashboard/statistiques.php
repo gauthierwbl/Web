@@ -1,3 +1,12 @@
+<?php
+
+if ($_SESSION['user']['id_role'] == 2 || $_SESSION['user']['id_role'] == 4) {
+  // Rediriger l'utilisateur vers la page d'erreur
+  header('Location: src/views/erreur.php');
+  exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -36,12 +45,14 @@
         <span class="nav-item">Offres</span>
       </a>
     </li>
+    <?php if (isset($_SESSION['user']) && $_SESSION['user']['id_role'] == 1): ?>
     <li>
-      <a class="nom-nav" href="index.php?module=pilotes&action=index_dashboard">
-        <i class="fas fa-user-tie"></i>
-        <span class="nav-item">Pilotes</span>
-      </a>
+        <a class="nom-nav" href="index.php?module=pilotes&action=index_dashboard">
+            <i class="fas fa-user-tie"></i>
+            <span class="nav-item">Pilotes</span>
+        </a>
     </li>
+<?php endif; ?>
     <li>
       <a class="nom-nav" href="index.php?module=etudiants&action=index_dashboard">
         <i class="fas fa-user-graduate"></i>

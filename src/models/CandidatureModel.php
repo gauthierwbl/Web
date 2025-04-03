@@ -96,5 +96,7 @@ class CandidatureModel {
         $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT);
         return $stmt->execute();
     }
-}
+    
+}   
+
 ?>

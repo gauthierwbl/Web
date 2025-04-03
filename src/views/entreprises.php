@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +6,6 @@
     <title>Entreprise</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 </head>
 
 <header class="navbar">
@@ -23,26 +21,38 @@
             <ul>
                 <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
                 <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
+                <li><a href="index.php?module=Contact&action=index">Contact</a></li>
                 <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="index.php?module=profil&action=index">
-                    <label>
-                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="Photo de profil"/>
-                    </label>
-                </a>
+            <?php if ($_SESSION['user']['id_role'] != 4): ?>
+    <a href="index.php?module=profil&action=index">
+        <label>
+            <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+        </label>
+    </a>
+<?php endif; ?>
+
             </div>
         </div>
     </section>
+
     <section class="navplus">
     <div class="contenu-navplus">
         <ul>
-            <li><a href="/">Accueil</a></li>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
+
+<?php 
+// Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
+if ($_SESSION['user']['id_role'] != 4): ?>
+    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+<?php endif; ?>
             
             <li>
                 <?php if (isset($_SESSION["user"])): ?>
@@ -93,8 +103,11 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
     <div class="container-entreprise">
         <?php foreach ($entreprisesAffichees as $e): ?>
             <div class="entreprise">
-                <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
-                <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                <!-- Lien vers les détails de l'entreprise -->
+                <a href="index.php?module=entreprises&action=show&id=<?= $e['id_entreprise'] ?>">
+                    <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                    <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                </a>
                 <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
                 <div style="margin: 10px 0;">
                     <?php
@@ -148,7 +161,6 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
     </div>
 </div>
 
-
 <footer class="text-center" id="footer">
     <div class="container">
         <ul class="list-inline">
@@ -180,6 +192,3 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
 <script src="src/Views/js/script.js"></script>
 </body>
 </html>
-
-
-

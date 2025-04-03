@@ -1,6 +1,29 @@
 <?php
 // Définition de la classe TraitementModel
 class TraitementModel {
+    private $pdo;
+
+    // Constructeur pour établir la connexion à la base de données
+    public function __construct($pdo) {
+        $this->pdo = $pdo;
+    }
+    
+    // Méthode pour enregistrer la lettre de motivation
+    public function saveMotivationLetter($lettre, $id_offre) {
+        try {
+            $sql = "INSERT INTO candidater (lettre_motivation, id_offre) VALUES (:lettre_motivation, :id_offre)";
+            $stmt = $this->pdo->prepare($sql);
+            $stmt->bindParam(":lettre_motivation", $lettre, PDO::PARAM_STR);
+            $stmt->bindParam(":id_offre", $id_offre, PDO::PARAM_INT);
+            $result = $stmt->execute();
+            return $result; // Retourne true si l'exécution réussit
+        } catch (PDOException $e) {
+            echo "Erreur lors de l'enregistrement de la lettre de motivation : " . $e->getMessage();
+            return false; // Retourne false en cas d'erreur
+        }
+    }
+    
+
     // Méthode pour gérer le téléchargement du CV
     public function uploadCV($file) {
         // Taille maximale du fichier (2 Mo)
@@ -30,7 +53,7 @@ class TraitementModel {
         
             // Vérifier la taille du fichier
             if ($file["size"] > $maxSize) {
-                die("Erreur : Le fichier dépasse la taille maximale autorisée (2 Mo).");
+                return "Erreur : Le fichier dépasse la taille maximale autorisée (2 Mo).";
             }
         
             // Vérifier le type MIME avec fileinfo
@@ -39,7 +62,7 @@ class TraitementModel {
             finfo_close($finfo);
         
             if ($fileMimeType !== $allowedMimeType) {
-                die("Erreur : Seuls les fichiers PDF sont autorisés.");
+                return "Erreur : Seuls les fichiers PDF sont autorisés.";
             }
         
             // Assurer un nom de fichier unique avec la bonne extension
@@ -58,5 +81,29 @@ class TraitementModel {
         } else {
             die("Accès interdit.");
         }
+}
+
+public function saveCandidature($id_offre, $id_utilisateur, $lettre_motivation) {
+    try {
+        // Prépare la requête SQL pour insérer la candidature
+        $query = "INSERT INTO candidater (id_offre, id_utilisateurs, lettre_motivation, id_status) 
+          VALUES (:id_offre, :id_utilisateurs, :lettre_motivation, :id_status)";
+        
+        $stmt = $this->pdo->prepare($query);
+        
+        // Bind les paramètres
+        $stmt->bindParam(':id_offre', $id_offre, PDO::PARAM_INT);
+        $stmt->bindParam(':id_utilisateurs', $id_utilisateur, PDO::PARAM_INT);
+        $stmt->bindParam(':lettre_motivation', $lettre_motivation, PDO::PARAM_STR);
+        
+        // Définit le statut par défaut à 1 (en attente)
+        $id_status = 1;
+        $stmt->bindParam(':id_status', $id_status, PDO::PARAM_INT);
+        
+        // Exécute la requête
+        return $stmt->execute();
+    } catch (PDOException $e) {
+        // Gérer les erreurs
+        return "Erreur lors de l'enregistrement de la candidature : " . $e->getMessage(); }
 }
 }
