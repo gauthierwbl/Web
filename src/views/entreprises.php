@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +6,6 @@
     <title>Entreprise</title>
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
-
 </head>
 
 <header class="navbar">
@@ -93,8 +91,11 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
     <div class="container-entreprise">
         <?php foreach ($entreprisesAffichees as $e): ?>
             <div class="entreprise">
-                <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
-                <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                <!-- Lien vers les détails de l'entreprise -->
+                <a href="index.php?module=entreprises&action=show&id=<?= $e['id_entreprise'] ?>">
+                    <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                    <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                </a>
                 <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
                 <div style="margin: 10px 0;">
                     <?php
@@ -148,7 +149,6 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
     </div>
 </div>
 
-
 <footer class="text-center" id="footer">
     <div class="container">
         <ul class="list-inline">
@@ -180,6 +180,3 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
 <script src="src/Views/js/script.js"></script>
 </body>
 </html>
-
-
-

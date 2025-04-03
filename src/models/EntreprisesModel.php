@@ -116,4 +116,12 @@ class EntreprisesModel {
     }
 }
 
+public function getOffresByEntreprise($id_entreprise) {
+    // Récupérer les offres liées à cette entreprise
+    $stmt = $this->pdo->prepare("SELECT * FROM offres WHERE id_entreprise = :id_entreprise");
+    $stmt->bindParam(':id_entreprise', $id_entreprise, PDO::PARAM_INT);
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 }
