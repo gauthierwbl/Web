@@ -1,4 +1,5 @@
 <?php
+
 session_start();
 
 // Inclure le modèle UserModel et la connexion à la base de données
@@ -129,7 +130,7 @@ switch ($module) {
         break;
 
     default:
-        die("Module inconnu : $module");
+        die();
 }
 
 // Après le switch, vérifiez que $controller est défini avant de l'utiliser
@@ -145,5 +146,5 @@ if (method_exists($controller, $action)) {
         $controller->$action();
     }
 } else {
-    die("Action inconnue : $action");
+    die();
 }
