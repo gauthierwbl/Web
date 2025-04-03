@@ -96,6 +96,57 @@
         }
     </style>
 </head>
+<header class="navbar">
+    <section class="contenu-nav">
+        <div class="gauche">
+            <a href="index.php?module=entreprises&action=index">
+                <label>
+                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                </label>
+            </a>
+        </div>
+        <div class="milieu">
+            <ul>
+                <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
+                <li><a href="index.php?module=offres&action=index">Offres</a></li>
+                <li><a href="index.php?module=Contact&action=index">Contact</a></li>
+                <li><button id="bouton-projets">Menu</button></li>
+            </ul>
+            <div id="icons"></div>
+            <div class="droite">
+                <a href="profil.php">
+                    <label>
+                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+                    </label>
+                </a>
+            </div>
+        </div>
+    </section>
+    <section class="navplus">
+    <div class="contenu-navplus">
+        <ul>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
+            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+            
+            <li>
+                <?php if (isset($_SESSION["user"])): ?>
+                    <form action="logout.php" method="post">
+                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
+                </form>
+
+                <?php else: ?>
+                    <a href="index.php?module=login&action=index">Se connecter</a>
+                <?php endif; ?>
+            </li>
+        </ul>
+    </div>
+</section>
+</header>
 <body>
 
     <div class="container">

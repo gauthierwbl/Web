@@ -67,25 +67,37 @@
             <ul>
                 <li><a href="index.php?module=entreprises&action=index">Entreprises</a></li>
                 <li><a href="index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="src/views/contact.php">Contact</a></li>
+                <li><a href="index.php?module=Contact&action=index">Contact</a></li>
                 <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="profil.php">
-                    <label>
-                        <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
-                    </label>
-                </a>
+            <?php if ($_SESSION['user']['id_role'] != 4): ?>
+    <a href="index.php?module=profil&action=index">
+        <label>
+            <img class="profil profil-img" src="index.php?module=profil&action=index" alt="photo_de_profil"/>
+        </label>
+    </a>
+<?php endif; ?>
+
             </div>
         </div>
     </section>
     <section class="navplus">
         <div class="contenu-navplus">
             <ul>
-                <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-                <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-                <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+            <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
+
+<?php 
+// Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
+if ($_SESSION['user']['id_role'] != 4): ?>
+    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+<?php endif; ?>
                 <li>
                     <?php if (isset($_SESSION["user"])): ?>
                         <form action="logout.php" method="post">
@@ -120,16 +132,15 @@
             <h4 class="titre-top-box-offre-detail"><?= htmlspecialchars($offre['nom_offre']) ?></h4>
 
             <div class="coeur-detail">
-                <?php
-                $activeClass = $isInWishlist ? 'like-active' : '';
-                ?>
+    <?php if ($_SESSION['user']['id_role'] != 4): ?>
+        <a href="index.php?module=wishlist&action=<?= $isInWishlist ? 'delete' : 'add' ?>&id=<?= $offre['id_offre'] ?>&redirect=details"
+           class="wishlist like <?= $activeClass ?>"
+           title="<?= $isInWishlist ? 'Retirer de la wishlist' : 'Ajouter à la wishlist' ?>">
+            <i class="fas fa-heart"></i>
+        </a>
+    <?php endif; ?>
+</div>
 
-                <a href="index.php?module=wishlist&action=<?= $isInWishlist ? 'delete' : 'add' ?>&id=<?= $offre['id_offre'] ?>&redirect=details"
-                   class="wishlist like <?= $activeClass ?>"
-                   title="<?= $isInWishlist ? 'Retirer de la wishlist' : 'Ajouter à la wishlist' ?>">
-                    <i class="fas fa-heart"></i>
-                </a>
-            </div>
 
             <div class="start-offre-detail">
                 <?php
@@ -168,13 +179,16 @@
         </div>
 
         <div class="bottom-box-offre-detail">
-            <a href="index.php?module=Traitement&action=index&id=<?= $offre['id_offre'] ?>">
-                <button class="bouton-postuler-offre-detail">Postuler</button>
-            </a>
-            <a href="index.php?module=offres&action=index">
-                <button class="bouton-retour-offre-detail">Retour aux offres</button>
-            </a>
-        </div>
+    <?php if ($_SESSION['user']['id_role'] != 4): ?>
+        <a href="index.php?module=Traitement&action=index&id=<?= $offre['id_offre'] ?>">
+            <button class="bouton-postuler-offre-detail">Postuler</button>
+        </a>
+    <?php endif; ?>
+    <a href="index.php?module=offres&action=index">
+        <button class="bouton-retour-offre-detail">Retour aux offres</button>
+    </a>
+</div>
+
     </div>
 </div>
 

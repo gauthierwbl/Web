@@ -32,9 +32,19 @@
     </section>
     <nav class="navplus">
         <ul>
-            <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-            <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
+
+<?php 
+// Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
+if ($_SESSION['user']['id_role'] != 4): ?>
+    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+<?php endif; ?>
+            
             <li>
                 <?php if (isset($_SESSION["user"])): ?>
                     <form action="logout.php" method="post">
@@ -79,7 +89,7 @@
         <?php foreach ($offres as $offre): ?>
             <div class="offer">
                 <div>
-                    <a class="no-decoration" href="index.php?module=offres&action=show&id=<?= $offre['id_offre'] ?>">
+                    <a class="no-decoration" href="index.php?module=offres&action=details&id=<?= $offre['id_offre'] ?>">
                         <img class="image-offre" src="img/uploads/<?= htmlspecialchars($offre['image'] ?? 'default.png') ?>" alt="Logo de l'offre">
                         <h4 class="texte-offre"><?= htmlspecialchars($offre['nom_offre']) ?></h4>
                     </a>
@@ -121,7 +131,7 @@
 <footer class="text-center" id="footer">
     <div class="container">
         <ul class="list-inline">
-            <li class="list-inline-item me-4"><a class="link-secondary" href="condition-general.php">Conditions générales</a></li>
+            <li class="list-inline-item me-4"><a class="link-secondary" href="/condition">Conditions générales</a></li>
         </ul><br>
     </div>
     <div class="wrapper">
@@ -146,7 +156,6 @@
     </div>
     <br><br><p class="texte-footer-bottom">Copyright © 2025 CESI TON STAGE</p>
 </footer>
-
-<script src="src/Views/js/script.js"></script>
 </body>
+<script src="src/Views/js/script.js"></script>
 </html>

@@ -24,7 +24,7 @@
             <ul>
                 <li><a href="/CESI_TON_STAGE/index.php?module=entreprises&action=index">Entreprises</a></li>
                 <li><a href="/CESI_TON_STAGE/index.php?module=offres&action=index">Offres</a></li>
-                <li><a href="contact.php">Contact</a></li>
+                <li><a href="index.php?module=Contact&action=index">Contact</a></li>
                 <li><button id="bouton-projets">Menu</button></li>
             </ul>
             <div id="icons"></div>
@@ -40,7 +40,11 @@
     <section class="navplus">
     <div class="contenu-navplus">
         <ul>
-            <li><a href="/CESI_TON_STAGE/index.php?module=Statistiques&action=index">Dashboard</a></li>
+        <?php 
+        
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
+<?php endif; ?>
             <li><a href="/CESI_TON_STAGE/index.php?module=wishlist&action=index">Wishlist</a></li>
             <li><a href="/CESI_TON_STAGE/index.php?module=Stages&action=index">Mes stages</a></li>
             

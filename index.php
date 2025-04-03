@@ -1,5 +1,4 @@
 <?php
-
 session_start();
 
 // Inclure le modèle UserModel et la connexion à la base de données
@@ -32,6 +31,14 @@ if (isset($_SESSION['user'])) {
 
 $controller = null; // Par défaut, il n'y a pas de contrôleur
 
+// Ajout du cas pour guestAccess avant le switch pour ne pas perturber les autres actions
+if ($module === 'auth' && $action === 'guestAccess') {
+    require_once 'src/controllers/AuthController.php';
+    $authController = new AuthController($pdo);
+    $authController->guestAccess(); // Appeler directement la méthode guestAccess
+    exit; // Terminer le script ici après avoir appelé la fonction guestAccess
+}
+
 // Instanciation du bon contrôleur et exécution de l'action
 switch ($module) {
     case 'auth':
@@ -39,15 +46,19 @@ switch ($module) {
         $controller = new AuthController($pdo);
         break;
 
-    case 'entreprises':
-        require_once 'src/controllers/EntreprisesController.php';
-        $controller = new EntreprisesController();
-        // Si l'action est 'show' et que l'ID est passé dans l'URL
-        if ($action === 'show' && isset($_GET['id'])) {
-            $id = (int)$_GET['id'];  // Sécuriser l'ID
-            $controller->show($id);  // Appeler la méthode 'show' avec l'ID
-        }
-        break;
+        case 'entreprises':
+            require_once 'src/controllers/EntreprisesController.php';
+            $controller = new EntreprisesController();
+            // Si l'action est 'show' et que l'ID est passé dans l'URL
+            if ($action === 'show' && isset($_GET['id'])) {
+                $id = (int)$_GET['id'];
+                $controller->show($id);
+            } else {
+                // Exécuter l'action normalement pour les autres cas
+                $controller->$action();
+            }
+            break;
+        
 
     case 'offres':
         require_once 'src/controllers/OffresController.php';
@@ -138,3 +149,4 @@ if (method_exists($controller, $action)) {
 } else {
     die("Action introuvable : $action");
 }
+?>

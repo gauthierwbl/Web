@@ -20,7 +20,7 @@ class CandidatureController {
      */
     public function index() {
         // Récupérer l'ID de l'utilisateur (étudiant) depuis la session
-        $id_utilisateur = $_SESSION['id_utilisateur']; // Assure-toi que l'ID de l'utilisateur est stocké dans la session
+        $id_utilisateur = $_SESSION['user']; // Assure-toi que l'ID de l'utilisateur est stocké dans la session
 
         // Récupérer le terme de recherche (si applicable)
         $terme = $_GET['terme'] ?? '';
