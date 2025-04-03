@@ -131,4 +131,23 @@ class EntreprisesController {
         header("Location: index.php?module=entreprises&action=index_dashboard");
         exit;
     }
+
+    // Afficher les détails de l'entreprise
+    public function show($id) {
+        // Récupérer les informations de l'entreprise et ses offres
+        $entreprise = $this->model->getById($id);
+        var_dump($entreprise);  // Ajoutez cette ligne pour vérifier les données récupérées
+        if (!$entreprise) {
+            die("Entreprise non trouvée.");
+        }
+    
+        // Récupérer les offres liées à l'entreprise
+        $offres = $this->model->getOffresByEntreprise($id);
+        var_dump($offres);  // Vérifiez aussi les offres récupérées
+    
+        // Récupérer les autres informations nécessaires (secteurs, notes, etc.)
+        require 'src/views/détail-entreprise.php'; // Afficher la vue
+    }
+    
+
 }

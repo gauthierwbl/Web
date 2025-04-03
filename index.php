@@ -42,6 +42,11 @@ switch ($module) {
     case 'entreprises':
         require_once 'src/controllers/EntreprisesController.php';
         $controller = new EntreprisesController();
+        // Si l'action est 'show' et que l'ID est passé dans l'URL
+        if ($action === 'show' && isset($_GET['id'])) {
+            $id = (int)$_GET['id'];  // Sécuriser l'ID
+            $controller->show($id);  // Appeler la méthode 'show' avec l'ID
+        }
         break;
 
     case 'offres':
