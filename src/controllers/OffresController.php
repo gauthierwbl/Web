@@ -71,7 +71,28 @@ class OffresController {
                 $offresAffichees[$index]['in_wishlist'] = $wishlistModel->isInWishlist($userId, $offre['id_offre']);
             }
         }
+        require 'src/views/offres.php';
+    }
+      
+    // Rechercher une offre
+    public function recherche() {
+        // Récupérer le terme de recherche
+        $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
+        
+        if (empty($terme)) {
+            // Rediriger vers la liste complète si aucun terme n'est fourni
+            header('Location: index.php?module=offres&action=index');
+            exit;
+        }
+        
+        // Effectuer la recherche
+        $offres = $this->model->rechercherOffres($terme);
 
+        // pour eviter erreurs vue
+        $pageActuelle = 1; 
+        $totalPages = 1; // recherche ne pagine pas encore, on met 1
+        
+        // Passer les résultats à la vue
         require 'src/views/offres.php';
     }
 

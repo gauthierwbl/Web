@@ -142,12 +142,141 @@
     </div>
 </div>
 
-<form action="index.php?module=offres&action=index" method="get" class="text-center">
+<form action="index.php?module=offres&action=recherche" method="get" class="text-center">
+    <input type="hidden" name="module" value="offres">
+    <input type="hidden" name="action" value="recherche">
     <div>
         <input class="recherche" type="search" name="terme" placeholder="Rechercher une offre">
         <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
     </div>
 </form>
+
+
+
+
+<!-- Affichage des résultats de recherche -->
+<?php if (isset($_GET['terme']) && !empty($_GET['terme'])): ?>
+    <div class="search-results-container">
+        <h3 class="search-title">Résultats de recherche pour "<?php echo htmlspecialchars($_GET['terme']); ?>"</h3>
+        
+        <?php if (isset($offres) && !empty($offres)): ?>
+            <div class="search-results-grid">
+                <?php foreach ($offres as $offre): ?>
+                    <div class="search-result-card">
+                        <h4 class="search-result-title"><?php echo htmlspecialchars($offre['nom_offre']); ?></h4>
+                        <p class="search-result-description">
+                            <?php echo nl2br(htmlspecialchars(mb_strimwidth($offre['description_offre'] ?? '', 0, 100, '...'))); ?>
+                        </p>
+                        <div class="search-result-footer">
+                            <a href="index.php?module=offres&action=details&id=<?php echo $offre['id_offre']; ?>" class="btn btn-primary search-button">Voir Plus</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="no-results">Aucune offre ne correspond à votre recherche.</p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<!-- Ajoutez ce CSS dans votre fichier styles.css ou dans une section style dans offres.php -->
+<style>
+    .search-results-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .search-title {
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .search-title:after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 3px;
+        background-color: #2196F3;
+        margin: 0.5rem auto;
+    }
+
+    .search-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .search-result-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .search-result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .search-result-title {
+        color: #1976D2;
+        font-size: 1.2rem;
+        margin-top: 0;
+        margin-bottom: 1rem;
+    }
+
+    .search-result-description {
+        color: #666;
+        flex-grow: 1;
+        margin-bottom: 1.5rem;
+        line-height: 1.5;
+    }
+
+    .search-result-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .search-button {
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #1976D2;
+    }
+
+    .no-results {
+        text-align: center;
+        color: #f44336;
+        font-size: 1.1rem;
+        padding: 2rem;
+        background-color: rgba(244, 67, 54, 0.05);
+        border-radius: 8px;
+        border-left: 4px solid #f44336;
+    }
+
+    @media (max-width: 768px) {
+        .search-results-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 
 <main class="container-entreprise">
     <section class="offres">
@@ -213,8 +342,6 @@
                     </div>
                 </div>
             <?php endforeach; ?>
-        <?php else: ?>
-            <p style="color: red;">Aucune offre trouvée.</p>
         <?php endif; ?>
     </section>
 </main>
