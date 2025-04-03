@@ -43,7 +43,7 @@
         <ul>
         <?php 
         
-        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 2): ?>
+        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 3): ?>
     <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
 <?php endif; ?>
 
@@ -77,11 +77,189 @@ if ($_SESSION['user']['id_role'] != 4): ?>
 </div>
 
 <form action="index.php?module=entreprises&action=index" method="get" class="text-center">
+    <input type="hidden" name="module" value="entreprises">
+    <input type="hidden" name="action" value="recherche">
     <div>
-        <input class="recherche" type="search" name="terme">
-        <input class="recherche-bouton" type="submit" name="submit" value="Rechercher">
+        <input class="recherche" type="search" name="terme" placeholder="Rechercher une entreprise">
+        <input class="recherche-bouton" type="submit" value="Rechercher">
     </div>
 </form>
+
+<!-- Affichage des résultats de recherche -->
+<?php if (isset($_GET['terme']) && !empty($_GET['terme'])): ?>
+    <div class="search-results-container">
+        <h3 class="search-title">Résultats de recherche pour "<?php echo htmlspecialchars($_GET['terme']); ?>"</h3>
+        
+        <?php if (isset($entreprisesAffichees) && !empty($entreprisesAffichees)): ?>
+            <div class="search-results-grid">
+                <?php foreach ($entreprisesAffichees as $e): ?>
+                    <div class="search-result-card">
+                        <div class="search-result-header">
+                            <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo" class="search-result-logo">
+                            <h4 class="search-result-title"><?= htmlspecialchars($e['nom_entreprise']) ?></h4>
+                        </div>
+                        <p class="search-result-info"><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
+                        
+                        <div class="search-result-rating">
+                            <?php
+                            // Récupérer la note moyenne de la base de données (note sur 20)
+                            $noteSur20 = isset($e['moyenne_note']) ? (float)$e['moyenne_note'] : 0;
+
+                            // Calculer la note sur 5
+                            $noteSur5 = $noteSur20 / 4;
+
+                            // Calculer le nombre d'étoiles pleines, demi et vides
+                            $notePleine = floor($noteSur5); // Nombre d'étoiles pleines
+                            $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0; // Vérifie s'il faut une demi-étoile
+                            $noteVide = 5 - ($notePleine + $noteDemi); // Complète à 5 étoiles
+
+                            // Afficher les étoiles pleines
+                            for ($i = 0; $i < $notePleine; $i++): ?>
+                                <img class="etoile" src="src/Views/img/etoile.png" alt="Étoile pleine">
+                            <?php endfor;
+
+                            // Afficher une demi-étoile si nécessaire
+                            if ($noteDemi): ?>
+                                <img class="etoile" src="src/Views/img/etoile-demi.png" alt="Étoile demi-remplie">
+                            <?php endif;
+
+                            // Afficher les étoiles vides pour compléter à 5
+                            for ($i = 0; $i < $noteVide; $i++): ?>
+                                <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
+                            <?php endfor; ?>
+                        </div>
+                        
+                        <div class="search-result-footer">
+                            <a href="index.php?module=entreprises&action=show&id=<?= $e['id_entreprise'] ?>" class="btn btn-primary search-button">Voir Plus</a>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="no-results">Aucune entreprise ne correspond à votre recherche.</p>
+        <?php endif; ?>
+    </div>
+<?php endif; ?>
+
+<style>
+    .search-results-container {
+        max-width: 1200px;
+        margin: 2rem auto;
+        padding: 0 1rem;
+    }
+
+    .search-title {
+        color: #333;
+        font-size: 1.5rem;
+        margin-bottom: 1.5rem;
+        text-align: center;
+        position: relative;
+    }
+
+    .search-title:after {
+        content: '';
+        display: block;
+        width: 50px;
+        height: 3px;
+        background-color: #2196F3;
+        margin: 0.5rem auto;
+    }
+
+    .search-results-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+        gap: 1.5rem;
+    }
+
+    .search-result-card {
+        background-color: white;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 1.5rem;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+    .search-result-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .search-result-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1rem;
+    }
+
+    .search-result-logo {
+        width: 60px;
+        height: 60px;
+        object-fit: contain;
+        margin-right: 1rem;
+        border-radius: 4px;
+    }
+
+    .search-result-title {
+        color: #1976D2;
+        font-size: 1.2rem;
+        margin: 0;
+    }
+
+    .search-result-info {
+        color: #666;
+        margin-bottom: 1rem;
+    }
+
+    .search-result-rating {
+        display: flex;
+        margin-bottom: 1.5rem;
+    }
+
+    .search-result-rating .etoile {
+        width: 20px;
+        height: 20px;
+        margin-right: 2px;
+    }
+
+    .search-result-footer {
+        margin-top: auto;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .search-button {
+        background-color: #2196F3;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        padding: 0.5rem 1rem;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+    }
+
+    .search-button:hover {
+        background-color: #1976D2;
+    }
+
+    .no-results {
+        text-align: center;
+        color: #f44336;
+        font-size: 1.1rem;
+        padding: 2rem;
+        background-color: rgba(244, 67, 54, 0.05);
+        border-radius: 8px;
+        border-left: 4px solid #f44336;
+    }
+
+    @media (max-width: 768px) {
+        .search-results-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>
 
 <?php
 function getLogoUrl($companyName) {
@@ -140,8 +318,6 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
             </div>
         <?php endforeach; ?>
     </div>
-<?php else: ?>
-    <p style="color: red;">Aucune entreprise trouvée.</p>
 <?php endif; ?>
 
 
@@ -164,7 +340,7 @@ if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($en
 <footer class="text-center" id="footer">
     <div class="container">
         <ul class="list-inline">
-            <li class="list-inline-item me-4"><a class="link-secondary" href="condition-general.php">Conditions générales</a></li>
+        <li class="list-inline-item me-4"><a class="link-secondary" href="index.php?module=conditions&action=index">Conditions générales</a></li>
         </ul><br>
     </div>
     <div class="wrapper">
