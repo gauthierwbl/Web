@@ -72,7 +72,7 @@ if ($_SESSION['user']['id_role'] == 2 || $_SESSION['user']['id_role'] == 4) {
       </a>
     </li>
     <li>
-      <a class="nom-nav" href="index.php?module=profile&action=view">
+      <a class="nom-nav" href="index.php?module=profil&action=index">
         <i class="fas fa-user"></i>
         <span class="nav-item">Profil</span>
       </a>

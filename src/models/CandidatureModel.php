@@ -10,49 +10,60 @@ class CandidatureModel {
     /**
      * Récupère toutes les offres auxquelles un étudiant a postulé
      */
-    public function getAllOffresCandidatees($id_utilisateur, $terme = '', $limit = 10, $offset = 0) {
-        $query = "
-            SELECT 
-                o.id_offre,
-                o.nom_offre,
-                o.description_offre,
-                o.competences,
-                o.duree_stage,
-                o.base_remuneration,
-                o.date_offre,
-                o.nombre_place,
-                o.nombre_candidature,
-                e.nom_entreprise,
-                u.id_utilisateurs,  -- Seulement l'ID de l'utilisateur
-                c.lettre_motivation,
-                c.id_status
-            FROM candidater c
-            JOIN offres o ON c.id_offre = o.id_offre
-            JOIN entreprises e ON o.id_entreprise = e.id_entreprise
-            JOIN utilisateurs u ON c.id_utilisateurs = u.id_utilisateurs
-            WHERE c.id_utilisateurs = :id_utilisateur
-        ";
+   /**
+ * Récupère toutes les candidatures sans filtre par utilisateur
+ */
+public function getAllCandidatures($terme = '', $limit = 10, $offset = 0) {
+    $query = "
+    SELECT 
+        o.id_offre,
+        o.nom_offre,
+        o.description_offre,
+        o.competences,
+        o.duree_stage,
+        o.base_remuneration,
+        o.date_offre,
+        o.nombre_place,
+        o.nombre_candidature,
+        e.nom_entreprise,
+        u.id_utilisateurs,
+        u.login AS nom_etudiant,     -- Nom de l'étudiant
+        c.lettre_motivation,
+        c.id_status
+    FROM candidater c
+    JOIN offres o ON c.id_offre = o.id_offre
+    JOIN entreprises e ON o.id_entreprise = e.id_entreprise
+    JOIN utilisateurs u ON c.id_utilisateurs = u.id_utilisateurs
+";
 
-        // Ajouter la recherche par terme (si applicable)
-        if ($terme) {
-            $query .= " AND o.nom_offre LIKE :terme";
-        }
-
-        $query .= " LIMIT :limit OFFSET :offset";
-
-        $stmt = $this->pdo->prepare($query);
-        
-        // Lier les paramètres
-        $stmt->bindValue(':id_utilisateur', $id_utilisateur, PDO::PARAM_INT);
-        if ($terme) {
-            $stmt->bindValue(':terme', '%' . $terme . '%', PDO::PARAM_STR); // Recherche par nom de l'offre
-        }
-        $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
-
-        $stmt->execute();
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    // Ajouter la recherche par terme (si applicable)
+    if ($terme) {
+        $query .= " WHERE o.nom_offre LIKE :terme";
     }
+
+    $query .= " ORDER BY o.date_offre DESC LIMIT :limit OFFSET :offset";
+
+    $stmt = $this->pdo->prepare($query);
+    
+    // Lier les paramètres
+    if ($terme) {
+        $stmt->bindValue(':terme', '%' . $terme . '%', PDO::PARAM_STR);
+    }
+    $stmt->bindValue(':limit', $limit, PDO::PARAM_INT);
+    $stmt->bindValue(':offset', $offset, PDO::PARAM_INT);
+
+    $stmt->execute();
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
+/**
+ * Récupère le nombre total de candidatures
+ */
+public function getTotalCandidaturesPages($limit = 10) {
+    $stmt = $this->pdo->query("SELECT COUNT(*) FROM candidater");
+    $count = $stmt->fetchColumn();
+    return ceil($count / $limit);
+}
 
     /**
      * Récupère le nombre total de candidatures pour un étudiant

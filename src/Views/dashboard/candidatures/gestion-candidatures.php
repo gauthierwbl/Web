@@ -66,7 +66,7 @@
       </a>
     </li>
     <li>
-      <a class="nom-nav" href="index.php?module=profile&action=view">
+      <a class="nom-nav" href="index.php?module=profil&action=index">
         <i class="fas fa-user"></i>
         <span class="nav-item">Profil</span>
       </a>
@@ -92,43 +92,37 @@
 
       <!-- Tableau des candidatures -->
       <table>
-        <thead>
-          <tr>
-            <th>#id</th>
-            <th>Entreprise</th>
-            <th>Offre</th>
-            <th>Lettre de motivation</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          <?php if (!empty($offresCandidaturees)): ?>
-            <?php foreach ($offresCandidaturees as $offre): ?>
-              <tr>
-                <td><?= htmlspecialchars($offre['id_offre']) ?></td>
-                <td><?= htmlspecialchars($offre['nom_entreprise']) ?></td>
-                <td><?= htmlspecialchars($offre['nom_offre']) ?></td>
-                <td><?= htmlspecialchars($offre['lettre_motivation']) ?></td>
-                <td>
-                  <!-- Bouton pour modifier la candidature -->
-                  <a href="index.php?module=candidatures&action=edit&id=<?= $offre['id_utilisateurs'] ?>&id_o=<?= $offre['id_offre'] ?>" class="btn btn-primary-candidature">
+      <thead>
+  <tr>
+    <th>#id</th>
+    <th>Étudiant</th>   <!-- Nouvelle colonne -->
+    <th>Entreprise</th>
+    <th>Offre</th>
+    <th>Lettre de motivation</th>
+    <th>Action</th>
+  </tr>
+</thead>
+<tbody>
+  <?php if (!empty($offresCandidaturees)): ?>
+    <?php foreach ($offresCandidaturees as $offre): ?>
+      <tr>
+      <td><?= htmlspecialchars($offre['id_offre']) ?></td>
+    <td><?= htmlspecialchars($offre['nom_etudiant']) ?></td>
+    <td><?= htmlspecialchars($offre['nom_entreprise']) ?></td>
+    <td><?= htmlspecialchars($offre['nom_offre']) ?></td>
+    <td><?= htmlspecialchars($offre['lettre_motivation']) ?></td>
+        <td>
+        <a href="index.php?module=candidatures&action=edit&id=<?= $offre['id_utilisateurs'] ?>&id_o=<?= $offre['id_offre'] ?>" class="btn btn-primary-candidature">
                     <span class="sr-only">Modifier la candidature</span>
                     <i class="fas fa-edit"></i>
                   </a>
-                  <!-- Formulaire pour supprimer la candidature -->
-                  <form action="admin-candidature-delete.html?id=<?= $offre['id_offre'] ?>&id_o=<?= $offre['id_offre'] ?>" method="POST" style="display: inline;" onsubmit="return confirm('Voulez-vous supprimer cette candidature ?')">
-                    <button class="btn btn-danger-candidature">
-                      <span class="sr-only">Supprimer la candidature</span>
-                      <i class="fas fa-trash"></i>
-                    </button>
-                  </form>
-                </td>
-              </tr>
-            <?php endforeach; ?>
-          <?php else: ?>
-            <tr><td colspan="5">Aucune candidature trouvée.</td></tr>
-          <?php endif; ?>
-        </tbody>
+        </td>
+      </tr>
+    <?php endforeach; ?>
+  <?php else: ?>
+    <tr><td colspan="6">Aucune candidature trouvée.</td></tr>
+  <?php endif; ?>
+</tbody>
       </table>
 
       <!-- Pagination -->
