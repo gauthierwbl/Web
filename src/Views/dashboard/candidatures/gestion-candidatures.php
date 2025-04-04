@@ -84,11 +84,7 @@
     <div class="container-edit-candidatures">
       <h1 class="grand-titre">Gestion des Candidatures</h1>
 
-      <!-- Formulaire de recherche -->
-      <form action="" method="get">
-        <input class="form-control" type="search" name="terme" placeholder="Rechercher..." aria-label="Entrez votre terme de recherche">
-        <input class="btn btn-recherche" type="submit" name="submit" value="Rechercher" aria-label="Rechercher">
-      </form>
+    
 
       <!-- Tableau des candidatures -->
       <table>
