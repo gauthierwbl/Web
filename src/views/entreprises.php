@@ -1,3 +1,25 @@
+<?php
+// Empêcher l'exécution directe du fichier
+defined('APP_LOADED') or define('APP_LOADED', true);
+
+// Fonction getLogoUrl définie si elle n'existe pas déjà
+if (!function_exists('getLogoUrl')) {
+    function getLogoUrl($companyName) {
+        // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
+        $formattedName = strtolower(str_replace(' ', '', $companyName));
+        $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
+
+        // Vérifier si l'image existe
+        $headers = @get_headers($clearbitUrl);
+        if ($headers && strpos($headers[0], '200')) {
+            return $clearbitUrl;
+        }
+
+        // Si aucun logo n'est trouvé, utiliser une image par défaut
+        return "src/Views/img/uploads/default.png";
+    }
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -7,7 +29,7 @@
     <link rel="stylesheet" href="css/styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
-
+<body>
 <header class="navbar">
     <section class="contenu-nav">
         <div class="gauche">
@@ -26,47 +48,44 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-            <?php if ($_SESSION['user']['id_role'] != 4): ?>
-    <a href="index.php?module=profil&action=index">
-        <label>
-            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profil" />
-        </label>
-    </a>
-<?php endif; ?>
-
+                <?php if (isset($_SESSION['user']) && $_SESSION['user']['id_role'] != 4): ?>
+                    <a href="index.php?module=profil&action=index">
+                        <label>
+                            <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profil" />
+                        </label>
+                    </a>
+                <?php endif; ?>
             </div>
         </div>
     </section>
 
     <section class="navplus">
-    <div class="contenu-navplus">
-        <ul>
-        <?php 
-        
-        if ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 3): ?>
-    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
-<?php endif; ?>
-
-<?php 
-// Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
-if ($_SESSION['user']['id_role'] != 4): ?>
-    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
-<?php endif; ?>
-            
-            <li>
-                <?php if (isset($_SESSION["user"])): ?>
-                    <form action="logout.php" method="post">
-                <button type="submit" class="bouton-deconnexion">Déconnexion</button>
-                </form>
-
-                <?php else: ?>
-                    <a href="index.php?module=login&action=index">Se connecter</a>
+        <div class="contenu-navplus">
+            <ul>
+                <?php
+                if (isset($_SESSION['user']) && ($_SESSION['user']['id_role'] == 1 || $_SESSION['user']['id_role'] == 3)): ?>
+                    <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
                 <?php endif; ?>
-            </li>
-        </ul>
-    </div>
-</section>
+
+                <?php
+                // Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
+                if (isset($_SESSION['user']) && $_SESSION['user']['id_role'] != 4): ?>
+                    <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
+                    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+                <?php endif; ?>
+
+                <li>
+                    <?php if (isset($_SESSION["user"])): ?>
+                        <form action="logout.php" method="post">
+                            <button type="submit" class="bouton-deconnexion">Déconnexion</button>
+                        </form>
+                    <?php else: ?>
+                        <a href="index.php?module=login&action=index">Se connecter</a>
+                    <?php endif; ?>
+                </li>
+            </ul>
+        </div>
+    </section>
 </header>
 
 <div>
@@ -76,11 +95,12 @@ if ($_SESSION['user']['id_role'] != 4): ?>
     </div>
 </div>
 
-<form action="index.php?module=entreprises&action=index" method="get" class="text-center">
+<form action="index.php" method="get" class="text-center">
     <input type="hidden" name="module" value="entreprises">
     <input type="hidden" name="action" value="recherche">
     <div>
-        <input class="recherche" type="search" name="terme" placeholder="Rechercher une entreprise">
+        <input class="recherche" type="search" name="terme" placeholder="Rechercher une entreprise"
+               value="<?= isset($terme) ? htmlspecialchars($terme) : '' ?>">
         <input class="recherche-bouton" type="submit" value="Rechercher">
     </div>
 </form>
@@ -89,7 +109,7 @@ if ($_SESSION['user']['id_role'] != 4): ?>
 <?php if (isset($_GET['terme']) && !empty($_GET['terme'])): ?>
     <div class="search-results-container">
         <h3 class="search-title">Résultats de recherche pour "<?php echo htmlspecialchars($_GET['terme']); ?>"</h3>
-        
+
         <?php if (isset($entreprisesAffichees) && !empty($entreprisesAffichees)): ?>
             <div class="search-results-grid">
                 <?php foreach ($entreprisesAffichees as $e): ?>
@@ -99,7 +119,7 @@ if ($_SESSION['user']['id_role'] != 4): ?>
                             <h4 class="search-result-title"><?= htmlspecialchars($e['nom_entreprise']) ?></h4>
                         </div>
                         <p class="search-result-info"><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
-                        
+
                         <div class="search-result-rating">
                             <?php
                             // Récupérer la note moyenne de la base de données (note sur 20)
@@ -128,7 +148,7 @@ if ($_SESSION['user']['id_role'] != 4): ?>
                                 <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
                             <?php endfor; ?>
                         </div>
-                        
+
                         <div class="search-result-footer">
                             <a href="index.php?module=entreprises&action=show&id=<?= $e['id_entreprise'] ?>" class="btn btn-primary search-button">Voir Plus</a>
                         </div>
@@ -139,6 +159,65 @@ if ($_SESSION['user']['id_role'] != 4): ?>
             <p class="no-results">Aucune entreprise ne correspond à votre recherche.</p>
         <?php endif; ?>
     </div>
+<?php else: ?>
+    <?php if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
+        <div class="container-entreprise">
+            <?php foreach ($entreprisesAffichees as $e): ?>
+                <div class="entreprise">
+                    <!-- Lien vers les détails de l'entreprise -->
+                    <a href="index.php?module=entreprises&action=show&id=<?= $e['id_entreprise'] ?>">
+                        <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
+                        <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
+                    </a>
+                    <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
+                    <div style="margin: 10px 0;">
+                        <?php
+                        // Récupérer la note moyenne de la base de données (note sur 20)
+                        $noteSur20 = isset($e['moyenne_note']) ? (float)$e['moyenne_note'] : 0;
+
+                        // Calculer la note sur 5
+                        $noteSur5 = $noteSur20 / 4;
+
+                        // Calculer le nombre d'étoiles pleines, demi et vides
+                        $notePleine = floor($noteSur5); // Nombre d'étoiles pleines
+                        $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0; // Vérifie s'il faut une demi-étoile
+                        $noteVide = 5 - ($notePleine + $noteDemi); // Complète à 5 étoiles
+
+                        // Afficher les étoiles pleines
+                        for ($i = 0; $i < $notePleine; $i++): ?>
+                            <img class="etoile" src="src/Views/img/etoile.png" alt="Étoile pleine">
+                        <?php endfor;
+
+                        // Afficher une demi-étoile si nécessaire
+                        if ($noteDemi): ?>
+                            <img class="etoile" src="src/Views/img/etoile-demi.png" alt="Étoile demi-remplie">
+                        <?php endif;
+
+                        // Afficher les étoiles vides pour compléter à 5
+                        for ($i = 0; $i < $noteVide; $i++): ?>
+                            <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
+                        <?php endfor; ?>
+                    </div>
+                </div>
+            <?php endforeach; ?>
+        </div>
+
+        <div class="container-pagination">
+            <div class="container-pagination-precedente">
+                <?php if (isset($pageActuelle) && isset($totalPages)): ?>
+                <?php if ($pageActuelle > 1): ?>
+                    <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente">Précédent</a>
+                <?php endif; ?>
+            </div>
+
+            <div class="container-pagination-suivante">
+                <?php if ($pageActuelle < $totalPages): ?>
+                    <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante">Suivant</a>
+                <?php endif; ?>
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endif; ?>
 <?php endif; ?>
 
 <style>
@@ -261,86 +340,10 @@ if ($_SESSION['user']['id_role'] != 4): ?>
     }
 </style>
 
-<?php
-function getLogoUrl($companyName) {
-    // Transformer le nom en format compatible Clearbit (suppression des espaces, minuscules)
-    $formattedName = strtolower(str_replace(' ', '', $companyName));
-    $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
-
-    // Vérifier si l'image existe
-    $headers = @get_headers($clearbitUrl);
-    if ($headers && strpos($headers[0], '200')) {
-        return $clearbitUrl;
-    }
-
-    // Si aucun logo n'est trouvé, utiliser une image par défaut
-    return "src/Views/img/uploads/default.png";
-}
-
-if (isset($entreprisesAffichees) && is_array($entreprisesAffichees) && count($entreprisesAffichees) > 0): ?>
-    <div class="container-entreprise">
-        <?php foreach ($entreprisesAffichees as $e): ?>
-            <div class="entreprise">
-                <!-- Lien vers les détails de l'entreprise -->
-                <a href="index.php?module=entreprises&action=show&id=<?= $e['id_entreprise'] ?>">
-                    <img src="<?= getLogoUrl($e['nom_entreprise']) ?>" alt="<?= htmlspecialchars($e['nom_entreprise']) ?> - Logo de l'entreprise" class="card-img-top">
-                    <h5><?= htmlspecialchars($e['nom_entreprise']) ?></h5>
-                </a>
-                <p><strong>Secteur :</strong> <?= htmlspecialchars($e['id_secteur']) ?></p>
-                <div style="margin: 10px 0;">
-                    <?php
-                    // Récupérer la note moyenne de la base de données (note sur 20)
-                    $noteSur20 = isset($e['moyenne_note']) ? (float)$e['moyenne_note'] : 0;
-
-                    // Calculer la note sur 5
-                    $noteSur5 = $noteSur20 / 4;
-
-                    // Calculer le nombre d'étoiles pleines, demi et vides
-                    $notePleine = floor($noteSur5); // Nombre d'étoiles pleines
-                    $noteDemi = ($noteSur5 - $notePleine) >= 0.5 ? 1 : 0; // Vérifie s'il faut une demi-étoile
-                    $noteVide = 5 - ($notePleine + $noteDemi); // Complète à 5 étoiles
-
-                    // Afficher les étoiles pleines
-                    for ($i = 0; $i < $notePleine; $i++): ?>
-                        <img class="etoile" src="src/Views/img/etoile.png" alt="Étoile pleine">
-                    <?php endfor;
-
-                    // Afficher une demi-étoile si nécessaire
-                    if ($noteDemi): ?>
-                        <img class="etoile" src="src/Views/img/etoile-demi.png" alt="Étoile demi-remplie">
-                    <?php endif;
-
-                    // Afficher les étoiles vides pour compléter à 5
-                    for ($i = 0; $i < $noteVide; $i++): ?>
-                        <img class="etoile" src="src/Views/img/etoile-vide.png" alt="Étoile vide">
-                    <?php endfor; ?>
-                </div>
-            </div>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
-
-
-<div class="container-pagination">
-    <div class="container-pagination-precedente">
-        <?php if (isset($pageActuelle) && isset($totalPages)): ?>
-        <?php if ($pageActuelle > 1): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle - 1 ?>" class="pagination-entreprise-precedente" >Précédent</a>
-        <?php endif; ?>
-    </div>
-
-    <div class="container-pagination-suivante">
-        <?php if ($pageActuelle < $totalPages): ?>
-            <a href="index.php?module=entreprises&action=index&page=<?= $pageActuelle + 1 ?>" class="pagination-entreprise-suivante" > Suivant</a>
-        <?php endif; ?>
-        <?php endif; ?>
-    </div>
-</div>
-
 <footer class="text-center" id="footer">
     <div class="container">
         <ul class="list-inline">
-        <li class="list-inline-item me-4"><a class="link-secondary" href="index.php?module=conditions&action=index">Conditions générales</a></li>
+            <li class="list-inline-item me-4"><a class="link-secondary" href="index.php?module=conditions&action=index">Conditions générales</a></li>
         </ul><br>
     </div>
     <div class="wrapper">

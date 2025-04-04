@@ -29,11 +29,9 @@
             </ul>
             <div id="icons"></div>
             <div class="droite">
-                <a href="profil.php">
-                    <label>
-                        <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profil" />
-                    </label>
-                </a>
+                <label>
+                    <img class="profil profil-img" src="src/Views/img/profil.png" alt="photo_de_profil" />
+                </label>
             </div>
         </div>
     </section>
