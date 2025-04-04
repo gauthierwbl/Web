@@ -44,7 +44,7 @@
     <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
 <?php endif; ?>
             <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+            <li><a href="index.php?module=Stages&action=index">Mes stages</a></li>
             
             <li>
                 <?php if (isset($_SESSION["user"])): ?>
