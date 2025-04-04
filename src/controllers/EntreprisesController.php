@@ -69,6 +69,27 @@ class EntreprisesController {
             // Charger la vue avec les résultats
             require 'src/views/entreprises.php';
         }
+    //Rechercher une entreprise dans le dashboard
+    public function recherche_dashboard() {
+        // Récupérer le terme de recherche
+        $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
+        
+        if (empty($terme)) {
+            // Rediriger vers la liste complète si aucun terme n'est fourni
+            header('Location: index.php?module=entreprises&action=index_dashboard');
+            exit;
+        }
+        
+        // Effectuer la recherche
+        $entreprisesAffichees = $this->model->rechercherEntreprisesDashboard($terme);
+        
+        // Pour éviter des erreurs dans la vue
+        $pageActuelle = 1;
+        $totalPages = 1; // La recherche ne pagine pas, donc on met 1
+        
+        // Charger la vue dashboard avec les résultats
+        require 'src/views/dashboard/entreprises/gestion-entreprises.php';
+    }
     
 public function show($id) {
     if (!isset($id)) {

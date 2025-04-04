@@ -61,6 +61,33 @@ class EntreprisesModel {
         }
     }
 
+    // Rechercher une entreprise sans le dashboard
+    public function rechercherEntreprisesDashboard($terme) {
+        try {
+            // Préparer la requête SQL pour rechercher par nom d'entreprise dans le dashboard
+            $sql = "SELECT e.*, COALESCE(AVG(n.note), 0) AS moyenne_note
+                    FROM entreprises e
+                    LEFT JOIN notes n ON e.id_entreprise = n.id_entreprise
+                    WHERE e.nom_entreprise LIKE :terme
+                    GROUP BY e.id_entreprise";
+            
+            $stmt = $this->pdo->prepare($sql);
+            
+            // Définir le paramètre de recherche
+            $termeRecherche = "%" . $terme . "%";
+            $stmt->bindParam(':terme', $termeRecherche, PDO::PARAM_STR);
+            
+            // Exécuter la requête
+            $stmt->execute();
+            
+            // Retourner les résultats
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erreur lors de la recherche d'entreprises dans le dashboard : " . $e->getMessage());
+            return [];
+        }
+    }
+
     // Créer une nouvelle entreprise
     public function create($nom_entreprise, $id_secteur, $id_fichier = 50, $is_visible = 1) {
         $stmt = $this->pdo->prepare("INSERT INTO entreprises (nom_entreprise, id_secteur, id_fichier, is_visible) VALUES (:nom_entreprise, :id_secteur, :id_fichier, :is_visible)");
