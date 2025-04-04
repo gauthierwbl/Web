@@ -93,28 +93,34 @@ class EntreprisesController {
         ]);
     }
 
-        //Rechercher une entreprise
-        public function recherche() {
-            // Récupérer le terme de recherche
-            $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
-            
-            if (empty($terme)) {
-                // Rediriger vers la liste complète si aucun terme n'est fourni
-                header('Location: index.php?module=entreprises&action=index');
-                exit;
-            }
-            
-            // Effectuer la recherche
-            $entreprisesAffichees = $this->model->rechercherEntreprises($terme);
-            
-            // Pour éviter des erreurs dans la vue
-            $pageActuelle = 1;
-            $totalPages = 1; // La recherche ne pagine pas, donc on met 1
-            
-            // Charger la vue avec les résultats
-            require 'src/views/entreprises.php';
+    // Rechercher une entreprise
+    public function recherche() {
+        // Récupérer le terme de recherche
+        $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
+        
+        if (empty($terme)) {
+            // Rediriger vers la liste complète si aucun terme n'est fourni
+            header('Location: index.php?module=entreprises&action=index');
+            exit;
         }
-    //Rechercher une entreprise dans le dashboard
+        
+        // Effectuer la recherche
+        $entreprisesAffichees = $this->model->rechercherEntreprises($terme);
+        
+        // Pour éviter des erreurs dans la vue
+        $pageActuelle = 1;
+        $totalPages = 1; // La recherche ne pagine pas, donc on met 1
+        
+        // Charger la vue avec les résultats
+        $this->loadViewOnce('src/views/entreprises.php', [
+            'entreprisesAffichees' => $entreprisesAffichees,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages,
+            'terme' => $terme
+        ]);
+    }
+
+    // Rechercher une entreprise dans le dashboard
     public function recherche_dashboard() {
         // Récupérer le terme de recherche
         $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
@@ -133,61 +139,14 @@ class EntreprisesController {
         $totalPages = 1; // La recherche ne pagine pas, donc on met 1
         
         // Charger la vue dashboard avec les résultats
-        require 'src/views/dashboard/entreprises/gestion-entreprises.php';
-    }
-    
-public function show($id) {
-    if (!isset($id)) {
-        header("Location: index.php?module=entreprises&action=index");
-        exit;
-    }
-    
-    // Récupérer les détails de l'entreprise à partir de l'ID
-    $entreprise = $this->model->getById($id);
-    
-    if (!$entreprise) {
-        $_SESSION['error'] = "Entreprise non trouvée.";
-        header("Location: index.php?module=entreprises&action=index");
-        exit;
-    }
-    
-    // Récupérer le secteur de l'entreprise
-    $secteur = $this->model->getSecteurById($entreprise['id_secteur']);
-    
-    // Récupérer les adresses de l'entreprise
-    $adresses = $this->model->getAdressesByEntreprise($id);
-    
-    // Récupérer les offres de l'entreprise - AJOUT NÉCESSAIRE
-    $offres = $this->model->getOffresByEntreprise($id);
-    
-    // Définir la fonction getLogoUrl ou l'inclure depuis un fichier de fonctions
-    function getLogoUrl($companyName) {
-        // Transformer le nom en format compatible Clearbit
-        $formattedName = strtolower(str_replace(' ', '', $companyName));
-        $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
-
-        if (empty($terme)) {
-            // Rediriger vers la liste complète si aucun terme n'est fourni
-            header('Location: index.php?module=entreprises&action=index');
-            exit;
-        }
-
-        // Effectuer la recherche
-        $entreprisesAffichees = $this->model->rechercherEntreprises($terme);
-
-        // Pour éviter des erreurs dans la vue
-        $pageActuelle = 1;
-        $totalPages = 1; // La recherche ne pagine pas, donc on met 1
-
-        // Charger la vue avec les résultats
-        $this->loadViewOnce('src/views/entreprises.php', [
+        $this->loadViewOnce('src/views/dashboard/entreprises/gestion-entreprises.php', [
             'entreprisesAffichees' => $entreprisesAffichees,
             'pageActuelle' => $pageActuelle,
             'totalPages' => $totalPages,
             'terme' => $terme
         ]);
     }
-
+    
     public function show($id) {
         if (!isset($id)) {
             header("Location: index.php?module=entreprises&action=index");
@@ -209,7 +168,7 @@ public function show($id) {
         // Récupérer les adresses de l'entreprise
         $adresses = $this->model->getAdressesByEntreprise($id);
 
-        // Récupérer les offres de l'entreprise - AJOUT NÉCESSAIRE
+        // Récupérer les offres de l'entreprise
         $offres = $this->model->getOffresByEntreprise($id);
 
         // Passer les données à la vue
