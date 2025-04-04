@@ -17,27 +17,64 @@ class OffresController {
     }
 
     /**
+     * Fonction pour charger une vue une seule fois
+     */
+    private function loadViewOnce($viewPath, $data = []) {
+        // Extraire les données pour les rendre disponibles dans la vue
+        extract($data);
+        
+        // Inclure la vue
+        if (defined('PAGE_ALREADY_LOADED')) return;
+        require $viewPath;
+    }
+
+    /**
      * Affiche les offres pour le tableau de bord d'administration
      */
     public function index_dashboard() {
-        $offresParPage = 10; // Nombre d'offres par page
+        $offresParPage = 10;
         $totalPages = $this->model->getTotalPages($offresParPage);
-
-        $pageActuelle = 1;
-        if (isset($_GET["page"])) {
-            if (!ctype_digit($_GET["page"]) || (int)$_GET["page"] < 1) {
-                die("Erreur : Numéro de page invalide.");
-            }
-            $pageActuelle = min((int)$_GET["page"], $totalPages);
-        }
-
+        
+        $pageActuelle = isset($_GET["page"]) && ctype_digit($_GET["page"]) && (int)$_GET["page"] > 0
+            ? min((int)$_GET["page"], $totalPages)
+            : 1;
+        
         $offresAffichees = $this->model->getOffresAvecNotes($pageActuelle, $offresParPage);
+        
+        $this->loadViewOnce('src/views/dashboard/offres/gestion-offres.php', [
+            'offresAffichees' => $offresAffichees,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages
+        ]);
+    }
 
-        if (empty($offresAffichees)) {
-            $_SESSION['error'] = "Aucune offre trouvée.";
+    /**
+     * Rechercher une offre dans le dashboard
+     */
+    public function recherche_dashboard() {
+        // Récupérer le terme de recherche
+        $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
+        
+        if (empty($terme)) {
+            // Rediriger vers la liste complète si aucun terme n'est fourni
+            header('Location: index.php?module=offres&action=index_dashboard');
+            exit;
         }
-
-        require 'src/views/dashboard/offres/gestion-offres.php';
+        
+        // Effectuer la recherche
+        $offresAffichees = $this->model->rechercherOffresDashboard($terme);
+        
+        // Pour éviter des erreurs dans la vue
+        $pageActuelle = 1;
+        $totalPages = 1; // La recherche ne pagine pas, donc on met 1
+        
+        // Charger la vue dashboard avec les résultats
+        $this->loadViewOnce('src/views/dashboard/offres/gestion-offres.php', [
+            'offresAffichees' => $offresAffichees,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages,
+            'terme' => $terme
+        ]);
     }
 
     /**

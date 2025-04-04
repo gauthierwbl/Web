@@ -19,7 +19,9 @@ class OffresModel {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-
+    /**
+     * Rechercher des offres dans le frontend
+     */
     public function rechercherOffres($terme) {
         try {
             // Préparer la requête SQL
@@ -36,10 +38,41 @@ class OffresModel {
             // Retourner les résultats
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            echo "Erreur lors de la recherche d'offres : " . $e->getMessage();
+            error_log("Erreur lors de la recherche d'offres : " . $e->getMessage());
             return [];
         }
     }
+
+    /**
+     * Rechercher des offres dans le dashboard
+     */
+    public function rechercherOffresDashboard($terme) {
+        try {
+            // Préparer la requête SQL pour rechercher par nom d'offre ou entreprise
+            $sql = "SELECT o.*, e.nom_entreprise, COALESCE(AVG(n.note), 0) AS moyenne_note
+                   FROM offres o 
+                   JOIN entreprises e ON o.id_entreprise = e.id_entreprise
+                   LEFT JOIN notes n ON e.id_entreprise = n.id_entreprise
+                   WHERE o.nom_offre LIKE :terme OR e.nom_entreprise LIKE :terme
+                   GROUP BY o.id_offre";
+            
+            $stmt = $this->pdo->prepare($sql);
+            
+            // Définir le paramètre de recherche
+            $termeRecherche = "%" . $terme . "%";
+            $stmt->bindParam(':terme', $termeRecherche, PDO::PARAM_STR);
+            
+            // Exécuter la requête
+            $stmt->execute();
+            
+            // Retourner les résultats
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Erreur lors de la recherche d'offres dans le dashboard : " . $e->getMessage());
+            return [];
+        }
+    }
+
     /**
      * Récupère toutes les offres avec notes et pagination
      */
@@ -231,6 +264,5 @@ class OffresModel {
             return [];
         }
     }
-    
 }
 ?>

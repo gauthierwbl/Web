@@ -5,10 +5,23 @@ require_once 'src/models/EtudiantsModel.php';
 
 class EtudiantsController {
     private $model;
+    private $pdo;
 
     public function __construct() {
-        $pdo = Database::getConnection();
-        $this->model = new EtudiantsModel($pdo);
+        $this->pdo = Database::getConnection();
+        $this->model = new EtudiantsModel($this->pdo);
+    }
+    
+    /**
+     * Fonction pour charger une vue une seule fois
+     */
+    private function loadViewOnce($viewPath, $data = []) {
+        // Extraire les données pour les rendre disponibles dans la vue
+        extract($data);
+        
+        // Inclure la vue
+        if (defined('PAGE_ALREADY_LOADED')) return;
+        require $viewPath;
     }
 
     // Liste paginée des étudiants
@@ -21,16 +34,49 @@ class EtudiantsController {
 
         $etudiants = $this->model->getEtudiantsPaginated($pageActuelle, $parPage);
 
-        require 'src/views/dashboard/etudiants/gestion-etudiants.php';
+        $this->loadViewOnce('src/views/dashboard/etudiants/gestion-etudiants.php', [
+            'etudiants' => $etudiants,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages
+        ]);
+    }
+    
+    /**
+     * Rechercher un étudiant dans le dashboard
+     */
+    public function recherche_dashboard() {
+        // Récupérer le terme de recherche
+        $terme = isset($_GET['terme']) ? trim($_GET['terme']) : '';
+        
+        if (empty($terme)) {
+            // Rediriger vers la liste complète si aucun terme n'est fourni
+            header('Location: index.php?module=etudiants&action=index_dashboard');
+            exit;
+        }
+        
+        // Effectuer la recherche
+        $etudiants = $this->model->rechercherEtudiantsDashboard($terme);
+        
+        // Pour éviter des erreurs dans la vue
+        $pageActuelle = 1;
+        $totalPages = 1; // La recherche ne pagine pas, donc on met 1
+        
+        // Charger la vue dashboard avec les résultats
+        $this->loadViewOnce('src/views/dashboard/etudiants/gestion-etudiants.php', [
+            'etudiants' => $etudiants,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages,
+            'terme' => $terme
+        ]);
     }
 
-    // Affiche le formulaire d’ajout
+    // Affiche le formulaire d'ajout
     public function create() {
         $villes = $this->model->getVilles();
         require 'src/views/dashboard/etudiants/ajout-etudiants.php';
     }
 
-    // Ajout d’un étudiant
+    // Ajout d'un étudiant
     public function store() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $login = $_POST['login'] ?? '';
@@ -53,7 +99,7 @@ class EtudiantsController {
         }
     }
 
-    // Affiche la page d’édition
+    // Affiche la page d'édition
     public function edit($id) {
         $etudiant = $this->model->getById($id);
         $villes = $this->model->getVilles();
@@ -87,7 +133,7 @@ class EtudiantsController {
         }
     }
 
-    // Suppression d’un étudiant
+    // Suppression d'un étudiant
     public function delete($id) {
         $this->model->delete($id);
         header("Location: index.php?module=etudiants&action=index_dashboard");
