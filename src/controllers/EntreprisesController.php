@@ -2,13 +2,50 @@
 require_once 'src/models/Database.php';
 require_once 'src/models/EntreprisesModel.php';
 
+// Définir la fonction getLogoUrl dans un espace global, avant tout usage
+if (!function_exists('getLogoUrl')) {
+    function getLogoUrl($companyName) {
+        // Transformer le nom en format compatible Clearbit
+        $formattedName = strtolower(str_replace(' ', '', $companyName));
+        $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
+
+        // Vérifier si l'image existe
+        $headers = @get_headers($clearbitUrl);
+        if ($headers && strpos($headers[0], '200')) {
+            return $clearbitUrl;
+        }
+
+        // Si aucun logo n'est trouvé, utiliser une image par défaut
+        return "img/uploads/default.png";
+    }
+}
+
 class EntreprisesController {
     private $model;
     private $pdo;
 
+    // Propriété pour suivre si une vue a déjà été chargée
+    private $viewLoaded = false;
+
     public function __construct() {
         $this->pdo = Database::getConnection();
         $this->model = new EntreprisesModel($this->pdo);
+    }
+
+    // Méthode pour charger une vue une seule fois
+    private function loadViewOnce($viewPath, $data = []) {
+        if ($this->viewLoaded) {
+            return;
+        }
+
+        // Extraire les variables pour les rendre disponibles dans la vue
+        extract($data);
+
+        // Charger la vue
+        include_once $viewPath;
+
+        // Marquer que la vue a été chargée
+        $this->viewLoaded = true;
     }
 
     // Afficher les entreprises avec pagination
@@ -22,7 +59,11 @@ class EntreprisesController {
 
         $entreprisesAffichees = $this->model->getEntreprisesAvecNotes($pageActuelle, $entreprisesParPage);
 
-        require 'src/views/dashboard/entreprises/gestion-entreprises.php'; // Passer les données à la vue
+        $this->loadViewOnce('src/views/dashboard/entreprises/gestion-entreprises.php', [
+            'entreprisesAffichees' => $entreprisesAffichees,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages
+        ]);
     }
 
     // Afficher les entreprises avec pagination
@@ -45,7 +86,11 @@ class EntreprisesController {
             echo "<p style='color: red;'>⚠️ Erreur : Aucun résultat trouvé.</p>";
         }
 
-        require 'src/views/entreprises.php'; // Passer les données à la vue
+        $this->loadViewOnce('src/views/entreprises.php', [
+            'entreprisesAffichees' => $entreprisesAffichees,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages
+        ]);
     }
 
         //Rechercher une entreprise
@@ -121,29 +166,67 @@ public function show($id) {
         $formattedName = strtolower(str_replace(' ', '', $companyName));
         $clearbitUrl = "https://logo.clearbit.com/$formattedName.com";
 
-        // Vérifier si l'image existe
-        $headers = @get_headers($clearbitUrl);
-        if ($headers && strpos($headers[0], '200')) {
-            return $clearbitUrl;
+        if (empty($terme)) {
+            // Rediriger vers la liste complète si aucun terme n'est fourni
+            header('Location: index.php?module=entreprises&action=index');
+            exit;
         }
 
-        // Si aucun logo n'est trouvé, utiliser une image par défaut
-        return "img/uploads/default.png";
+        // Effectuer la recherche
+        $entreprisesAffichees = $this->model->rechercherEntreprises($terme);
+
+        // Pour éviter des erreurs dans la vue
+        $pageActuelle = 1;
+        $totalPages = 1; // La recherche ne pagine pas, donc on met 1
+
+        // Charger la vue avec les résultats
+        $this->loadViewOnce('src/views/entreprises.php', [
+            'entreprisesAffichees' => $entreprisesAffichees,
+            'pageActuelle' => $pageActuelle,
+            'totalPages' => $totalPages,
+            'terme' => $terme
+        ]);
     }
-    
-    // Passer les données à la vue
-    require 'src/views/détail-entreprise.php';
-}
 
+    public function show($id) {
+        if (!isset($id)) {
+            header("Location: index.php?module=entreprises&action=index");
+            exit;
+        }
 
-    
-    
+        // Récupérer les détails de l'entreprise à partir de l'ID
+        $entreprise = $this->model->getById($id);
 
-    // Autres méthodes inchangées...
+        if (!$entreprise) {
+            $_SESSION['error'] = "Entreprise non trouvée.";
+            header("Location: index.php?module=entreprises&action=index");
+            exit;
+        }
+
+        // Récupérer le secteur de l'entreprise
+        $secteur = $this->model->getSecteurById($entreprise['id_secteur']);
+
+        // Récupérer les adresses de l'entreprise
+        $adresses = $this->model->getAdressesByEntreprise($id);
+
+        // Récupérer les offres de l'entreprise - AJOUT NÉCESSAIRE
+        $offres = $this->model->getOffresByEntreprise($id);
+
+        // Passer les données à la vue
+        $this->loadViewOnce('src/views/détail-entreprise.php', [
+            'entreprise' => $entreprise,
+            'secteur' => $secteur,
+            'adresses' => $adresses,
+            'offres' => $offres
+        ]);
+    }
+
     // Afficher le formulaire de création d'entreprise
     public function create() {
         $secteurs = $this->model->getSecteursActivite();
-        require 'src/views/dashboard/entreprises/ajout-entreprise.php';
+        $this->loadViewOnce('src/views/dashboard/entreprises/ajout-entreprise.php', [
+            'secteurs' => $secteurs
+        ]);
     }
 
     // Enregistrer une nouvelle entreprise
@@ -154,7 +237,6 @@ public function show($id) {
             $id_secteur = $_POST['id_secteur'] ?? '';
             $id_fichier = $_POST['id_fichier'] ?? '';
             $is_visible = isset($_POST['is_visible']) ? 1 : 0;
-
 
             // Appeler la méthode du modèle pour créer l'entreprise
             $this->model->create($nom_entreprise, $id_secteur, $id_fichier, $is_visible);
@@ -169,17 +251,19 @@ public function show($id) {
     public function edit($id) {
         // Récupérer l'entreprise à modifier
         $entreprise = $this->model->getById($id);
-    
+
         if (!$entreprise) {
             die("Entreprise non trouvée.");
         }
-    
+
         // Récupérer aussi la liste des secteurs
         $secteurs = $this->model->getSecteursActivite();
-    
-        require 'src/views/dashboard/entreprises/modif-entreprise.php'; // Passer à la vue
+
+        $this->loadViewOnce('src/views/dashboard/entreprises/modif-entreprise.php', [
+            'entreprise' => $entreprise,
+            'secteurs' => $secteurs
+        ]);
     }
-    
 
     // Mettre à jour les informations d'une entreprise
     public function update($id) {

@@ -64,6 +64,11 @@ switch ($module) {
         require_once 'src/controllers/OffresController.php';
         $controller = new OffresController();
         break;
+
+        case 'conditions':
+            require_once 'src/controllers/ConditionController.php';
+            $controller = new ConditionController();
+            break;    
         
     case 'Stages':
         require_once 'src/controllers/StagesController.php';

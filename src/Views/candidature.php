@@ -44,7 +44,7 @@
     <li><a href="index.php?module=Statistiques&action=index">Dashboard</a></li>
 <?php endif; ?>
             <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-            <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+            <li><a href="index.php?module=Stages&action=index">Mes stages</a></li>
             
             <li>
                 <?php if (isset($_SESSION["user"])): ?>
@@ -85,7 +85,7 @@
     <footer class="text-center" id="footer">
         <div class="container">
             <ul class="list-inline">
-                <li class="list-inline-item me-4"><a class="link-secondary" href="/condition">Conditions générales</a></li>
+            <li class="list-inline-item me-4"><a class="link-secondary" href="index.php?module=conditions&action=index">Conditions générales</a></li>
             </ul><br>
         </div>
         <div class="wrapper">
