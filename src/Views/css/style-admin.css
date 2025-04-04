@@ -455,14 +455,13 @@ button:hover {
 
 .btn-primary{
   display: block;
-  width: 5rem;
+  width: 7rem;
   padding: 5px 8px;
   background-color: rgb(49, 181, 234,0.8);
   color: #fff;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  height:1.5rem;
   margin: auto;
   margin-top: 0.5rem;
   text-align: center;

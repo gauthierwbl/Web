@@ -1,1 +1,0 @@
-<div class="titre-accueil">CECI EST UNE PAGE SECRETE</div>
