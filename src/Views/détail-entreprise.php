@@ -12,7 +12,7 @@
     <section class="contenu-nav">
         <div class="gauche">
             <a href="index.php?module=entreprises&action=index">
-                <img class="logo" src="src/Views/img/logo.png" alt="Logo de l'entreprise"/>
+            <img class="logo" src="http://static.cesitonstage.fr/logo.png" alt="logo_img"/>
             </a>
         </div>
         <div class="milieu">

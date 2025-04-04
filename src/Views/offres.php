@@ -75,7 +75,7 @@
         <div class="gauche">
             <a href="index.php?module=entreprises&action=index">
                 <label>
-                    <img class="logo" src="src/Views/img/logo.png" alt="logo_img"/>
+                <img class="logo" src="http://static.cesitonstage.fr/logo.png" alt="logo_img"/>
                 </label>
             </a>
         </div>
