@@ -6,9 +6,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b5b19985-2994-4dd4-8f0a-424b47513943" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Views/erreur.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Views/erreur.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/controllers/EntreprisesController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/controllers/EntreprisesController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/views/entreprises.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/views/entreprises.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,20 +73,20 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;developp&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/xampp/htdocs/mytodoo/Web/src/Views/img&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "developp",
+    "last_opened_file_path": "C:/xampp/htdocs/mytodoo/Web/src/Views/img",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\xampp\htdocs\mytodoo\Web\src\Views\img" />
@@ -119,6 +116,7 @@
       <workItem from="1743581927538" duration="29000" />
       <workItem from="1743618050198" duration="10232000" />
       <workItem from="1743686239424" duration="2331000" />
+      <workItem from="1743721828732" duration="797000" />
     </task>
     <servers />
   </component>
