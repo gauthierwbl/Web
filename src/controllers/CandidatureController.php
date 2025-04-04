@@ -19,9 +19,6 @@ class CandidatureController {
      * Affiche les candidatures avec pagination et recherche
      */
     public function index() {
-        // Récupérer l'ID de l'utilisateur (étudiant) depuis la session
-        $id_utilisateur = $_SESSION['user']; // Assure-toi que l'ID de l'utilisateur est stocké dans la session
-
         // Récupérer le terme de recherche (si applicable)
         $terme = $_GET['terme'] ?? '';
         
@@ -32,10 +29,10 @@ class CandidatureController {
         $offset = ($pageActuelle - 1) * $limit;
     
         // Récupérer le nombre total de pages
-        $totalPages = $this->model->getTotalPages($id_utilisateur, $limit); // Appel de la méthode getTotalPages
+        $totalPages = $this->model->getTotalCandidaturesPages($limit);
     
-        // Récupérer toutes les candidatures
-        $offresCandidaturees = $this->model->getAllOffresCandidatees($id_utilisateur, $terme, $limit, $offset);
+        // Récupérer toutes les candidatures sans filtre par utilisateur
+        $offresCandidaturees = $this->model->getAllCandidatures($terme, $limit, $offset);
     
         // Passer les résultats et la pagination à la vue
         require 'src/views/dashboard/candidatures/gestion-candidatures.php';

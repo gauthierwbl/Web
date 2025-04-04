@@ -63,7 +63,7 @@
       </a>
     </li>
     <li>
-      <a class="nom-nav" href="index.php?module=profile&action=view">
+      <a class="nom-nav" href="index.php?module=profil&action=index">
         <i class="fas fa-user"></i>
         <span class="nav-item">Profil</span>
       </a>

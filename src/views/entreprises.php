@@ -72,7 +72,7 @@ if (!function_exists('getLogoUrl')) {
                 // Afficher la Wishlist et Mes stages pour tous les utilisateurs sauf ceux avec id_role 4
                 if (isset($_SESSION['user']) && $_SESSION['user']['id_role'] != 4): ?>
                     <li><a href="index.php?module=wishlist&action=index">Wishlist</a></li>
-                    <li><a href="index.php?module=stages&action=index">Mes stages</a></li>
+                    <li><a href="index.php?module=Stages&action=index">Mes stages</a></li>
                 <?php endif; ?>
 
                 <li>

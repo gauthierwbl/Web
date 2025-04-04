@@ -1,0 +1,11 @@
+# Activer la réécriture d'URL
+RewriteEngine On
+
+# Définir la base de réécriture d'URL
+RewriteBase /
+
+# Condition pour exclure certains types de fichiers de la réécriture d'URL
+RewriteCond %{REQUEST_URI}  !(\.png|\.jpg|\.webp|\.gif|\.jpeg|\.zip|\.css|\.svg|\.js|\.pdf|\.json)$
+
+# Cela permet de rediriger toutes les requêtes, sauf celles qui concernent les fichiers listés, vers index.php
+RewriteRule ^(.*)$ index.php [QSA,L]

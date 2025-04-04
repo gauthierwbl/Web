@@ -65,7 +65,7 @@
         </a>
       </li>
       <li>
-        <a class="nom-nav" href="index.php?module=profile&action=view">
+        <a class="nom-nav" href="index.php?module=profil&action=index">
           <i class="fas fa-user"></i>
           <span class="nav-item">Profil</span>
         </a>
@@ -97,8 +97,8 @@
         <label for="idStatus">Status du stage :</label>
         <select name="idStatus" class="form-control" id="idStatus" required>
           <option value="1" <?= ($candidature['id_status'] == 1) ? 'selected' : '' ?>>En attente</option>
-          <option value="2" <?= ($candidature['id_status'] == 2) ? 'selected' : '' ?>>Acceptée</option>
-          <option value="3" <?= ($candidature['id_status'] == 3) ? 'selected' : '' ?>>Rejetée</option>
+          <option value="3" <?= ($candidature['id_status'] == 3) ? 'selected' : '' ?>>Acceptée</option>
+          <option value="2" <?= ($candidature['id_status'] == 2) ? 'selected' : '' ?>>Rejetée</option>
         </select>
         <button type="submit" class="btn btn-primary">Modifier</button>
       </form>
